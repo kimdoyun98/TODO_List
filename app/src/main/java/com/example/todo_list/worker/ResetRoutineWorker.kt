@@ -1,10 +1,13 @@
 package com.example.todo_list.worker
 
+import android.app.ForegroundServiceStartNotAllowedException
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
@@ -70,12 +73,17 @@ class ResetRoutineWorker @AssistedInject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override suspend fun doWork(): Result = coroutineScope {
         try {
             setForeground(createForegroundInfo())
             routineRepository.resetSuccess()
             Result.success()
+        } catch (e: ForegroundServiceStartNotAllowedException) {
+            routineRepository.resetSuccess()
+            Result.success()
         } catch (e: Exception) {
+            Log.e("DoWork Fail", "${e.message}")
             Result.failure()
         } finally {
             runReset(applicationContext)
@@ -83,7 +91,6 @@ class ResetRoutineWorker @AssistedInject constructor(
     }
 
     private fun createForegroundInfo(): ForegroundInfo {
-        createChannel()
         val notification = NotificationCompat.Builder(applicationContext, WORKER_NAME)
             .setContentTitle(applicationContext.getString(R.string.app_name))
             .setTicker(applicationContext.getString(R.string.notification_reset_ticker)) //간단한 설명
@@ -93,6 +100,8 @@ class ResetRoutineWorker @AssistedInject constructor(
             .setAutoCancel(false)
             .setShowWhen(true)
             .build()
+
+        createChannel()
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             ForegroundInfo(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
@@ -105,6 +114,7 @@ class ResetRoutineWorker @AssistedInject constructor(
         val notificationManager: NotificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val importance = NotificationManager.IMPORTANCE_DEFAULT
+
         notificationManager.createNotificationChannel(
             NotificationChannel(WORKER_NAME, WORKER_NAME, importance)
         )

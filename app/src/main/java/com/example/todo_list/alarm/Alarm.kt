@@ -51,11 +51,6 @@ class Alarm(
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            alarmManager?.setExactAndAllowWhileIdle(
-//                AlarmManager.RTC_WAKEUP,
-//                calendar.timeInMillis,
-//                pendingIntent
-//            )
             val alarmClock = AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
             alarmManager?.setAlarmClock(alarmClock, pendingIntent)
         }
