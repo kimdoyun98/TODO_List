@@ -2,8 +2,9 @@ package com.example.todo_list.di
 
 import android.content.Context
 import com.example.todo_list.data.repository.routine.RoutineRepository
-import com.example.todo_list.widget.TodoRemoteViewFactory
-import com.example.todo_list.widget.TodoRemoteViewService
+import com.example.todo_list.data.repository.schedule.ScheduleRepository
+import com.example.todo_list.widget.RoutineRemoteViewsFactory
+import com.example.todo_list.widget.ScheduleRemoteViewsFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,13 @@ object WidgetModule {
     fun providerTodoRemoteViewFactory(
         @ApplicationContext context: Context,
         routineRepository: RoutineRepository
-    ): TodoRemoteViewFactory = TodoRemoteViewFactory(context, routineRepository)
+    ): RoutineRemoteViewsFactory = RoutineRemoteViewsFactory(context, routineRepository)
+
+    @Provides
+    @Singleton
+    fun providerScheduleRemoteViewsFactory(
+        @ApplicationContext context: Context,
+        scheduleRepository: ScheduleRepository
+    ): ScheduleRemoteViewsFactory = ScheduleRemoteViewsFactory(context, scheduleRepository)
 
 }

@@ -7,27 +7,13 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.todo_list.data.room.RoutineEntity
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
 
 object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("d-day")
-    fun setDDayText(view: TextView, deadline: String){
-        val calendar: Calendar = Calendar.getInstance()
-        val selectionFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
-
-        val todayDate = calendar.time.time
-        val endDate = SimpleDateFormat("yyyyMMdd").parse(deadline).time
-        val today = selectionFormatter.format(LocalDate.now())
-
-        view.text =
-            if (today == deadline) "D-Day"
-            else if (today.toInt() > deadline.toInt()) "기간 지남"
-            else "D-${(endDate - todayDate) / (24 * 60 * 60 * 1000) + 1}"
+    fun setDDayText(view: TextView, deadline: String) {
+        view.text = DateCalculate().getDDayString(deadline)
     }
 
     @JvmStatic

@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-class TodoRemoteViewFactory(
+class RoutineRemoteViewsFactory(
     private val context: Context,
     private val repo: RoutineRepository
 ) : RemoteViewsService.RemoteViewsFactory {
@@ -56,7 +56,7 @@ class TodoRemoteViewFactory(
     }
 
     override fun getViewAt(position: Int): RemoteViews {
-        val listviewWidget = RemoteViews(context.packageName, R.layout.todo_widget_item)
+        val listviewWidget = RemoteViews(context.packageName, R.layout.todo_widget_routine_item)
         when (widgetRoutineData) {
             is WidgetRoutineData.IsEmptyRoutine -> {
                 listviewWidget.setTextViewText(

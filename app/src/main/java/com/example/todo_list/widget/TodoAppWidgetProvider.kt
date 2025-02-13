@@ -20,8 +20,9 @@ class TodoAppWidgetProvider : AppWidgetProvider() {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
 
         val todoWidgetHelper =
-            TodoWidgetHelper(RemoteViews(context?.packageName, R.layout.todo_widget))
-                .setTodayRoutine(context)
+            TodoWidgetHelper(context, RemoteViews(context?.packageName, R.layout.todo_widget))
+                .setTodayRoutine()
+                .setWeekSchedule()
                 .setTodayDate()
 
         appWidgetManager?.updateAppWidget(appWidgetIds, todoWidgetHelper.widget)
