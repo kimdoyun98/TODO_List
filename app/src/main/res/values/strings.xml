@@ -58,6 +58,5 @@
     <string name="notification_reset_content">루틴 초기화 중</string>
 
     <string name="widget_title">할 일</string>
-    <string name="widget_none_todo">일정 없음</string>
     <string name="widget_reload">새로 고침</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.todo_list.widget
 
 import android.content.Context
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.todo_list.R
@@ -10,48 +9,32 @@ import com.example.todo_list.data.room.RoutineEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 
 class TodoRemoteViewFactory(
     private val context: Context,
     private val repo: RoutineRepository
 ) : RemoteViewsService.RemoteViewsFactory {
-    private var data: List<RoutineEntity> = emptyList()
+    private var widgetRoutineData: WidgetRoutineData = WidgetRoutineData.IsEmptyRoutine()
     private var scope: Job? = null
 
     override fun onCreate() {
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
         scope = CoroutineScope(Dispatchers.IO).launch {
-            repo.selectAll()
-                .onEach { routine ->
-                    routine.filter {
-                        it.day!![today - 1]
-                    }.sortedBy {
-                        it.time
-                    }
-                }
+            repo.getTodayRoutine()
                 .collect {
-                    data = it
+                    widgetRoutineData = if (it.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(it)
+                    else WidgetRoutineData.IsEmptyRoutine()
                 }
         }
     }
 
     override fun onDataSetChanged() {
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
         scope = CoroutineScope(Dispatchers.IO).launch {
-            repo.selectAll()
-                .onEach { routine ->
-                    routine.filter {
-                        it.day!![today - 1]
-                    }.sortedBy {
-                        it.time
-                    }
-                }
+            repo.getTodayRoutine()
                 .collect {
-                    data = it
+                    widgetRoutineData = if (it.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(it)
+                    else WidgetRoutineData.IsEmptyRoutine()
                 }
         }
     }
@@ -60,11 +43,35 @@ class TodoRemoteViewFactory(
         scope = null
     }
 
-    override fun getCount(): Int = data.size
+    override fun getCount(): Int {
+        return when (widgetRoutineData) {
+            is WidgetRoutineData.IsEmptyRoutine -> {
+                1
+            }
+
+            is WidgetRoutineData.IsNotEmptyRoutine -> {
+                (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data.size
+            }
+        }
+    }
 
     override fun getViewAt(position: Int): RemoteViews {
         val listviewWidget = RemoteViews(context.packageName, R.layout.todo_widget_item)
-        listviewWidget.setTextViewText(R.id.widget_routine, data[position].title)
+        when (widgetRoutineData) {
+            is WidgetRoutineData.IsEmptyRoutine -> {
+                listviewWidget.setTextViewText(
+                    R.id.widget_routine,
+                    (widgetRoutineData as WidgetRoutineData.IsEmptyRoutine).data[position]
+                )
+            }
+
+            is WidgetRoutineData.IsNotEmptyRoutine -> {
+                listviewWidget.setTextViewText(
+                    R.id.widget_routine,
+                    (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position].title
+                )
+            }
+        }
 
         return listviewWidget
     }
@@ -83,5 +90,20 @@ class TodoRemoteViewFactory(
 
     override fun hasStableIds(): Boolean {
         return false
+    }
+}
+
+sealed interface WidgetRoutineData {
+
+    data class IsEmptyRoutine(
+        val data: List<String> = listOf(NO_ROUTINE)
+    ) : WidgetRoutineData
+
+    data class IsNotEmptyRoutine(
+        val data: List<RoutineEntity>
+    ) : WidgetRoutineData
+
+    companion object {
+        private const val NO_ROUTINE = "일정을 추가해주세요."
     }
 }

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RoutineRepository {
     fun selectAll(): Flow<List<RoutineEntity>>
+    suspend fun getTodayRoutine(): Flow<List<RoutineEntity>>
     suspend fun getId(title: String): Int
     suspend fun update()
     suspend fun todaySuccess(id: Int)

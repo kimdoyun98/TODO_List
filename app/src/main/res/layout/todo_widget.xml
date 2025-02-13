@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -36,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="#3D3D3D"
         android:divider="@android:color/transparent"
         android:padding="5dp"
         tools:listitem="@layout/todo_widget_item" />

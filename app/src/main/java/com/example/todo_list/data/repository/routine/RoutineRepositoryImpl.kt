@@ -3,12 +3,26 @@ package com.example.todo_list.data.repository.routine
 import com.example.todo_list.data.room.RoutineDAO
 import com.example.todo_list.data.room.RoutineEntity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
+import java.util.Calendar
 import javax.inject.Inject
 
 class RoutineRepositoryImpl @Inject constructor(
     private val routineDAO: RoutineDAO
 ) : RoutineRepository {
     override fun selectAll(): Flow<List<RoutineEntity>> = routineDAO.getAll()
+
+    override suspend fun getTodayRoutine(): Flow<List<RoutineEntity>> {
+        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        return selectAll()
+            .onEach { routine ->
+                routine.filter {
+                    it.day!![today - 1]
+                }.sortedBy {
+                    it.time
+                }
+            }
+    }
 
     override suspend fun getId(title: String): Int = routineDAO.getId(title)
 
