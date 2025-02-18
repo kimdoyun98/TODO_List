@@ -1,9 +1,11 @@
 package com.example.todo_list.widget
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import com.example.todo_list.R
+import com.example.todo_list.ui.MainActivity
 import java.time.LocalDate
 
 class TodoWidgetHelper(
@@ -26,6 +28,18 @@ class TodoWidgetHelper(
     fun setTodayRoutine(): TodoWidgetHelper {
         val serviceIntent = Intent(context, RoutineRemoteViewsService::class.java)
         widget.setRemoteAdapter(R.id.widget_routine_lv, serviceIntent)
+        return TodoWidgetHelper(context, widget)
+    }
+
+    fun setOnClickWidget(): TodoWidgetHelper {
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        widget.setOnClickPendingIntent(R.id.widget, pendingIntent)
+
         return TodoWidgetHelper(context, widget)
     }
 

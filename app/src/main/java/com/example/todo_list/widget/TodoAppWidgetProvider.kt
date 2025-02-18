@@ -18,6 +18,7 @@ class TodoAppWidgetProvider : AppWidgetProvider() {
                 .setTodayRoutine()
                 .setWeekSchedule()
                 .setTodayDate()
+                .setOnClickWidget()
 
         appWidgetManager?.updateAppWidget(appWidgetIds, todoWidgetHelper.widget)
         appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_routine_lv)
