@@ -23,13 +23,6 @@
             android:textSize="20sp"
             tools:text="2025-01-01" />
 
-        <ImageButton
-            android:id="@+id/widget_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/widget_reload"
-            android:src="@drawable/reload" />
     </LinearLayout>
 
     <ListView
