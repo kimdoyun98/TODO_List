@@ -12,18 +12,6 @@ class RoutineRepositoryImpl @Inject constructor(
 ) : RoutineRepository {
     override fun selectAll(): Flow<List<RoutineEntity>> = routineDAO.getAll()
 
-    override suspend fun getTodayRoutine(): Flow<List<RoutineEntity>> {
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        return selectAll()
-            .onEach { routine ->
-                routine.filter {
-                    it.day!![today - 1]
-                }.sortedBy {
-                    it.time
-                }
-            }
-    }
-
     override suspend fun getId(title: String): Int = routineDAO.getId(title)
 
     override suspend fun update() = routineDAO.update()

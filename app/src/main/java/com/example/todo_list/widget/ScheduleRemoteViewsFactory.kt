@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -25,15 +24,6 @@ class ScheduleRemoteViewsFactory(
     private var scope = CoroutineScope(Dispatchers.IO)
     private val dateCalculate = DateCalculate()
     private val weekSchedule = repo.selectAll()
-        .onEach { schedule ->
-            schedule
-                .filter {
-                    dateCalculate.isWeekSchedule(it.deadline_date)
-                }
-                .sortedBy {
-                    dateCalculate.getDDay(it.deadline_date)
-                }
-        }
         .stateIn(
             scope,
             SharingStarted.WhileSubscribed(5_000L),
@@ -42,16 +32,28 @@ class ScheduleRemoteViewsFactory(
 
     override fun onCreate() {
         job = scope.launch {
-            weekSchedule.collect {
-                widgetScheduleData = it
+            weekSchedule.collect { scheduleList ->
+                widgetScheduleData = scheduleList
+                    .filter {
+                        dateCalculate.isWeekSchedule(it.deadline_date)
+                    }
+                    .sortedBy {
+                        dateCalculate.getDDay(it.deadline_date)
+                    }
             }
         }
     }
 
     override fun onDataSetChanged() {
         job = scope.launch {
-            weekSchedule.collect {
-                widgetScheduleData = it
+            weekSchedule.collect { scheduleList ->
+                widgetScheduleData = scheduleList
+                    .filter {
+                        dateCalculate.isWeekSchedule(it.deadline_date)
+                    }
+                    .sortedBy {
+                        dateCalculate.getDDay(it.deadline_date)
+                    }
             }
         }
     }

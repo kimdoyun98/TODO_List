@@ -9,7 +9,10 @@ import com.example.todo_list.data.room.RoutineEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 class RoutineRemoteViewsFactory(
@@ -17,30 +20,53 @@ class RoutineRemoteViewsFactory(
     private val repo: RoutineRepository
 ) : RemoteViewsService.RemoteViewsFactory {
     private var widgetRoutineData: WidgetRoutineData = WidgetRoutineData.IsEmptyRoutine()
-    private var scope: Job? = null
+    private var scope = CoroutineScope(Dispatchers.IO)
+    private var job: Job? = null
+    private val allRoutine = repo.selectAll()
+        .stateIn(
+            scope,
+            SharingStarted.WhileSubscribed(5_000L),
+            emptyList()
+        )
 
     override fun onCreate() {
-        scope = CoroutineScope(Dispatchers.IO).launch {
-            repo.getTodayRoutine()
-                .collect {
-                    widgetRoutineData = if (it.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(it)
+        job = scope.launch {
+            allRoutine.collect { routineList ->
+                val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+                val todayRoutine = routineList
+                    .filter {
+                        it.day?.get(today - 1) ?: false
+                    }.sortedBy {
+                        it.time
+                    }
+
+                widgetRoutineData =
+                    if (todayRoutine.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutine)
                     else WidgetRoutineData.IsEmptyRoutine()
-                }
+            }
         }
     }
 
     override fun onDataSetChanged() {
-        scope = CoroutineScope(Dispatchers.IO).launch {
-            repo.getTodayRoutine()
-                .collect {
-                    widgetRoutineData = if (it.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(it)
+        job = scope.launch {
+            allRoutine.collect { routineList ->
+                val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+                val todayRoutine = routineList
+                    .filter {
+                        it.day?.get(today - 1) ?: false
+                    }.sortedBy {
+                        it.time
+                    }
+
+                widgetRoutineData =
+                    if (todayRoutine.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutine)
                     else WidgetRoutineData.IsEmptyRoutine()
-                }
+            }
         }
     }
 
     override fun onDestroy() {
-        scope = null
+        job = null
     }
 
     override fun getCount(): Int {
