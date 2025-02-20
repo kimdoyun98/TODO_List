@@ -18,7 +18,7 @@ class ScheduleRemoteViewsFactory(
     private val context: Context,
     private val repo: ScheduleRepository
 ) : RemoteViewsService.RemoteViewsFactory {
-    private var widgetScheduleData: List<ScheduleEntity> = emptyList()
+    private var widgetScheduleData: WidgetScheduleData = WidgetScheduleData.Idle
 
     private var job: Job? = null
     private var scope = CoroutineScope(Dispatchers.IO)
@@ -33,48 +33,69 @@ class ScheduleRemoteViewsFactory(
     override fun onCreate() {
         job = scope.launch {
             weekSchedule.collect { scheduleList ->
-                widgetScheduleData = scheduleList
+                val weekSchedule = scheduleList
                     .filter {
                         dateCalculate.isWeekSchedule(it.deadline_date)
                     }
                     .sortedBy {
                         dateCalculate.getDDay(it.deadline_date)
                     }
+
+                widgetScheduleData = WidgetScheduleData.Schedule(weekSchedule)
             }
         }
     }
 
     override fun onDataSetChanged() {
+        widgetScheduleData = WidgetScheduleData.Idle
         job = scope.launch {
             weekSchedule.collect { scheduleList ->
-                widgetScheduleData = scheduleList
+                val weekSchedule = scheduleList
                     .filter {
                         dateCalculate.isWeekSchedule(it.deadline_date)
                     }
                     .sortedBy {
                         dateCalculate.getDDay(it.deadline_date)
                     }
+
+                widgetScheduleData = WidgetScheduleData.Schedule(weekSchedule)
             }
         }
     }
 
-    override fun onDestroy() {
-        job = null
-    }
+    override fun getCount(): Int {
+        while (true) {
+            if (widgetScheduleData !is WidgetScheduleData.Idle) break
+        }
 
-    override fun getCount(): Int = widgetScheduleData.size
+        return (widgetScheduleData as WidgetScheduleData.Schedule).data.size
+    }
 
     override fun getViewAt(position: Int): RemoteViews {
         val listviewWidget = RemoteViews(context.packageName, R.layout.todo_widget_schedule_item)
 
-        listviewWidget.setTextViewText(
-            R.id.widget_schedule_title_tv, widgetScheduleData[position].title
-        )
+        when (widgetScheduleData) {
+            is WidgetScheduleData.Schedule -> {
+                listviewWidget.setTextViewText(
+                    R.id.widget_schedule_title_tv,
+                    (widgetScheduleData as WidgetScheduleData.Schedule).data[position].title
+                )
 
-        listviewWidget.setTextViewText(
-            R.id.widget_schedule_day_tv,
-            dateCalculate.getDDayString(widgetScheduleData[position].deadline_date)
-        )
+                listviewWidget.setTextViewText(
+                    R.id.widget_schedule_day_tv,
+                    dateCalculate.getDDayString(
+                        (widgetScheduleData as WidgetScheduleData.Schedule).data[position].deadline_date
+                    )
+                )
+            }
+
+            else -> {
+                listviewWidget.setTextViewText(
+                    R.id.widget_schedule_title_tv,
+                    NOT_LOADING
+                )
+            }
+        }
 
         return listviewWidget
     }
@@ -94,4 +115,22 @@ class ScheduleRemoteViewsFactory(
     override fun hasStableIds(): Boolean {
         return false
     }
+
+    override fun onDestroy() {
+        job = null
+    }
+
+    companion object {
+        private const val NOT_LOADING = "Error!! Not Loading Week Schedule"
+    }
+}
+
+sealed interface WidgetScheduleData {
+
+    data object Idle : WidgetScheduleData
+
+    data class Schedule(
+        val data: List<ScheduleEntity>
+    ) : WidgetScheduleData
+
 }

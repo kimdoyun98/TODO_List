@@ -48,6 +48,7 @@ class RoutineRemoteViewsFactory(
     }
 
     override fun onDataSetChanged() {
+        widgetRoutineData = WidgetRoutineData.Idle
         job = scope.launch {
             allRoutine.collect { routineList ->
                 val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
@@ -65,11 +66,11 @@ class RoutineRemoteViewsFactory(
         }
     }
 
-    override fun onDestroy() {
-        job = null
-    }
-
     override fun getCount(): Int {
+        while (true) {
+            if (widgetRoutineData !is WidgetRoutineData.Idle) break
+        }
+
         return when (widgetRoutineData) {
             is WidgetRoutineData.IsEmptyRoutine -> {
                 1
@@ -78,6 +79,8 @@ class RoutineRemoteViewsFactory(
             is WidgetRoutineData.IsNotEmptyRoutine -> {
                 (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data.size
             }
+
+            else -> throw Exception(NOT_LOADING)
         }
     }
 
@@ -95,6 +98,13 @@ class RoutineRemoteViewsFactory(
                 listviewWidget.setTextViewText(
                     R.id.widget_routine,
                     (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position].title
+                )
+            }
+
+            else -> {
+                listviewWidget.setTextViewText(
+                    R.id.widget_routine,
+                    NOT_LOADING
                 )
             }
         }
@@ -117,9 +127,19 @@ class RoutineRemoteViewsFactory(
     override fun hasStableIds(): Boolean {
         return false
     }
+
+    override fun onDestroy() {
+        job = null
+    }
+
+    companion object {
+        private const val NOT_LOADING = "Error!! Not Loading Today Routine"
+    }
 }
 
 sealed interface WidgetRoutineData {
+
+    data object Idle : WidgetRoutineData
 
     data class IsEmptyRoutine(
         val data: List<String> = listOf(NO_ROUTINE)
