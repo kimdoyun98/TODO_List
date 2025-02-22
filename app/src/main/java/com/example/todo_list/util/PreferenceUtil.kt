@@ -16,7 +16,7 @@ class PreferenceUtil(context: Context) {
     }
 
     fun getWorkerState(): Boolean {
-        return prefs.getBoolean(MIDNIGHT_RESET, false)
+        return prefs.getBoolean(MIDNIGHT_RESET, true)
     }
 
     fun setWorkerState(value: Boolean) {

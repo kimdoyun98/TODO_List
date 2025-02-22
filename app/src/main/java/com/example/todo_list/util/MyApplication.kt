@@ -22,9 +22,9 @@ class MyApplication : Application(), Configuration.Provider {
         prefs = PreferenceUtil(applicationContext)
         instance = this
 
-        if(!prefs.getWorkerState()){
+        if(prefs.getWorkerState()){
             ResetRoutineWorker.runReset(this)
-            prefs.setWorkerState(true)
+            prefs.setWorkerState(false)
         }
     }
 
