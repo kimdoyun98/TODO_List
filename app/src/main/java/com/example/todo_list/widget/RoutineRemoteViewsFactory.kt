@@ -1,6 +1,7 @@
 package com.example.todo_list.widget
 
 import android.content.Context
+import android.graphics.Color
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.todo_list.R
@@ -95,10 +96,23 @@ class RoutineRemoteViewsFactory(
             }
 
             is WidgetRoutineData.IsNotEmptyRoutine -> {
+                val routineData =
+                    (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position]
+
                 listviewWidget.setTextViewText(
                     R.id.widget_routine,
-                    (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position].title
+                    routineData.title
                 )
+
+                listviewWidget.setTextViewText(
+                    R.id.widget_routine_time,
+                    routineData.time
+                )
+
+                if (routineData.success == true) {
+                    listviewWidget.setTextColor(R.id.widget_routine, Color.GRAY)
+                    listviewWidget.setTextColor(R.id.widget_routine_time, Color.GRAY)
+                }
             }
 
             else -> {
