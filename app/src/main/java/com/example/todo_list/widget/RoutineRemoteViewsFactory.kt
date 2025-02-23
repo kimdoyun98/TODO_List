@@ -112,6 +112,9 @@ class RoutineRemoteViewsFactory(
                 if (routineData.success == true) {
                     listviewWidget.setTextColor(R.id.widget_routine, Color.GRAY)
                     listviewWidget.setTextColor(R.id.widget_routine_time, Color.GRAY)
+                } else {
+                    listviewWidget.setTextColor(R.id.widget_routine, Color.WHITE)
+                    listviewWidget.setTextColor(R.id.widget_routine_time, Color.WHITE)
                 }
             }
 
