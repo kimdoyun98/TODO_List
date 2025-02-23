@@ -6,12 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import java.util.Calendar
-import java.util.Date
 
 class Alarm(
     private val context: Context
 ) {
-    companion object{
+    companion object {
         const val ALARM_REQUEST_CODE = "alarm_rqCode"
         const val CONTENT = "content"
         const val CHECKED_DAY_LIST = "checkedDayList"
@@ -21,22 +20,32 @@ class Alarm(
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
-    fun setAlarm(hour : Int, minute : Int, alarm_code : Int, content : String, checkedDayList:MutableList<Boolean>){
+    fun setAlarm(
+        hour: Int,
+        minute: Int,
+        alarm_code: Int,
+        content: String,
+        todayAlarm: Boolean = true
+    ) {
+        if (!todayAlarm) return
+
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra(ALARM_REQUEST_CODE, alarm_code)
             putExtra(CONTENT, content)
-            putExtra(CHECKED_DAY_LIST, checkedDayList.toBooleanArray())
-            putExtra(HOUR, hour)
-            putExtra(MINUTE, minute)
         }
 
-        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_IMMUTABLE)
-        }else{
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast(context, alarm_code, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getBroadcast(
+                context,
+                alarm_code,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         }
 
-        val calendar : Calendar = Calendar.getInstance().apply {
+        val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
@@ -50,12 +59,17 @@ class Alarm(
 
     }
 
-    fun cancelAlarm(alarm_code : Int){
+    fun cancelAlarm(alarm_code: Int) {
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_IMMUTABLE)
-        }else{
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast(context, alarm_code, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getBroadcast(
+                context,
+                alarm_code,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         }
         alarmManager?.cancel(pendingIntent)
     }

@@ -17,6 +17,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.example.todo_list.R
+import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -25,6 +26,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 @HiltWorker
@@ -86,7 +88,27 @@ class ResetRoutineWorker @AssistedInject constructor(
             Log.e("DoWork Fail", "${e.message}")
             Result.failure()
         } finally {
+            setTodayAlarm()
             runReset(applicationContext)
+        }
+    }
+
+    private suspend fun setTodayAlarm() {
+        routineRepository.selectAll().collect { routineList ->
+            val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+            routineList
+                .filter {
+                    it.day?.get(today - 1) ?: false
+                }.forEach { routine ->
+                    val (hour, min) = routine.time.split(":").map { it.toInt() }
+                    Alarm(applicationContext)
+                        .setAlarm(
+                            hour = hour,
+                            minute = min,
+                            alarm_code = routine.id,
+                            content = routine.title ?: ""
+                        )
+                }
         }
     }
 

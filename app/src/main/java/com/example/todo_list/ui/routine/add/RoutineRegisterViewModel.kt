@@ -39,7 +39,7 @@ class RoutineRegisterViewModel @Inject constructor(
             else {
                 _checkedDayText.emit(
                     checkedDayList
-                        .mapIndexed { index, checked -> if(checked) days[index] else null }
+                        .mapIndexed { index, checked -> if (checked) days[index] else null }
                         .filterNotNull()
                         .joinToString(" ")
                 )
@@ -72,6 +72,7 @@ class RoutineRegisterViewModel @Inject constructor(
     private fun setAlarm(title: String, time: List<String>) {
         viewModelScope.launch {
             val id = repository.getId(title)
+            val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
 
             try {
                 alarm.setAlarm(
@@ -79,7 +80,7 @@ class RoutineRegisterViewModel @Inject constructor(
                     minute = time[1].toInt(),
                     alarm_code = id,
                     content = title,
-                    checkedDayList = checkedDayList
+                    todayAlarm = checkedDayList[today - 1]
                 )
             } catch (e: Throwable) {
                 Log.e("RoutineRegisterActivity", e.message.toString())
