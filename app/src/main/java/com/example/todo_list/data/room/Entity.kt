@@ -33,14 +33,14 @@ data class RoutineEntity(
         ForeignKey(
             entity = RoutineEntity::class,
             parentColumns = ["id"],
-            childColumns = ["detail_id"],
+            childColumns = ["routine_id"],
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class RoutineDetailEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "detail_id") val detailId: Int,
+    @ColumnInfo(name = "routine_id") var routineId: Int = -1,
     val number: Int,
-    val title: String
+    var title: String
 )

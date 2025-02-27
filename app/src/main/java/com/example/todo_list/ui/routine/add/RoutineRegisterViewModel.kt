@@ -61,7 +61,7 @@ class RoutineRegisterViewModel @Inject constructor(
         val time2 = time.map { "%02d".format(it) }
 
         viewModelScope.launch {
-            repository.insert(
+            val id = repository.insert(
                 RoutineEntity(
                     title = title,
                     day = checkedDayList,
@@ -69,6 +69,11 @@ class RoutineRegisterViewModel @Inject constructor(
                     time = "${time2[0]}:${time2[1]}"
                 )
             )
+
+            routineDetailList.value.forEach { routineDetail ->
+                routineDetail.routineId = id.toInt()
+                repository.insertRoutineDetail(routineDetail)
+            }
 
             setAlarm(title, time2)
         }
