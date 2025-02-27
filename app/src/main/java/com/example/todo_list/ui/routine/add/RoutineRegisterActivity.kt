@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todo_list.R
-import com.example.todo_list.databinding.ActivityCycleRegisterBinding
+import com.example.todo_list.databinding.ActivityRoutineRegisterBinding
 import com.example.todo_list.util.MyApplication
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -18,11 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedListener {
     private val viewModel: RoutineRegisterViewModel by viewModels()
-    private lateinit var binding: ActivityCycleRegisterBinding
+    private lateinit var binding: ActivityRoutineRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCycleRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRoutineRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.viewModel = viewModel
@@ -49,7 +49,7 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
             finish()
         }
     }
-    
+
     private fun permission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             TedPermission.create()

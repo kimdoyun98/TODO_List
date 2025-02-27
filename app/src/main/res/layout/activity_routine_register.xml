@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.todo_list.ui.routine.add.RoutineRegisterViewModel" />
@@ -16,7 +17,7 @@
         <TimePicker
             android:id="@+id/timePicker"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_marginTop="20dp"
             android:theme="@style/TimePickerStyle"
             android:timePickerMode="spinner" />
@@ -52,6 +53,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/calender_icon_button"
                     android:focusable="true"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/calendar_color" />
             </LinearLayout>
 
