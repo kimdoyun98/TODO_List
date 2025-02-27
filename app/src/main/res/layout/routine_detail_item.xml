@@ -13,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp">
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/detail_routine_bg"
+        android:paddingVertical="5dp">
 
         <TextView
             android:id="@+id/routine_detail_number"
@@ -31,10 +33,13 @@
             android:id="@+id/routine_detail_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
+            android:layout_marginHorizontal="10dp"
             android:autofillHints="@string/routine_add_detail_hint"
+            android:background="@android:color/transparent"
             android:hint="@string/routine_add_detail_hint"
             android:inputType="text"
+            android:textColor="@color/edittext_color"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/routine_detail_number"

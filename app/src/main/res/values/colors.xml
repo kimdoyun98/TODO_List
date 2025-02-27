@@ -15,4 +15,7 @@
     <color name="todo">#EDDFB4</color>
     <color name="todo_done">#808080</color>
     <color name="green">#2DB400</color>
+    <color name="routine_add_bg_color">#F8FBEF</color>
+    <color name="routine_add_detail_bg_color">#FFFFF2</color>
+    <color name="edittext_color">#666666</color>
 </resources>
