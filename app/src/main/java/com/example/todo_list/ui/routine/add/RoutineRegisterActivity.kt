@@ -66,12 +66,17 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
             viewModel.addRoutineDetail()
         }
 
-        val adapter = RoutineDetailAdapter { position, title ->
-            viewModel.changeRoutineDetailTitle(
-                position,
-                title
-            )
-        }
+        val adapter = RoutineDetailAdapter(
+            { position, title ->
+                viewModel.changeRoutineDetailTitle(
+                    position,
+                    title
+                )
+            },
+            { position ->
+                viewModel.deleteRoutineDetail(position)
+            }
+        )
         binding.routineDetailRv.adapter = adapter
 
         lifecycleScope.launch {

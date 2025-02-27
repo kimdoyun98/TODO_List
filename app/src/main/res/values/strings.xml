@@ -54,6 +54,7 @@
     <string name="routine_add_detail">상세</string>
     <string name="routine_add_detail_hint">상세 루틴을 입력해주세요.</string>
     <string name="routine_more_detail_add">상세 루틴 추가</string>
+    <string name="routine_detail_delete">상세 루틴 삭제</string>
 
     <string name="routine_register_floating_button">루틴 등록 버튼</string>
     <string name="schedule_register_floating_button">일정 등록 버튼</string>

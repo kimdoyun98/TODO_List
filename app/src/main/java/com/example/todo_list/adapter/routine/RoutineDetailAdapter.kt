@@ -10,7 +10,8 @@ import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.databinding.RoutineDetailItemBinding
 
 class RoutineDetailAdapter(
-    private val addTitle: (Int, String) -> Unit
+    private val onChangeText: (Int, String) -> Unit,
+    private val onClickDelete: (Int) -> Unit
 ) :
     ListAdapter<RoutineDetailEntity, RoutineDetailAdapter.RoutineDetailAdapterViewHolder>(
         ItemDiffCallback(
@@ -25,17 +26,19 @@ class RoutineDetailAdapter(
 
         init {
             binding.routineDetailEdit.addTextChangedListener { title ->
-                addTitle(absoluteAdapterPosition, "$title")
+                onChangeText(absoluteAdapterPosition, "$title")
+            }
+
+            binding.routineDetailDeleteBt.setOnClickListener {
+                onClickDelete(absoluteAdapterPosition)
             }
         }
 
-        fun bind(routineDetail: RoutineDetailEntity) {
-            binding.number = (routineDetail.number + 1).toString()
-        }
+        fun bind() {}
     }
 
     override fun onBindViewHolder(holder: RoutineDetailAdapterViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind()
     }
 
     override fun onCreateViewHolder(

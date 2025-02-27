@@ -26,6 +26,7 @@ class RoutineRegisterViewModel @Inject constructor(
     private val _checkedDayText = MutableStateFlow<String>("")
     val checkedDayText: StateFlow<String> = _checkedDayText
 
+    private var _routineDetailNumber = 1
     private val _routineDetailList = MutableStateFlow<List<RoutineDetailEntity>>(emptyList())
     val routineDetailList = _routineDetailList.asStateFlow()
 
@@ -84,10 +85,17 @@ class RoutineRegisterViewModel @Inject constructor(
             .apply {
                 add(
                     RoutineDetailEntity(
-                        number = _routineDetailList.value.size,
+                        number = _routineDetailNumber++,
                         title = ""
                     )
                 )
+            }
+    }
+
+    fun deleteRoutineDetail(position: Int){
+        _routineDetailList.value = _routineDetailList.value.toMutableList()
+            .apply {
+                removeAt(position)
             }
     }
 
