@@ -86,6 +86,10 @@ class RoutineRegisterViewModel @Inject constructor(
             }
     }
 
+    fun changeRoutineDetailTitle(position: Int, title: String) {
+        routineDetailList.value[position].title = title
+    }
+
     private fun setAlarm(title: String, time: List<String>) {
         viewModelScope.launch {
             val id = repository.getId(title)

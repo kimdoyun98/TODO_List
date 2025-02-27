@@ -2,6 +2,7 @@ package com.example.todo_list.adapter.routine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
@@ -9,7 +10,7 @@ import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.databinding.RoutineDetailItemBinding
 
 class RoutineDetailAdapter(
-
+    private val addTitle: (Int, String) -> Unit
 ) :
     ListAdapter<RoutineDetailEntity, RoutineDetailAdapter.RoutineDetailAdapterViewHolder>(
         ItemDiffCallback(
@@ -23,11 +24,13 @@ class RoutineDetailAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-
+            binding.routineDetailEdit.addTextChangedListener { title ->
+                addTitle(absoluteAdapterPosition, "$title")
+            }
         }
 
         fun bind(routineDetail: RoutineDetailEntity) {
-
+            binding.number = (routineDetail.number + 1).toString()
         }
     }
 
