@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.routine.RoutineRepository
+import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.data.room.RoutineEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -18,11 +20,14 @@ class RoutineRegisterViewModel @Inject constructor(
     private val repository: RoutineRepository,
     private val alarm: Alarm
 ) : ViewModel() {
-    private var checkedDayList = MutableList(7) { false }
+    private val checkedDayList = MutableList(7) { false }
     private val time = Array(2) { -1 }
 
-    private var _checkedDayText = MutableStateFlow<String>("")
+    private val _checkedDayText = MutableStateFlow<String>("")
     val checkedDayText: StateFlow<String> = _checkedDayText
+
+    private val _routineDetailList = MutableStateFlow<List<RoutineDetailEntity>>(emptyList())
+    val routineDetailList = _routineDetailList.asStateFlow()
 
     fun setTime(hourOfDay: Int, minute: Int) {
         time[0] = hourOfDay
@@ -67,6 +72,18 @@ class RoutineRegisterViewModel @Inject constructor(
 
             setAlarm(title, time2)
         }
+    }
+
+    fun addRoutineDetail() {
+        _routineDetailList.value = _routineDetailList.value.toMutableList()
+            .apply {
+                add(
+                    RoutineDetailEntity(
+                        number = _routineDetailList.value.size,
+                        title = ""
+                    )
+                )
+            }
     }
 
     private fun setAlarm(title: String, time: List<String>) {

@@ -8,12 +8,17 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.todo_list.R
+import com.example.todo_list.adapter.routine.RoutineDetailAdapter
 import com.example.todo_list.databinding.ActivityRoutineRegisterBinding
 import com.example.todo_list.util.MyApplication
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedListener {
@@ -28,16 +33,11 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val toggle = arrayOf(
-            binding.sunday, binding.monday, binding.tuesday,
-            binding.wednesday, binding.thursday, binding.friday, binding.saturday
-        )
-
-        toggle.forEach {
-            it.setOnCheckedChangeListener(DayToggle())
-        }
+        initDaysToggle()
 
         binding.timePicker.setOnTimeChangedListener(this)
+
+        setRoutineDetail()
 
         binding.cycleCancel.setOnClickListener {
             finish()
@@ -47,6 +47,34 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
             viewModel.insert(binding.title.text.toString())
             permission()
             finish()
+        }
+    }
+
+    private fun initDaysToggle() {
+        val toggle = arrayOf(
+            binding.sunday, binding.monday, binding.tuesday,
+            binding.wednesday, binding.thursday, binding.friday, binding.saturday
+        )
+
+        toggle.forEach {
+            it.setOnCheckedChangeListener(DayToggle())
+        }
+    }
+
+    private fun setRoutineDetail() {
+        binding.routineDetailAdd.setOnClickListener {
+            viewModel.addRoutineDetail()
+        }
+
+        val adapter = RoutineDetailAdapter()
+        binding.routineDetailRv.adapter = adapter
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.routineDetailList.collect { routineDetailList ->
+                    adapter.submitList(routineDetailList)
+                }
+            }
         }
     }
 
