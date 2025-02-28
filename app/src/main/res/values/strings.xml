@@ -51,6 +51,8 @@
     <string name="recent_sort">최신순</string>
     <string name="deadline_sort">마감순</string>
 
+    <string name="routine_done_checked">루틴 완료 여부</string>
+
     <string name="routine_add_detail">상세</string>
     <string name="routine_add_detail_hint">상세 루틴을 입력해주세요.</string>
     <string name="routine_more_detail_add">상세 루틴 추가</string>

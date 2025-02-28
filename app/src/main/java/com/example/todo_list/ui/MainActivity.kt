@@ -19,10 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.swiperefreshlayout.setOnRefreshListener {
-            binding.swiperefreshlayout.isRefreshing = false
-        }
-
         val navController = findNavController(R.id.main_fragment)
 
         binding.navBar.setupWithNavController(navController)

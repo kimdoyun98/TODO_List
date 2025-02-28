@@ -5,9 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.util.Calendar
@@ -30,6 +28,12 @@ class HomeViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000L),
             emptyList()
         )
+
+    fun getRoutineDetails(id: Int) = routineRepository.getRoutineDetail(id).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000L),
+        emptyList()
+    )
 
     val getScheduleAll = scheduleRepository
         .selectAll()

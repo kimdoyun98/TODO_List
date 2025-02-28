@@ -17,13 +17,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shadow">
 
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:contentDescription="Done Icon"
+            android:contentDescription="@string/routine_done_checked"
             android:paddingStart="20dp"
             android:paddingEnd="@dimen/zero"
             android:src="@drawable/done"
