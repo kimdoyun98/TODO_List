@@ -53,7 +53,11 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getScheduleAll.collect { scheduleData ->
-                    adapter.submitList(scheduleData)
+                    if(scheduleData.isEmpty()) binding.homeScheduleVp.visibility = View.GONE
+                    else {
+                        binding.homeScheduleVp.visibility = View.VISIBLE
+                        adapter.submitList(scheduleData)
+                    }
                 }
             }
         }
