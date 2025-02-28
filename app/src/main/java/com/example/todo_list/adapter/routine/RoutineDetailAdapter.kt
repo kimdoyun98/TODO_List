@@ -2,17 +2,14 @@ package com.example.todo_list.adapter.routine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.databinding.RoutineDetailItemBinding
+import com.example.todo_list.ui.routine.Position
 
-class RoutineDetailAdapter(
-    private val onChangeText: (Int, String) -> Unit,
-    private val onClickDelete: (Int) -> Unit
-) :
+class RoutineDetailAdapter :
     ListAdapter<RoutineDetailEntity, RoutineDetailAdapter.RoutineDetailAdapterViewHolder>(
         ItemDiffCallback(
             onItemsTheSame = { oldItem, newItem -> oldItem.number == newItem.number },
@@ -24,21 +21,27 @@ class RoutineDetailAdapter(
         private val binding: RoutineDetailItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.routineDetailEdit.addTextChangedListener { title ->
-                onChangeText(absoluteAdapterPosition, "$title")
-            }
+        fun bind(item: RoutineDetailEntity) {
+            binding.title = item.title
+            binding.position = when (absoluteAdapterPosition) {
+                0 -> {
+                    if (currentList.size == 1) Position.ONE
+                    else Position.START
+                }
 
-            binding.routineDetailDeleteBt.setOnClickListener {
-                onClickDelete(absoluteAdapterPosition)
+                currentList.lastIndex -> {
+                    Position.END
+                }
+
+                else -> {
+                    Position.MID
+                }
             }
         }
-
-        fun bind() {}
     }
 
     override fun onBindViewHolder(holder: RoutineDetailAdapterViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(

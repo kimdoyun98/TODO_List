@@ -9,7 +9,10 @@ import javax.inject.Inject
 class RoutineRepositoryImpl @Inject constructor(
     private val routineDAO: RoutineDAO
 ) : RoutineRepository {
-    override fun selectAll(): Flow<List<RoutineEntity>> = routineDAO.getAll()
+    override fun selectAll(): Flow<List<RoutineEntity>> = routineDAO.getRoutines()
+
+    override fun getRoutineDetail(id: Int): Flow<List<RoutineDetailEntity>> =
+        routineDAO.getRoutineDetails(id)
 
     override suspend fun getId(title: String): Int = routineDAO.getId(title)
 

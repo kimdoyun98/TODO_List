@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SideLine">
+        <attr name="color" format="color"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="circleSize" format="dimension"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="lineSize" format="dimension"/>
+    </declare-styleable>
+</resources>

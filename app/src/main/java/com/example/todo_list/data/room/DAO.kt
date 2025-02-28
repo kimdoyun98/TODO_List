@@ -31,7 +31,7 @@ interface ScheduleDAO {
 @Dao
 interface RoutineDAO {
     @Query("SELECT * FROM routineEntity")
-    fun getAll(): Flow<List<RoutineEntity>>
+    fun getRoutines(): Flow<List<RoutineEntity>>
 
     @Query("SELECT id FROM routineEntity WHERE title =:title")
     suspend fun getId(title: String): Int
@@ -50,6 +50,9 @@ interface RoutineDAO {
 
     @Query("UPDATE RoutineEntity SET success = 0 WHERE success = 1")
     suspend fun resetSuccess(): Int
+
+    @Query("SELECT * FROM RoutineDetail WHERE routine_id =:id")
+    fun getRoutineDetails(id: Int): Flow<List<RoutineDetailEntity>>
 
     @Insert
     suspend fun insertRoutineDetail(routineDetail: RoutineDetailEntity)

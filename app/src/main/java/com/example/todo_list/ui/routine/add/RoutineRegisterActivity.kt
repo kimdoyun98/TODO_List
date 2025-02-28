@@ -12,7 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.todo_list.R
-import com.example.todo_list.adapter.routine.RoutineDetailAdapter
+import com.example.todo_list.adapter.routine.RoutineDetailAddAdapter
 import com.example.todo_list.databinding.ActivityRoutineRegisterBinding
 import com.example.todo_list.util.MyApplication
 import com.gun0912.tedpermission.PermissionListener
@@ -66,7 +66,7 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
             viewModel.addRoutineDetail()
         }
 
-        val adapter = RoutineDetailAdapter(
+        val adapter = RoutineDetailAddAdapter(
             { position, title ->
                 viewModel.changeRoutineDetailTitle(
                     position,
