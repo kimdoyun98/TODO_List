@@ -141,7 +141,7 @@ class CalendarFragment : Fragment() {
          * Toolbar setting
          */
         binding.exThreeCalendar.monthScrollListener = {
-            binding.calendarToolbar.title = if (it.year == today.year) {
+            binding.calendarToolbar.text = if (it.year == today.year) {
                 titleSameYearFormatter.format(it.yearMonth)
             } else {
                 titleFormatter.format(it.yearMonth)

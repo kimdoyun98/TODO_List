@@ -6,19 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <TextView
         android:id="@+id/postToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#7B68EE"
-        android:theme="@style/MyActionBar"
-        app:layout_collapseMode="pin"
+        android:layout_margin="15dp"
+        android:text="@string/routine_eng"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Routine"
-        app:titleMarginTop="15dp"
-        app:titleTextColor="@color/white" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
