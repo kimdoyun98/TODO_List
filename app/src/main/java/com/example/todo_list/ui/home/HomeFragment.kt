@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.todo_list.adapter.home.HomeRoutineAdapter
 import com.example.todo_list.adapter.home.HomeScheduleAdapter
 import com.example.todo_list.databinding.FragmentHomeBinding
+import com.example.todo_list.util.DateCalculate.getDDay
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -53,10 +54,14 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getScheduleAll.collect { scheduleData ->
-                    if(scheduleData.isEmpty()) binding.homeScheduleVp.visibility = View.GONE
+                    if (scheduleData.isEmpty()) binding.homeScheduleVp.visibility = View.GONE
                     else {
+                        val filterScheduleList = scheduleData.filter { scheduleEntity ->
+                            getDDay(scheduleEntity.start_date) >= 0
+                        }
+
                         binding.homeScheduleVp.visibility = View.VISIBLE
-                        adapter.submitList(scheduleData)
+                        adapter.submitList(filterScheduleList)
                     }
                 }
             }

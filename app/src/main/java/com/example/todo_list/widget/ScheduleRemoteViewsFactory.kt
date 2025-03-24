@@ -22,7 +22,7 @@ class ScheduleRemoteViewsFactory(
 
     private var job: Job? = null
     private var scope = CoroutineScope(Dispatchers.IO)
-    private val dateCalculate = DateCalculate()
+    private val dateCalculate = DateCalculate
     private val weekSchedule = repo.selectAll()
         .stateIn(
             scope,
