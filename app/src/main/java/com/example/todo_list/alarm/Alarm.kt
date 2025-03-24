@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import java.util.Calendar
+import java.util.Date
 
 class Alarm(
     private val context: Context
@@ -52,11 +53,12 @@ class Alarm(
             set(Calendar.SECOND, 0)
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val alarmClock = AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
-            alarmManager?.setAlarmClock(alarmClock, pendingIntent)
+        if (calendar.time >= Date()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val alarmClock = AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
+                alarmManager?.setAlarmClock(alarmClock, pendingIntent)
+            }
         }
-
     }
 
     fun cancelAlarm(alarm_code: Int) {
