@@ -9,19 +9,14 @@ import androidx.preference.PreferenceManager
 import com.example.todo_list.R
 import com.example.todo_list.util.MyApplication
 
+
 class SettingFragment : PreferenceFragmentCompat() {
     lateinit var prefs: SharedPreferences
-
-    //var pushAlertPreference: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting, rootKey)
 
         if (rootKey == null) {
-            // Preference 객체들 초기화
-            //pushAlertPreference = findPreference("pushAlert")
-
-            // SharedPreferences 객체 초기화
             prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         }
     }
@@ -29,10 +24,9 @@ class SettingFragment : PreferenceFragmentCompat() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
-            "pushAlert" -> {
+            PUSH_ALERT -> {
                 if (MyApplication.prefs.getAlarm()) MyApplication.prefs.setAlarm(false)
                 else MyApplication.prefs.setAlarm(true)
-
             }
         }
     }
@@ -47,5 +41,9 @@ class SettingFragment : PreferenceFragmentCompat() {
     override fun onPause() {
         super.onPause()
         prefs.unregisterOnSharedPreferenceChangeListener(prefListener)
+    }
+
+    companion object {
+        private const val PUSH_ALERT = "pushAlert"
     }
 }
