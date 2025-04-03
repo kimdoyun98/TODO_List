@@ -39,11 +39,13 @@ object LocalDatabaseModules {
         database: DataBase
     ): RoutineDAO = database.routineDao
 
+    @Singleton
     @Provides
     fun provideScheduleRepo(
         scheduleDAO: ScheduleDAO
     ): ScheduleRepository = ScheduleRepositoryImpl(scheduleDAO)
 
+    @Singleton
     @Provides
     fun provideRoutineRepo(
         routineDAO: RoutineDAO
