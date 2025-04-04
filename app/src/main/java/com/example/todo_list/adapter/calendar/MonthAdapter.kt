@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.calendar.custom
+package com.example.todo_list.adapter.calendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

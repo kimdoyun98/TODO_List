@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.calendar.custom
+package com.example.todo_list.ui.calendar.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.R
+import com.example.todo_list.adapter.calendar.MonthAdapter
 import java.util.Calendar
 
 class Calendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.example.todo_list.ui.calendar.custom.Calendar
+    <com.example.todo_list.ui.calendar.view.Calendar
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
