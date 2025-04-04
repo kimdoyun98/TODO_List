@@ -10,7 +10,7 @@
 
         <variable
             name="position"
-            type="com.example.todo_list.ui.routine.Position" />
+            type="com.example.todo_list.ui.routine.view.Position" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp">
 
-        <com.example.todo_list.ui.routine.SideLine
+        <com.example.todo_list.ui.routine.view.SideLine
             android:id="@+id/sideLine"
             android:layout_width="30dp"
             android:layout_height="30dp"

@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.routine
+package com.example.todo_list.ui.routine.view
 
 import androidx.databinding.BindingAdapter
 
