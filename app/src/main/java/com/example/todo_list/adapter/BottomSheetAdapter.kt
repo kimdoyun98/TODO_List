@@ -23,7 +23,7 @@ class BottomSheetAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
-                val pos: Int = absoluteAdapterPosition
+                val pos: Int = adapterPosition
                 when(getItem(pos)!!){
                     MenuList.UPDATE -> {
                         onClickUpdate()

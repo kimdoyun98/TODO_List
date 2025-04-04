@@ -28,7 +28,7 @@ class RoutineAdapter(
 
         init {
             itemView.setOnClickListener {
-                val pos: Int = absoluteAdapterPosition
+                val pos: Int = adapterPosition
                 showDialog(getItem(pos))
             }
         }

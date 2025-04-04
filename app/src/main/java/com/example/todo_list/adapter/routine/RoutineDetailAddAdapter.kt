@@ -26,11 +26,11 @@ class RoutineDetailAddAdapter(
 
         init {
             binding.routineDetailEdit.addTextChangedListener { title ->
-                onChangeText(absoluteAdapterPosition, "$title")
+                onChangeText(adapterPosition, "$title")
             }
 
             binding.routineDetailDeleteBt.setOnClickListener {
-                onClickDelete(absoluteAdapterPosition)
+                onClickDelete(adapterPosition)
             }
         }
 

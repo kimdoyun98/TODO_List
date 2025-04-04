@@ -17,7 +17,7 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
             //달 구하기
             calendar.time = Date() //현재 날짜 초기화
             calendar.set(Calendar.DAY_OF_MONTH, 1) //스크롤시 현재 월의 1일로 이동
-            calendar.add(Calendar.MONTH, absoluteAdapterPosition - 15) //스크롤시 포지션 만큼 달이동
+            calendar.add(Calendar.MONTH, adapterPosition - 15) //스크롤시 포지션 만큼 달이동
 
             val tempMonth = calendar.get(Calendar.MONTH)
 

@@ -23,7 +23,7 @@ class RoutineDetailAdapter :
 
         fun bind(item: RoutineDetailEntity) {
             binding.title = item.title
-            binding.position = when (absoluteAdapterPosition) {
+            binding.position = when (adapterPosition) {
                 0 -> {
                     if (currentList.size == 1) Position.ONE
                     else Position.START
