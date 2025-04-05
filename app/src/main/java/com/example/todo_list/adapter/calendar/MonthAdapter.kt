@@ -20,14 +20,20 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
             calendar.add(Calendar.MONTH, adapterPosition - 15) //스크롤시 포지션 만큼 달이동
 
             val tempMonth = calendar.get(Calendar.MONTH)
+            val (dayList, calendarLine) = setDayList(tempMonth)
 
-            //일 구하기
+            val adapter = DaysAdapter(tempMonth, dayList, calendarLine)
+            binding.daysRecycler.adapter = adapter
+        }
+
+        private fun setDayList(tempMonth: Int): Pair<MutableList<Day?>, CalendarLine> {
             //6주 7일로 날짜를 표시
             val dayList: MutableList<Day?> = MutableList(6 * 7) { null }
             var state = false
             var index = 0
-            for (i in 0..5) { //주
-                for (k in 0..6) { //요일
+
+            for (i in 0..5) {
+                for (k in 0..6) {
                     //요일 표시
                     calendar.add(
                         Calendar.DAY_OF_MONTH,
@@ -48,8 +54,8 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
             }
 
             val calendarLine = if (index > 35) CalendarLine.SIX else CalendarLine.FIVE
-            val adapter = DaysAdapter(tempMonth, dayList, calendarLine)
-            binding.daysRecycler.adapter = adapter
+
+            return dayList to calendarLine
         }
     }
 
