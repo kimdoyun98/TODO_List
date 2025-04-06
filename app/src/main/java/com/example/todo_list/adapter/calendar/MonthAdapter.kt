@@ -1,13 +1,18 @@
 package com.example.todo_list.adapter.calendar
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.databinding.CalendarDaysItemBinding
+import com.example.todo_list.ui.calendar.view.Calendar.OnDayClickListener
 import java.util.Calendar
 import java.util.Date
 
-class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
+class MonthAdapter(
+    private val context: Context,
+    private val onClick: OnDayClickListener
+) : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
     inner class DaysViewHolder(
         private val binding: CalendarDaysItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -19,14 +24,15 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
             calendar.set(Calendar.DAY_OF_MONTH, 1) //스크롤시 현재 월의 1일로 이동
             calendar.add(Calendar.MONTH, adapterPosition - 15) //스크롤시 포지션 만큼 달이동
 
-            val tempMonth = calendar.get(Calendar.MONTH)
-            val (dayList, calendarLine) = setDayList(tempMonth)
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val (dayList, calendarLine) = setDayList(month)
 
-            val adapter = DaysAdapter(tempMonth, dayList, calendarLine)
+            val adapter = DaysAdapter(context, onClick, year, month, dayList, calendarLine)
             binding.daysRecycler.adapter = adapter
         }
 
-        private fun setDayList(tempMonth: Int): Pair<MutableList<Day?>, CalendarLine> {
+        private fun setDayList(month: Int): Pair<MutableList<Day?>, CalendarLine> {
             //6주 7일로 날짜를 표시
             val dayList: MutableList<Day?> = MutableList(6 * 7) { null }
             var state = false
@@ -42,9 +48,9 @@ class MonthAdapter : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
                     val day = Day(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH))
                     dayList[i * 7 + k] = day
 
-                    if (day.month == tempMonth) state = true
+                    if (day.month == month) state = true
 
-                    if (state && day.month != tempMonth) {
+                    if (state && day.month != month) {
                         index = i * 7 + k
                         state = false
                     }
