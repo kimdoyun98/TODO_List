@@ -21,6 +21,9 @@ class Calendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context
     private val _selectDay = MutableStateFlow<SelectDay?>(null)
     val selectDay = _selectDay.asStateFlow()
 
+    private val _currentDate = MutableStateFlow<SelectDay?>(null)
+    val currentDate = _currentDate.asStateFlow()
+
     init {
         inflate(context, R.layout.calendar_frame, this)
         month = findViewById(R.id.month)
@@ -42,6 +45,12 @@ class Calendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context
                     val calendar = Calendar.getInstance()
                     calendar.add(Calendar.MONTH, position - 15)
                     month.text = "${calendar.get(Calendar.MONTH) + 1}월"
+
+                    _currentDate.value = SelectDay(
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH) + 1,
+                        0
+                    )
                 }
             }
         })
