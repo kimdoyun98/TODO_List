@@ -14,6 +14,7 @@ data class ScheduleEntity(
     val content: String?,
     val start_date: String?,
     val deadline_date: String?,
+    val color: Int?,
     @ColumnInfo(defaultValue = "false") val success: Boolean?
 ): Serializable
 

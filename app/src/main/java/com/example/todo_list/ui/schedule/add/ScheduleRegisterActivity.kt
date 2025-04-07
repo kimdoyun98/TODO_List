@@ -1,6 +1,7 @@
 package com.example.todo_list.ui.schedule.add
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -53,11 +54,18 @@ class ScheduleRegisterActivity : AppCompatActivity() {
                 content = binding.content.text.toString(),
                 start_date = binding.startDate.text.toString(),
                 deadline_date = binding.endDate.text.toString(),
+                color = getRandomColor(),
                 success = false
             )
             viewModel.insert(newTodo)
             finish()
         }
+    }
+
+
+    private fun getRandomColor(): Int {
+        val range = (0..255)
+        return Color.argb(255, range.random(), range.random(), range.random())
     }
 
     companion object{

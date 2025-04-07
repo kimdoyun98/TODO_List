@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo_list.data.room.ScheduleEntity
 import com.example.todo_list.databinding.CalendarDaysItemBinding
 import com.example.todo_list.ui.calendar.view.Calendar.OnDayClickListener
 import java.util.Calendar
@@ -12,8 +13,10 @@ import java.util.Date
 class MonthAdapter(
     private val context: Context,
     private val onClick: OnDayClickListener
-) : RecyclerView.Adapter<MonthAdapter.DaysViewHolder>() {
-    inner class DaysViewHolder(
+) : RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
+    private var schedule = emptyList<ScheduleEntity>()
+
+    inner class MonthViewHolder(
         private val binding: CalendarDaysItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         private val calendar = Calendar.getInstance()
@@ -30,6 +33,8 @@ class MonthAdapter(
 
             val adapter = DaysAdapter(context, onClick, year, month, dayList, calendarLine)
             binding.daysRecycler.adapter = adapter
+
+            adapter.addSchedule(filterToMonth(year, month + 1))
         }
 
         private fun setDayList(month: Int): Pair<MutableList<Day?>, CalendarLine> {
@@ -63,14 +68,26 @@ class MonthAdapter(
 
             return dayList to calendarLine
         }
+
+        private fun filterToMonth(year: Int, month: Int): List<ScheduleEntity> {
+            return schedule.filter {
+                val scheduleStartYear = it.start_date?.substring(0, 4)?.toInt()
+                val scheduleStartMonth = it.start_date?.substring(4, 6)?.toInt()
+                val scheduleEndYear = it.deadline_date?.substring(0, 4)?.toInt()
+                val scheduleEndMonth = it.deadline_date?.substring(4, 6)?.toInt()
+
+                (scheduleStartYear == year && scheduleStartMonth == month)
+                        || (scheduleEndYear == year && scheduleEndMonth == month)
+            }.sortedBy { it.start_date }
+        }
     }
 
-    override fun onBindViewHolder(holder: DaysViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MonthViewHolder, position: Int) {
         holder.bind()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysViewHolder {
-        return DaysViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthViewHolder {
+        return MonthViewHolder(
             CalendarDaysItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -80,6 +97,11 @@ class MonthAdapter(
     }
 
     override fun getItemCount(): Int = 30
+
+    fun addSchedule(scheduleData: List<ScheduleEntity>) {
+        schedule = scheduleData
+        notifyDataSetChanged()
+    }
 
     data class Day(
         val date: Int,

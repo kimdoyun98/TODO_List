@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.R
 import com.example.todo_list.adapter.calendar.MonthAdapter
+import com.example.todo_list.data.room.ScheduleEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.Calendar
@@ -49,6 +50,10 @@ class Calendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context
 
         val snap = PagerSnapHelper()
         snap.attachToRecyclerView(monthRecyclerView)
+    }
+
+    fun addSchedule(scheduleData: List<ScheduleEntity>) {
+        adapter.addSchedule(scheduleData)
     }
 
     fun interface OnDayClickListener {

@@ -42,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
                     content = binding.content.text.toString(),
                     start_date = binding.startDate.text.toString(),
                     deadline_date = binding.endDate.text.toString(),
+                    color = data.color,
                     success = false
                 )
             )
