@@ -11,7 +11,7 @@ import com.example.todo_list.util.MyApplication
 
 
 class SettingFragment : PreferenceFragmentCompat() {
-    lateinit var prefs: SharedPreferences
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting, rootKey)
