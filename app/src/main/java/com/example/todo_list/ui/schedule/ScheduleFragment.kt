@@ -1,11 +1,6 @@
 package com.example.todo_list.ui.schedule
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.todo_list.adapter.schedule.ScheduleAdapter
 import com.example.todo_list.databinding.FragmentScheduleBinding
@@ -13,16 +8,15 @@ import com.example.todo_list.ui.schedule.DetailActivity.Companion.SCHEDULE_ENTIT
 import com.example.todo_list.ui.schedule.add.ScheduleRegisterActivity
 import com.example.todo_list.ui.util.BottomSheetDialog
 import com.example.todo_list.ui.util.Category
+import com.example.todo_list.ui.util.basefragment.DataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ScheduleFragment : Fragment() {
-    private var _binding: FragmentScheduleBinding? = null
-    private val binding get() = _binding!!
+class ScheduleFragment :
+    DataBindingFragment<FragmentScheduleBinding>(FragmentScheduleBinding::inflate) {
     private val viewModel: ScheduleViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         binding.todoViewModel = viewModel
 
         initRecyclerViewAdapter()
@@ -72,19 +66,5 @@ class ScheduleFragment : Fragment() {
             val intent = Intent(context, ScheduleRegisterActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentScheduleBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
