@@ -21,7 +21,14 @@ import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -58,10 +65,7 @@ class ResetRoutineWorker @AssistedInject constructor(
         }
 
         private fun getDurationTime(): Duration {
-            val triggerHour = HOUR
-            val triggerMinute = MINUTE
-
-            val newSyncTime = LocalTime.of(triggerHour, triggerMinute)
+            val newSyncTime = LocalTime.of(HOUR, MINUTE)
             val now: LocalDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
             val nowTime: LocalTime = now.toLocalTime()
 
@@ -88,28 +92,29 @@ class ResetRoutineWorker @AssistedInject constructor(
             Log.e("DoWork Fail", "${e.message}")
             Result.failure()
         } finally {
-            setTodayAlarm()
+            setTodayAlarm(this)
             runReset(applicationContext)
         }
     }
 
-    private suspend fun setTodayAlarm() {
-        routineRepository.selectAll().collect { routineList ->
-            val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-            routineList
-                .filter {
-                    it.day?.get(today - 1) ?: false
-                }.forEach { routine ->
-                    val (hour, min) = routine.time.split(":").map { it.toInt() }
-                    Alarm(applicationContext)
-                        .setAlarm(
-                            hour = hour,
-                            minute = min,
-                            alarm_code = routine.id,
-                            content = routine.title ?: ""
-                        )
-                }
-        }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private fun setTodayAlarm(scope: CoroutineScope) {
+        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        routineRepository.selectAll()
+            .flatMapLatest {
+                it.asFlow()
+            }.filter {
+                it.day?.get(today - 1) ?: false
+            }.onEach { routine ->
+                val (hour, min) = routine.time.split(":").map { it.toInt() }
+                Alarm(applicationContext)
+                    .setAlarm(
+                        hour = hour,
+                        minute = min,
+                        alarm_code = routine.id,
+                        content = routine.title ?: ""
+                    )
+            }.launchIn(scope)
     }
 
     private fun createForegroundInfo(): ForegroundInfo {
