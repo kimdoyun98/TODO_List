@@ -1,11 +1,6 @@
 package com.example.todo_list.ui.routine
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.todo_list.adapter.routine.RoutineAdapter
@@ -14,21 +9,19 @@ import com.example.todo_list.databinding.FragmentRoutineBinding
 import com.example.todo_list.ui.routine.add.RoutineRegisterActivity
 import com.example.todo_list.ui.util.BottomSheetDialog
 import com.example.todo_list.ui.util.Category
+import com.example.todo_list.ui.util.basefragment.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoutineFragment : Fragment() {
-    private var _binding: FragmentRoutineBinding? = null
-    private val binding get() = _binding!!
+class RoutineFragment :
+    ViewBindingFragment<FragmentRoutineBinding>(FragmentRoutineBinding::inflate) {
     private val viewModel: RoutineViewModel by viewModels()
 
     @Inject
     lateinit var alarm: Alarm
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initView() {
         initRoutineRecyclerView()
 
         binding.addButton.setOnClickListener {
@@ -37,37 +30,24 @@ class RoutineFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRoutineBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun initRoutineRecyclerView(){
-        val adapter = RoutineAdapter ({ routineEntity ->
-            BottomSheetDialog(
-                context = requireContext(),
-                category = Category.ROUTINE,
-                entity = routineEntity,
-                onClickDelete = {
-                    viewModel.delete(routineEntity.id)
-                    alarm.cancelAlarm(routineEntity.id)
-                },
-                onClickDone = {
-                    viewModel.todaySuccess(routineEntity.id)
-                }
-            )
-        },
+    private fun initRoutineRecyclerView() {
+        val adapter = RoutineAdapter(
+            { routineEntity ->
+                BottomSheetDialog(
+                    context = requireContext(),
+                    category = Category.ROUTINE,
+                    entity = routineEntity,
+                    onClickDelete = {
+                        viewModel.delete(routineEntity.id)
+                        alarm.cancelAlarm(routineEntity.id)
+                    },
+                    onClickDone = {
+                        viewModel.todaySuccess(routineEntity.id)
+                    }
+                )
+            },
             { id ->
-                   viewModel.getRoutineDetails(id)
+                viewModel.getRoutineDetails(id)
             },
             viewLifecycleOwner.lifecycleScope
         )
