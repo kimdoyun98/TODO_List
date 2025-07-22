@@ -24,9 +24,6 @@ class ScheduleViewModel @Inject constructor(
     var isSortedByRating: ObservableField<Boolean> = ObservableField<Boolean>(false)
 
     val getAll: LiveData<List<ScheduleEntity>> = repository.selectAll().asLiveData()
-    fun getOnDate(date: String?): LiveData<List<ScheduleEntity>> =
-        repository.selectOnDate(date).asLiveData()
-
 
     fun insert(scheduleEntity: ScheduleEntity) =
         viewModelScope.launch { repository.insert(scheduleEntity) }
