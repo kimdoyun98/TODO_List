@@ -21,7 +21,7 @@ class RoutineLogRepositoryImpl @Inject constructor(
         routineLogDAO.update(entity)
     }
 
-    override fun getTodayLog(): Flow<RoutineLog> {
+    override fun getTodayLog(): Flow<RoutineLog?> {
         return routineLogDAO.getTodayLog()
     }
 }

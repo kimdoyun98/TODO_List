@@ -23,7 +23,9 @@ fun List<RoutineEntity>.filterTodayRoutine(): List<RoutineEntity> {
     return this.filter { it.day?.get(today - 1) ?: false }
 }
 
-fun isTodayRoutineLog(dateTime: LocalDate): Boolean {
+fun isTodayRoutineLog(dateTime: LocalDate?): Boolean {
+    if(dateTime == null) return false
+
     val today = LocalDate.now()
     return today.isEqual(dateTime)
 }

@@ -53,8 +53,8 @@ data class RoutineDetailEntity(
 data class RoutineLog(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val date: LocalDate,
-    val routines: Map<Int, RoutineEntity>
+    val date: LocalDate?,
+    val routines: Map<Int, RoutineEntity>?
 )
 
 @Entity(
@@ -71,6 +71,6 @@ data class RoutineLog(
 data class StatisticsLog(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val routineLogId: Int,
-    val percentage: Double
+    val routineLogId: Int?,
+    val percentage: Double?
 )

@@ -21,5 +21,5 @@ interface RoutineLogDAO {
     suspend fun getDateLog(date: LocalDate): RoutineLog
 
     @Query("SELECT * FROM ROUTINELOG ORDER BY id DESC LIMIT 1")
-    fun getTodayLog(): Flow<RoutineLog>
+    fun getTodayLog(): Flow<RoutineLog?>
 }

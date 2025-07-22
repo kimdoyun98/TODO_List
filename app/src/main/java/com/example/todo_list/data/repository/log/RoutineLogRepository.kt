@@ -11,5 +11,5 @@ interface RoutineLogRepository {
 
     suspend fun update(entity: RoutineLog)
 
-    fun getTodayLog(): Flow<RoutineLog>
+    fun getTodayLog(): Flow<RoutineLog?>
 }
