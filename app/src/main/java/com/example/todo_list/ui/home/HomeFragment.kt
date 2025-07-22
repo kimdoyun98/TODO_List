@@ -68,7 +68,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
         todayRecyclerView.adapter = adapter
 
         fragmentScope {
-            viewModel.getRoutineAll.collect { routineData ->
+            viewModel.todayRoutine.collect { routineData ->
                 adapter.submitList(routineData.sortedBy { it.time })
             }
         }
