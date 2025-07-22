@@ -1,6 +1,6 @@
 package com.example.todo_list.data.repository.schedule
 
-import com.example.todo_list.data.room.ScheduleDAO
+import com.example.todo_list.data.room.dao.ScheduleDAO
 import com.example.todo_list.data.room.ScheduleEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

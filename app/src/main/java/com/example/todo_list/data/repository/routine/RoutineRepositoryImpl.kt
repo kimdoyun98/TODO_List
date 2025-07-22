@@ -1,6 +1,6 @@
 package com.example.todo_list.data.repository.routine
 
-import com.example.todo_list.data.room.RoutineDAO
+import com.example.todo_list.data.room.dao.RoutineDAO
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.data.room.RoutineEntity
 import kotlinx.coroutines.flow.Flow

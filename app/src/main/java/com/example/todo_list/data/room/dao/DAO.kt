@@ -1,10 +1,13 @@
-package com.example.todo_list.data.room
+package com.example.todo_list.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.todo_list.data.room.RoutineDetailEntity
+import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.data.room.ScheduleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -6,8 +6,8 @@ import com.example.todo_list.data.repository.routine.RoutineRepositoryImpl
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepositoryImpl
 import com.example.todo_list.data.room.DataBase
-import com.example.todo_list.data.room.RoutineDAO
-import com.example.todo_list.data.room.ScheduleDAO
+import com.example.todo_list.data.room.dao.RoutineDAO
+import com.example.todo_list.data.room.dao.ScheduleDAO
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -38,6 +38,8 @@ object LocalDatabaseModules {
     fun provideRoutineDAO(
         database: DataBase
     ): RoutineDAO = database.routineDao
+
+
 
     @Singleton
     @Provides
