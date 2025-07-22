@@ -5,10 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.todo_list.data.room.dao.RoutineDAO
+import com.example.todo_list.data.room.dao.ScheduleDAO
 
 @Database(
-    entities = [ScheduleEntity::class, RoutineEntity::class, RoutineDetailEntity::class],
-    version = 2,
+    entities = [
+        ScheduleEntity::class,
+        RoutineEntity::class,
+        RoutineDetailEntity::class,
+        RoutineLog::class,
+        StatisticsLog::class
+    ],
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(DayListConverter::class)

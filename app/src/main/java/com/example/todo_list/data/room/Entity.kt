@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.time.LocalDate
 
 @Entity
 data class ScheduleEntity(
@@ -16,16 +17,16 @@ data class ScheduleEntity(
     val deadline_date: String?,
     val color: Int?,
     @ColumnInfo(defaultValue = "false") val success: Boolean?
-): Serializable
+) : Serializable
 
 @Entity
 data class RoutineEntity(
     @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
-    val title : String?,
-    val day : List<Boolean>?,
-    val success: Boolean? = null,
-    val time : String
+    val id: Int = 0,
+    val title: String?,
+    val day: List<Boolean>?,
+    var success: Boolean? = null,
+    var time: String
 )
 
 @Entity(
@@ -44,4 +45,32 @@ data class RoutineDetailEntity(
     @ColumnInfo(name = "routine_id") var routineId: Int = -1,
     val number: Int,
     var title: String
+)
+
+@Entity(
+    tableName = "RoutineLog"
+)
+data class RoutineLog(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val date: LocalDate,
+    val routines: Map<Int, RoutineEntity>
+)
+
+@Entity(
+    tableName = "StatisticsLog",
+    foreignKeys = [
+        ForeignKey(
+            entity = RoutineLog::class,
+            parentColumns = ["id"],
+            childColumns = ["routineLogId"],
+            onDelete = ForeignKey.NO_ACTION
+        )
+    ]
+)
+data class StatisticsLog(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val routineLogId: Int,
+    val percentage: Double
 )
