@@ -1,0 +1,25 @@
+package com.example.todo_list.data.room.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import com.example.todo_list.data.room.RoutineLog
+import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
+
+@Dao
+interface RoutineLogDAO {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun createLog(entity: RoutineLog)
+
+    @Update
+    suspend fun update(entity: RoutineLog)
+
+    @Query("SELECT * FROM ROUTINELOG WHERE date = :date")
+    suspend fun getDateLog(date: LocalDate): RoutineLog
+
+    @Query("SELECT * FROM ROUTINELOG ORDER BY id DESC LIMIT 1")
+    fun getTodayLog(): Flow<RoutineLog>
+}

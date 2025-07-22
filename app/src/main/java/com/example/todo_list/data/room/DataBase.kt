@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.todo_list.data.room.dao.RoutineDAO
+import com.example.todo_list.data.room.dao.RoutineLogDAO
 import com.example.todo_list.data.room.dao.ScheduleDAO
+import com.example.todo_list.data.room.dao.StatisticsLogDAO
 
 @Database(
     entities = [
@@ -23,6 +25,8 @@ import com.example.todo_list.data.room.dao.ScheduleDAO
 abstract class DataBase : RoomDatabase() {
     abstract val scheduleDao: ScheduleDAO
     abstract val routineDao: RoutineDAO
+    abstract val routineLogDao: RoutineLogDAO
+    abstract val statisticsLogDao: StatisticsLogDAO
 
     companion object {
         private var INSTANCE: DataBase? = null
