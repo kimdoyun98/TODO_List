@@ -66,7 +66,6 @@ class RoutineRegisterViewModel @Inject constructor(
                 RoutineEntity(
                     title = title,
                     day = checkedDayList,
-                    success = false,
                     time = "${time2[0]}:${time2[1]}"
                 )
             )

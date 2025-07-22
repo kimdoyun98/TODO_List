@@ -24,7 +24,7 @@ data class RoutineEntity(
     val id : Int = 0,
     val title : String?,
     val day : List<Boolean>?,
-    val success: Boolean?,
+    val success: Boolean? = null,
     val time : String
 )
 
