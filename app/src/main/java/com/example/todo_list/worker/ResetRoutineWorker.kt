@@ -18,18 +18,20 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.example.todo_list.R
 import com.example.todo_list.alarm.Alarm
+import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
+import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.data.room.RoutineLog
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
@@ -41,6 +43,7 @@ class ResetRoutineWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val routineRepository: RoutineRepository,
+    private val routineLogRepository: RoutineLogRepository
 ) : CoroutineWorker(appContext, workerParams) {
 
     companion object {
@@ -79,42 +82,65 @@ class ResetRoutineWorker @AssistedInject constructor(
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.S)
     override suspend fun doWork(): Result = coroutineScope {
         try {
             setForeground(createForegroundInfo())
-            routineRepository.resetSuccess()
+
+            routineLogRepository.getTodayLog()
+                .filter { !isTodayRoutineLog(it.date) }
+                .flatMapLatest {
+                    routineRepository.selectAll()
+                }
+                .onEach {
+                    val todayRoutine = it.filterTodayRoutine()
+                    createRoutineLog(todayRoutine)
+
+                    todayRoutine.forEach { routine ->
+                        setTodayAlarm(routine)
+                    }
+                }.launchIn(this)
+
             Result.success()
         } catch (e: ForegroundServiceStartNotAllowedException) {
-            routineRepository.resetSuccess()
             Result.success()
         } catch (e: Exception) {
             Log.e("DoWork Fail", "${e.message}")
             Result.failure()
         } finally {
-            setTodayAlarm(this)
             runReset(applicationContext)
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private fun setTodayAlarm(scope: CoroutineScope) {
+    private suspend fun createRoutineLog(todayRoutine: List<RoutineEntity>) {
+        routineLogRepository.createLog(
+            RoutineLog(
+                date = LocalDate.now(),
+                routines = todayRoutine.associateBy { it.id }
+            )
+        )
+    }
+
+    private fun List<RoutineEntity>.filterTodayRoutine(): List<RoutineEntity> {
         val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        routineRepository.selectAll()
-            .flatMapLatest {
-                it.asFlow()
-            }.filter {
-                it.day?.get(today - 1) ?: false
-            }.onEach { routine ->
-                val (hour, min) = routine.time.split(":").map { it.toInt() }
-                Alarm(applicationContext)
-                    .setAlarm(
-                        hour = hour,
-                        minute = min,
-                        alarm_code = routine.id,
-                        content = routine.title ?: ""
-                    )
-            }.launchIn(scope)
+        return this.filter { it.day?.get(today - 1) ?: false }
+    }
+
+    private fun isTodayRoutineLog(dateTime: LocalDate): Boolean {
+        val today = LocalDate.now()
+        return today.isEqual(dateTime)
+    }
+
+    private fun setTodayAlarm(routine: RoutineEntity) {
+        val (hour, min) = routine.time.split(":").map { it.toInt() }
+        Alarm(applicationContext)
+            .setAlarm(
+                hour = hour,
+                minute = min,
+                alarm_code = routine.id,
+                content = routine.title ?: ""
+            )
     }
 
     private fun createForegroundInfo(): ForegroundInfo {
