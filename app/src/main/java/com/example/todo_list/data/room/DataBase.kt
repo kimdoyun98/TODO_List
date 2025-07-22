@@ -21,7 +21,7 @@ import com.example.todo_list.data.room.dao.StatisticsLogDAO
     version = 3,
     exportSchema = false
 )
-@TypeConverters(DayListConverter::class)
+@TypeConverters(Converter::class)
 abstract class DataBase : RoomDatabase() {
     abstract val scheduleDao: ScheduleDAO
     abstract val routineDao: RoutineDAO
