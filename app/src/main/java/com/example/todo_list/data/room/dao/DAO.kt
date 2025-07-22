@@ -15,6 +15,9 @@ interface ScheduleDAO {
     @Query("SELECT * FROM scheduleEntity WHERE success = :suc")
     fun getAll(suc: Boolean = false): Flow<List<ScheduleEntity>>
 
+    @Query("SELECT * FROM scheduleentity WHERE success = 0 ORDER BY start_date LIMIT 1")
+    fun getRecentSchedule(): Flow<ScheduleEntity>
+
     @Query("SELECT * FROM scheduleEntity WHERE start_date <= :date AND deadline_date >= :date AND success = :suc")
     fun getCalumOnDate(date: String?, suc: Boolean = false): Flow<List<ScheduleEntity>>
 

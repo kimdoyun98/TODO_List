@@ -12,8 +12,10 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("d-day")
-    fun setDDayText(view: TextView, date: String) {
-        view.text = DateCalculate.getDDayString(date)
+    fun setDDayText(view: TextView, date: String?) {
+        date?.let {
+            view.text = DateCalculate.getDDayString(date)
+        }
     }
 
     @JvmStatic

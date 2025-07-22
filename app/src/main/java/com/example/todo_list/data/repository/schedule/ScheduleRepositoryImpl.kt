@@ -14,6 +14,8 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override fun selectOnDate(date : String?) : Flow<List<ScheduleEntity>> = scheduleDAO.getCalumOnDate(date)
 
+    override fun getRecentSchedule(): Flow<ScheduleEntity> = scheduleDAO.getRecentSchedule()
+
     override suspend fun delete(id : Int) = withContext(Dispatchers.IO) { scheduleDAO.delete(id) }
 
     override suspend fun insert (toDoEntity: ScheduleEntity) = withContext(Dispatchers.IO) { scheduleDAO.insert(toDoEntity) }

@@ -1,5 +1,6 @@
 package com.example.todo_list.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.log.RoutineLogRepository
@@ -31,12 +32,13 @@ class HomeViewModel @Inject constructor(
             emptyList()
         )
 
-    val getScheduleAll = scheduleRepository
-        .selectAll()
+    val recentSchedule = scheduleRepository
+        .getRecentSchedule()
+        .onEach { Log.e("HomeViewModel", "$it") }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
-            emptyList()
+            null
         )
 
     init {
