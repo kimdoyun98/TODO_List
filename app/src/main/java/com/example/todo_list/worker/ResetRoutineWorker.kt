@@ -31,6 +31,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import java.time.Duration
 import java.time.LocalDateTime
@@ -89,12 +90,12 @@ class ResetRoutineWorker @AssistedInject constructor(
             setForeground(createForegroundInfo())
 
             routineLogRepository.getTodayLog()
-                .filter { !isTodayRoutineLog(it.date) }
+                .filter { it == null || !isTodayRoutineLog(it.date) }
                 .flatMapLatest {
                     routineRepository.selectAll()
                 }
-                .onEach {
-                    val todayRoutine = it.filterTodayRoutine()
+                .map { it.filterTodayRoutine() }
+                .onEach { todayRoutine ->
                     createRoutineLog(routineLogRepository, todayRoutine)
 
                     todayRoutine.forEach { routine ->
