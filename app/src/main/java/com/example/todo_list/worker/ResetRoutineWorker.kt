@@ -21,7 +21,9 @@ import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.room.RoutineEntity
-import com.example.todo_list.data.room.RoutineLog
+import com.example.todo_list.ui.home.createRoutineLog
+import com.example.todo_list.ui.home.filterTodayRoutine
+import com.example.todo_list.ui.home.isTodayRoutineLog
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,11 +33,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.time.Duration
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
-import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 @HiltWorker
@@ -95,7 +95,7 @@ class ResetRoutineWorker @AssistedInject constructor(
                 }
                 .onEach {
                     val todayRoutine = it.filterTodayRoutine()
-                    createRoutineLog(todayRoutine)
+                    createRoutineLog(routineLogRepository, todayRoutine)
 
                     todayRoutine.forEach { routine ->
                         setTodayAlarm(routine)
@@ -111,25 +111,6 @@ class ResetRoutineWorker @AssistedInject constructor(
         } finally {
             runReset(applicationContext)
         }
-    }
-
-    private suspend fun createRoutineLog(todayRoutine: List<RoutineEntity>) {
-        routineLogRepository.createLog(
-            RoutineLog(
-                date = LocalDate.now(),
-                routines = todayRoutine.associateBy { it.id }
-            )
-        )
-    }
-
-    private fun List<RoutineEntity>.filterTodayRoutine(): List<RoutineEntity> {
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        return this.filter { it.day?.get(today - 1) ?: false }
-    }
-
-    private fun isTodayRoutineLog(dateTime: LocalDate): Boolean {
-        val today = LocalDate.now()
-        return today.isEqual(dateTime)
     }
 
     private fun setTodayAlarm(routine: RoutineEntity) {
