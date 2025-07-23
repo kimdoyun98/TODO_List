@@ -18,4 +18,5 @@
     <color name="routine_add_bg_color">#F8FBEF</color>
     <color name="routine_add_detail_bg_color">#FFFFF2</color>
     <color name="edittext_color">#666666</color>
+    <color name="basic_background">#F5F5F5</color>
 </resources>

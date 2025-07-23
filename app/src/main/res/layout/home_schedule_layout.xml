@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.todo_list.ui.home.HomeViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/schedule_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/all_side_shadow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:visibility="@{viewModel.recentSchedule == null ? View.GONE : View.VISIBLE}">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.recentSchedule.title}"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/bell"
+            tools:text="스케줄 제목" />
+
+        <TextView
+            d-day="@{viewModel.recentSchedule.start_date}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="D-15" />
+    </LinearLayout>
+</layout>
