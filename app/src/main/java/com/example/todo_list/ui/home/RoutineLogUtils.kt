@@ -1,8 +1,10 @@
 package com.example.todo_list.ui.home
 
 import com.example.todo_list.data.repository.log.RoutineLogRepository
+import com.example.todo_list.data.repository.log.StatisticsLogRepository
 import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.data.room.RoutineLog
+import com.example.todo_list.data.room.StatisticsLog
 import java.time.LocalDate
 import java.util.Calendar
 
@@ -24,8 +26,23 @@ fun List<RoutineEntity>.filterTodayRoutine(): List<RoutineEntity> {
 }
 
 fun isTodayRoutineLog(dateTime: LocalDate?): Boolean {
-    if(dateTime == null) return false
+    if (dateTime == null) return false
 
     val today = LocalDate.now()
     return today.isEqual(dateTime)
+}
+
+suspend fun createLogStatisticsLog(
+    statisticsLogRepository: StatisticsLogRepository,
+    routineLog: RoutineLog
+) {
+    val values = routineLog.routines?.values
+
+    statisticsLogRepository.createStatisticsLog(
+        StatisticsLog(
+            routineLogId = routineLog.id,
+            total = values?.size ?: 0,
+            success = values?.count { it.success ?: false } ?: 0
+        )
+    )
 }

@@ -72,5 +72,6 @@ data class StatisticsLog(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val routineLogId: Int?,
-    val percentage: Double?
+    val total: Int,
+    val success: Int,
 )

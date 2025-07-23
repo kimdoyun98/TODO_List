@@ -19,8 +19,10 @@ import androidx.work.WorkerParameters
 import com.example.todo_list.R
 import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.log.RoutineLogRepository
+import com.example.todo_list.data.repository.log.StatisticsLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.ui.home.createLogStatisticsLog
 import com.example.todo_list.ui.home.createRoutineLog
 import com.example.todo_list.ui.home.filterTodayRoutine
 import com.example.todo_list.ui.home.isTodayRoutineLog
@@ -44,7 +46,8 @@ class ResetRoutineWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val routineRepository: RoutineRepository,
-    private val routineLogRepository: RoutineLogRepository
+    private val routineLogRepository: RoutineLogRepository,
+    private val statisticsLogRepository: StatisticsLogRepository,
 ) : CoroutineWorker(appContext, workerParams) {
 
     companion object {
@@ -91,6 +94,9 @@ class ResetRoutineWorker @AssistedInject constructor(
 
             routineLogRepository.getTodayLog()
                 .filter { it == null || !isTodayRoutineLog(it.date) }
+                .onEach {
+                    it?.let { createLogStatisticsLog(statisticsLogRepository, it) }
+                }
                 .flatMapLatest {
                     routineRepository.selectAll()
                 }

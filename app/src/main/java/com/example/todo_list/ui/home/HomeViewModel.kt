@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.log.RoutineLogRepository
+import com.example.todo_list.data.repository.log.StatisticsLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.RoutineEntity
@@ -22,6 +23,7 @@ class HomeViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val routineRepository: RoutineRepository,
     private val routineLogRepository: RoutineLogRepository,
+    private val statisticsLogRepository: StatisticsLogRepository,
 ) : ViewModel() {
 
     val todayRoutine = routineLogRepository.getTodayLog()
@@ -93,6 +95,7 @@ class HomeViewModel @Inject constructor(
                 it == null || !isTodayRoutineLog(it.date)
             }
             .onEach {
+                it?.let { createLogStatisticsLog(statisticsLogRepository, it) }
                 createRoutineLog(routineLogRepository, todayRoutine)
             }
 }
