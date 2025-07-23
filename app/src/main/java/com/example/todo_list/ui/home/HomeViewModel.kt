@@ -9,7 +9,9 @@ import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.RoutineEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -43,16 +45,24 @@ class HomeViewModel @Inject constructor(
             null
         )
 
+    private val _selectedTab: MutableStateFlow<StatisticsTab> = MutableStateFlow(StatisticsTab.WEEK)
+    private val selectedTab = _selectedTab.asStateFlow()
+
+    val changedTab = { tab: StatisticsTab ->
+        _selectedTab.value = tab
+    }
+
     init {
         createRoutineLog()
         updateRoutineLog()
     }
 
-    fun getRoutineDetails(id: Int) = routineRepository.getRoutineDetail(id).stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000L),
-        emptyList()
-    )
+    fun getRoutineDetails(id: Int) = routineRepository.getRoutineDetail(id)
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000L),
+            emptyList()
+        )
 
     private fun updateRoutineLog() {
         routineRepository.selectAll()
