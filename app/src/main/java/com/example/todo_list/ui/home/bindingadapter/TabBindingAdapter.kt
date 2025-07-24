@@ -1,6 +1,7 @@
-package com.example.todo_list.ui.home
+package com.example.todo_list.ui.home.bindingadapter
 
 import androidx.databinding.BindingAdapter
+import com.example.todo_list.ui.home.utils.StatisticsTab
 import com.google.android.material.tabs.TabLayout
 
 object TabBindingAdapter {

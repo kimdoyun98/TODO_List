@@ -7,7 +7,13 @@ import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.log.StatisticsLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
+import com.example.todo_list.data.room.PeriodRoutineLog
 import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.ui.home.utils.PeriodStatistics
+import com.example.todo_list.ui.home.utils.StatisticsTab
+import com.example.todo_list.ui.home.utils.createLogStatisticsLog
+import com.example.todo_list.ui.home.utils.filterTodayRoutine
+import com.example.todo_list.ui.home.utils.isTodayRoutineLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,6 +24,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,9 +59,27 @@ class HomeViewModel @Inject constructor(
         _selectedTab.value = tab
     }
 
+    private val _periodLog = MutableStateFlow<List<PeriodRoutineLog>>(emptyList())
+    val periodLog = _periodLog.asStateFlow()
+
+    private val _periodStatistics = MutableStateFlow<PeriodStatistics>(PeriodStatistics())
+    val periodStatistics = _periodStatistics.asStateFlow()
+
     init {
         createRoutineLog()
         updateRoutineLog()
+
+        selectedTab
+            .onEach {
+                getPeriodStatisticsLog(it)
+            }
+            .launchIn(viewModelScope)
+
+        periodLog
+            .onEach {
+                updatePeriodStatistics(it)
+            }
+            .launchIn(viewModelScope)
     }
 
     fun getRoutineDetails(id: Int) = routineRepository.getRoutineDetail(id)
@@ -63,6 +88,28 @@ class HomeViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5_000L),
             emptyList()
         )
+
+    private fun updatePeriodStatistics(periodList: List<PeriodRoutineLog>) {
+        val total = periodList.sumOf { it.total }
+        val success = periodList.sumOf { it.success }
+        val fail = total - success
+
+        _periodStatistics.value =
+            PeriodStatistics(total = total, success = success, fail = fail)
+    }
+
+    private suspend fun getPeriodStatisticsLog(tab: StatisticsTab) {
+        val now = LocalDate.now()
+        val end = now.minusDays(1)
+        val start = when (tab) {
+            StatisticsTab.WEEK -> end.minusDays(7)
+            StatisticsTab.MONTH -> end.minusMonths(1)
+            StatisticsTab.HALF_OF_YEAR -> end.minusMonths(6)
+            StatisticsTab.YEAR -> end.minusYears(1)
+        }
+
+        _periodLog.value = statisticsLogRepository.getPeriodLog(start, end)
+    }
 
     private fun updateRoutineLog() {
         routineRepository.selectAll()
@@ -106,6 +153,9 @@ class HomeViewModel @Inject constructor(
             }
             .onEach {
                 it?.let { createLogStatisticsLog(statisticsLogRepository, it) }
-                createRoutineLog(routineLogRepository, todayRoutine)
+                com.example.todo_list.ui.home.utils.createRoutineLog(
+                    routineLogRepository,
+                    todayRoutine
+                )
             }
 }

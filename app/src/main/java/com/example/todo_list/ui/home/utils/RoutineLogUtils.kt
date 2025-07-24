@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.home
+package com.example.todo_list.ui.home.utils
 
 import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.log.StatisticsLogRepository

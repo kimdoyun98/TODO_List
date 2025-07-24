@@ -22,10 +22,10 @@ import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.log.StatisticsLogRepository
 import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.room.RoutineEntity
-import com.example.todo_list.ui.home.createLogStatisticsLog
-import com.example.todo_list.ui.home.createRoutineLog
-import com.example.todo_list.ui.home.filterTodayRoutine
-import com.example.todo_list.ui.home.isTodayRoutineLog
+import com.example.todo_list.ui.home.utils.createLogStatisticsLog
+import com.example.todo_list.ui.home.utils.createRoutineLog
+import com.example.todo_list.ui.home.utils.filterTodayRoutine
+import com.example.todo_list.ui.home.utils.isTodayRoutineLog
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
