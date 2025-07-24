@@ -27,21 +27,6 @@ class HomeRoutineAdapter(
 
         fun bind(routineEntity: RoutineEntity) {
             binding.routineEntity = routineEntity
-            binding.position = when (adapterPosition) {
-                0 -> {
-                    if (currentList.size == 1) SideLine.Position.ONE
-                    else SideLine.Position.START
-                }
-
-                currentList.lastIndex -> {
-                    SideLine.Position.END
-                }
-
-                else -> {
-                    SideLine.Position.MID
-                }
-            }
-
             binding.items = currentList
             binding.index = adapterPosition
         }

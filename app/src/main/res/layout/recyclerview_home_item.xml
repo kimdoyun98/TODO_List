@@ -22,10 +22,6 @@
         <variable
             name="items"
             type="List&lt;RoutineEntity>" />
-
-        <variable
-            name="position"
-            type="com.example.todo_list.ui.view.SideLine.Position" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +30,6 @@
 
         <com.example.todo_list.ui.view.ProgressSideLine
             android:id="@+id/progressSideLine"
-            itemPosition="@{position}"
             android:layout_width="30dp"
             android:layout_height="0dp"
             app:item_index="@{index}"
