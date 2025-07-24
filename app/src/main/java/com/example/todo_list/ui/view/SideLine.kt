@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.routine.view
+package com.example.todo_list.ui.view
 
 import android.content.Context
 import android.content.res.Configuration

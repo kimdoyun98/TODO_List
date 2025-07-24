@@ -1,4 +1,4 @@
-package com.example.todo_list.util
+package com.example.todo_list.ui.view
 
 import android.graphics.Color
 import android.text.SpannableString
@@ -7,8 +7,9 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.util.DateCalculate
 
-object BindingAdapter {
+object TextBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("d-day")
