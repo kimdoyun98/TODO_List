@@ -7,30 +7,41 @@
 
         <import type="android.view.View" />
 
+        <import type="java.util.List" />
+
+        <import type="com.example.todo_list.data.room.RoutineEntity" />
+
         <variable
             name="routineEntity"
             type="com.example.todo_list.data.room.RoutineEntity" />
+
+        <variable
+            name="index"
+            type="Integer" />
+
+        <variable
+            name="items"
+            type="List&lt;RoutineEntity>" />
+
+        <variable
+            name="position"
+            type="com.example.todo_list.ui.view.SideLine.Position" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shadow"
-        android:padding="15dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/routine_done_checked"
-            android:paddingVertical="10dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="0dp"
-            android:src="@drawable/done"
-            android:visibility="@{routineEntity.success ? View.VISIBLE : View.GONE}"
+        <com.example.todo_list.ui.view.ProgressSideLine
+            android:id="@+id/progressSideLine"
+            itemPosition="@{position}"
+            android:layout_width="30dp"
+            android:layout_height="0dp"
+            app:item_index="@{index}"
+            app:items="@{items}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/green" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/recycler_title"
@@ -40,7 +51,7 @@
             android:text="@{routineEntity.title}"
             android:textColor="@color/black"
             android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/progressSideLine"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="테스트" />
 
@@ -55,19 +66,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="00:00" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/routine_detail_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_title"
-            tools:itemCount="4"
-            tools:listitem="@layout/routine_detail_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

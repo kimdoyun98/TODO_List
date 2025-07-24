@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.todo_list.ui.home.HomeViewModel" />
@@ -62,6 +61,8 @@
                 android:id="@+id/today_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/all_side_shadow"
                 android:padding="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"

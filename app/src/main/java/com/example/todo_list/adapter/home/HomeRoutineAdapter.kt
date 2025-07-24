@@ -6,12 +6,11 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
-import com.example.todo_list.adapter.routine.RoutineDetailAdapter
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.databinding.RecyclerviewHomeItemBinding
+import com.example.todo_list.ui.view.SideLine
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class HomeRoutineAdapter(
     private val getRoutineDetails: (Int) -> StateFlow<List<RoutineDetailEntity>>,
@@ -28,14 +27,23 @@ class HomeRoutineAdapter(
 
         fun bind(routineEntity: RoutineEntity) {
             binding.routineEntity = routineEntity
+            binding.position = when (adapterPosition) {
+                0 -> {
+                    if (currentList.size == 1) SideLine.Position.ONE
+                    else SideLine.Position.START
+                }
 
-            val adapter = RoutineDetailAdapter()
-            binding.routineDetailRv.adapter = adapter
-            scope.launch {
-                getRoutineDetails(routineEntity.id).collect { routineDetailList ->
-                    adapter.submitList(routineDetailList.sortedBy { it.number })
+                currentList.lastIndex -> {
+                    SideLine.Position.END
+                }
+
+                else -> {
+                    SideLine.Position.MID
                 }
             }
+
+            binding.items = currentList
+            binding.index = adapterPosition
         }
     }
 
