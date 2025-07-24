@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.databinding.RoutineDetailItemBinding
-import com.example.todo_list.ui.view.Position
+import com.example.todo_list.ui.view.SideLine
 
 class RoutineDetailAdapter :
     ListAdapter<RoutineDetailEntity, RoutineDetailAdapter.RoutineDetailAdapterViewHolder>(
@@ -25,16 +25,16 @@ class RoutineDetailAdapter :
             binding.title = item.title
             binding.position = when (adapterPosition) {
                 0 -> {
-                    if (currentList.size == 1) Position.ONE
-                    else Position.START
+                    if (currentList.size == 1) SideLine.Position.ONE
+                    else SideLine.Position.START
                 }
 
                 currentList.lastIndex -> {
-                    Position.END
+                    SideLine.Position.END
                 }
 
                 else -> {
-                    Position.MID
+                    SideLine.Position.MID
                 }
             }
         }

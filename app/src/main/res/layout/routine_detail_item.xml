@@ -10,7 +10,7 @@
 
         <variable
             name="position"
-            type="com.example.todo_list.ui.view.Position" />
+            type="com.example.todo_list.ui.view.SideLine.Position" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
