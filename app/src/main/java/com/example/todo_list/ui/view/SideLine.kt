@@ -102,8 +102,8 @@ open class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs
         canvas.drawCircle(width / 2F, height / 2F, circleSize.toFloat()-5, paint)
     }
 
-    protected fun settingDrawLine(){
-        paint.color = color ?: lineColor
+    protected fun settingDrawLine(color: Int = this.color ?: lineColor){
+        paint.color = color
         paint.strokeWidth = lineSize.toFloat()
     }
 }
