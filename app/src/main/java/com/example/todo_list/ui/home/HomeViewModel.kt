@@ -1,6 +1,5 @@
 package com.example.todo_list.ui.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.log.RoutineLogRepository
@@ -9,6 +8,7 @@ import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.PeriodRoutineLog
 import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.data.room.RoutineLog
 import com.example.todo_list.ui.home.utils.PeriodStatistics
 import com.example.todo_list.ui.home.utils.StatisticsTab
 import com.example.todo_list.ui.home.utils.createLogStatisticsLog
@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -35,7 +36,11 @@ class HomeViewModel @Inject constructor(
     private val statisticsLogRepository: StatisticsLogRepository,
 ) : ViewModel() {
 
+    private val _todayRoutineLog = MutableStateFlow<RoutineLog?>(null)
+    private val todayRoutineLog = _todayRoutineLog.asStateFlow()
+
     val todayRoutine = routineLogRepository.getTodayLog()
+        .onEach { _todayRoutineLog.value = it }
         .map { it?.routines?.values?.toList() ?: emptyList() }
         .stateIn(
             viewModelScope,
@@ -45,7 +50,6 @@ class HomeViewModel @Inject constructor(
 
     val recentSchedule = scheduleRepository
         .getRecentSchedule()
-        .onEach { Log.e("HomeViewModel", "$it") }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
@@ -82,12 +86,17 @@ class HomeViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    fun getRoutineDetails(id: Int) = routineRepository.getRoutineDetail(id)
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000L),
-            emptyList()
-        )
+    fun updateToRoutine(position: Int, success: Boolean) {
+        viewModelScope.launch {
+            val list = todayRoutine.value.toMutableList()
+            val changeRoutine = todayRoutine.value[position].copy(success = success)
+            list[position] = changeRoutine
+
+            todayRoutineLog.value?.copy(routines = list.associateBy { it.id })?.let {
+                routineLogRepository.update(it)
+            }
+        }
+    }
 
     private fun updatePeriodStatistics(periodList: List<PeriodRoutineLog>) {
         val total = periodList.sumOf { it.total }

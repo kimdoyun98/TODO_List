@@ -14,15 +14,27 @@ class HomeRoutineAdapter : ListAdapter<RoutineEntity, HomeRoutineAdapter.HomeRou
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 ) {
+    private lateinit var onClick: (Int) -> Unit
+
     inner class HomeRoutineViewHolder(
         private val binding: RecyclerviewHomeItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                onClick(adapterPosition)
+            }
+        }
 
         fun bind(routineEntity: RoutineEntity) {
             binding.routineEntity = routineEntity
             binding.items = currentList
             binding.index = adapterPosition
         }
+    }
+
+    fun setClickEvent(onClick: (Int) -> Unit) {
+        this.onClick = onClick
     }
 
     override fun onBindViewHolder(holder: HomeRoutineViewHolder, position: Int) {

@@ -72,4 +72,6 @@
     <string name="half_of_year">6달</string>
     <string name="year">1년</string>
 
+    <string name="success">완료</string>
+    <string name="fail">실패</string>
 </resources>
