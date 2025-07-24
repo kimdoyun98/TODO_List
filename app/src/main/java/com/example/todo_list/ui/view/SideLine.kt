@@ -9,19 +9,19 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.todo_list.R
 
-enum class Position {
-    START, MID, END, ONE
-}
-
-class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs) {
+open class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs), LineDraw {
     private var position: Position? = null
-    private val paint = Paint()
-    private var color: Int? = null
-    private val circleSize: Int
-    private val circleColor: Int
     private val lineSize: Int
     private val lineColor: Int
     private var background = context.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
+    protected val circleColor: Int
+    protected val circleSize: Int
+    protected val paint = Paint()
+    protected var color: Int? = null
+
+    enum class Position {
+        START, MID, END, ONE
+    }
 
     init {
         val attr = context.theme.obtainStyledAttributes(attrs, R.styleable.SideLine, 0, 0)
@@ -62,9 +62,9 @@ class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs) {
         }
     }
 
-    private fun drawLineUp(canvas: Canvas) {
-        paint.color = color ?: lineColor
-        paint.strokeWidth = lineSize.toFloat()
+    override fun drawLineUp(canvas: Canvas) {
+        settingDrawLine()
+
         val x = width / 2F
         val y1 = height / 2F - circleSize
         val y2 = 0F
@@ -72,9 +72,9 @@ class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs) {
         canvas.drawLine(x, y1, x, y2, paint)
     }
 
-    private fun drawLineDown(canvas: Canvas) {
-        paint.color = color ?: lineColor
-        paint.strokeWidth = lineSize.toFloat()
+    override fun drawLineDown(canvas: Canvas) {
+        settingDrawLine()
+
         val x = width / 2F
         val y1 = height / 2F + circleSize
         val y2 = height.toFloat()
@@ -82,10 +82,14 @@ class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs) {
         canvas.drawLine(x, y1, x, y2, paint)
     }
 
-    private fun drawCircle(canvas: Canvas) {
+    override fun drawCircle(canvas: Canvas) {
         paint.color = color ?: circleColor
         canvas.drawCircle(width / 2F, height / 2F, circleSize.toFloat(), paint)
 
+        settingBackgroundCircle(canvas)
+    }
+
+    protected fun settingBackgroundCircle(canvas: Canvas){
         paint.color = when(background){
             Configuration.UI_MODE_NIGHT_YES -> {
                 Color.BLACK
@@ -97,4 +101,10 @@ class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         canvas.drawCircle(width / 2F, height / 2F, circleSize.toFloat()-5, paint)
     }
+
+    protected fun settingDrawLine(){
+        paint.color = color ?: lineColor
+        paint.strokeWidth = lineSize.toFloat()
+    }
 }
+
