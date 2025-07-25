@@ -34,7 +34,7 @@ class Converter {
 
     @TypeConverter
     fun jsonToMap(value: String): Map<Int, RoutineEntity>? {
-        return Gson().fromJson(value, object : TypeToken<Map<String, RoutineEntity>>() {}.type)
+        return Gson().fromJson(value, object : TypeToken<Map<Int, RoutineEntity>>() {}.type)
     }
 
     private fun String.toLocalDate(): LocalDate = LocalDate
