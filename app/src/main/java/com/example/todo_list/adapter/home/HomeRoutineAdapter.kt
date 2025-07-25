@@ -2,18 +2,12 @@ package com.example.todo_list.adapter.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.databinding.RecyclerviewHomeItemBinding
 
-class HomeRoutineAdapter : ListAdapter<RoutineEntity, HomeRoutineAdapter.HomeRoutineViewHolder>(
-    ItemDiffCallback(
-        onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-        onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
-    )
-) {
+class HomeRoutineAdapter : RecyclerView.Adapter<HomeRoutineAdapter.HomeRoutineViewHolder>() {
+    private var currentList: List<RoutineEntity> = emptyList()
     private lateinit var onClick: (Int) -> Unit
 
     inner class HomeRoutineViewHolder(
@@ -33,12 +27,17 @@ class HomeRoutineAdapter : ListAdapter<RoutineEntity, HomeRoutineAdapter.HomeRou
         }
     }
 
+    fun submitList(list: List<RoutineEntity>){
+        this.currentList = list
+        notifyDataSetChanged()
+    }
+
     fun setClickEvent(onClick: (Int) -> Unit) {
         this.onClick = onClick
     }
 
     override fun onBindViewHolder(holder: HomeRoutineViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(currentList[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRoutineViewHolder {
@@ -50,4 +49,6 @@ class HomeRoutineAdapter : ListAdapter<RoutineEntity, HomeRoutineAdapter.HomeRou
             )
         )
     }
+
+    override fun getItemCount(): Int = currentList.size
 }
