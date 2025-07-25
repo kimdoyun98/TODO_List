@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -88,11 +89,11 @@ class HomeViewModel @Inject constructor(
 
     fun updateToRoutine(position: Int, success: Boolean) {
         viewModelScope.launch {
-            val list = todayRoutine.value.toMutableList()
-            val changeRoutine = todayRoutine.value[position].copy(success = success)
-            list[position] = changeRoutine
+            val newRoutinesMap = todayRoutineLog.value!!.routines!!.toMutableMap()
+            val updateRoutine = todayRoutine.value[position].copy(success = success)
+            newRoutinesMap[updateRoutine.id] = updateRoutine
 
-            todayRoutineLog.value?.copy(routines = list.associateBy { it.id })?.let {
+            todayRoutineLog.value?.copy(routines = newRoutinesMap)?.let {
                 routineLogRepository.update(it)
             }
         }
@@ -134,13 +135,17 @@ class HomeViewModel @Inject constructor(
 
     private fun updateRoutineLog(todayRoutine: List<RoutineEntity>) =
         routineLogRepository.getTodayLog()
-            .filter { isTodayRoutineLog(it?.date) }
+            .filterNotNull()
+            .filter { isTodayRoutineLog(it.date) && todayRoutine.size != it.routines?.size }
             .onEach { routineLog ->
-                if (routineLog != null) {
-                    routineLogRepository.update(
-                        routineLog.copy(routines = todayRoutine.associateBy { it.id })
-                    )
+                val newRoutinesMap = routineLog.routines!!.toMutableMap()
+                todayRoutine.forEach { entity ->
+                    newRoutinesMap.getOrPut(entity.id) { entity }
                 }
+
+                routineLogRepository.update(
+                    routineLog.copy(routines = newRoutinesMap)
+                )
             }
 
     private fun createRoutineLog() {
