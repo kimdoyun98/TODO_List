@@ -71,7 +71,7 @@ class ScheduleAddViewModel @Inject constructor(
         return ScheduleEntity(
             title = title.value,
             start_date = LocalDate.parse(date.value),
-            end_date = LocalDate.parse(endDate.value),
+            end_date = if(endDateState.value) LocalDate.parse(endDate.value) else LocalDate.parse(date.value),
             color = getRandomColor()
         )
     }
