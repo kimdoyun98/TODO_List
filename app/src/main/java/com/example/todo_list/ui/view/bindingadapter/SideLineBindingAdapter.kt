@@ -1,7 +1,9 @@
-package com.example.todo_list.ui.view
+package com.example.todo_list.ui.view.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import com.example.todo_list.data.room.RoutineEntity
+import com.example.todo_list.ui.view.sideline.ProgressSideLine
+import com.example.todo_list.ui.view.sideline.SideLine
 
 object SideLineBindingAdapter {
     @JvmStatic

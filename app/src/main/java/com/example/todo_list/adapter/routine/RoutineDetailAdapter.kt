@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.databinding.RoutineDetailItemBinding
-import com.example.todo_list.ui.view.SideLine
 
 class RoutineDetailAdapter :
     ListAdapter<RoutineDetailEntity, RoutineDetailAdapter.RoutineDetailAdapterViewHolder>(

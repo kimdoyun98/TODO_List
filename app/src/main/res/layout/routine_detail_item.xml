@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp">
 
-        <com.example.todo_list.ui.view.SideLine
+        <com.example.todo_list.ui.view.sideline.SideLine
             android:id="@+id/sideLine"
             android:layout_width="30dp"
             android:layout_height="30dp"

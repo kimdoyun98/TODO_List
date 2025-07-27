@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.view
+package com.example.todo_list.ui.view.bindingadapter
 
 import android.graphics.Color
 import android.text.SpannableString

@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.view
+package com.example.todo_list.ui.view.sideline
 
 import android.content.Context
 import android.graphics.Canvas
