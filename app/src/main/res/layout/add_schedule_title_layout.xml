@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
             type="com.example.todo_list.ui.schedule.add.ScheduleTitleFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.todo_list.ui.schedule.add.ScheduleAddViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:onBackClick="@{fragment.finish}"
             app:title="제목 입력" />
 
         <TextView
@@ -42,6 +48,7 @@
             android:autofillHints="Schedule Title"
             android:hint="@string/title"
             android:inputType="text"
+            app:onQueryTextChange="@{viewModel.titleChanged}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +59,7 @@
             style="@style/NextButtonStyle"
             android:layout_width="match_parent"
             android:layout_margin="20dp"
+            android:enabled="@{viewModel.title.isBlank() ? false : true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

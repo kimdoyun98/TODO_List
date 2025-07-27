@@ -10,9 +10,9 @@
     </style>
 
     <style name="NextButtonStyle" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/next_button_bg</item>
+        <item name="android:background">@drawable/next_button_selector</item>
         <item name="android:text">@string/next</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@drawable/add_button_text_color_selector</item>
         <item name="android:textSize">@dimen/next_button_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_height">@dimen/next_button_height</item>
