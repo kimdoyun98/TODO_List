@@ -18,7 +18,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     val openDialog = { position: Int, title: String?, context: Context ->
         val dialog = Dialog(context)
         dialog.apply {
-            setContentView(R.layout.routine_state_dialog_layout)
+            setContentView(R.layout.dialog_routine_state_layout)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
