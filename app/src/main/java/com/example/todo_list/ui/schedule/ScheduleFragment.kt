@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.fragment.app.viewModels
 import com.example.todo_list.adapter.schedule.ScheduleAdapter
 import com.example.todo_list.databinding.FragmentScheduleBinding
-import com.example.todo_list.ui.schedule.DetailActivity.Companion.SCHEDULE_ENTITY
 import com.example.todo_list.ui.schedule.add.ScheduleRegisterActivity
 import com.example.todo_list.ui.util.BottomSheetDialog
 import com.example.todo_list.ui.util.Category
@@ -31,9 +30,7 @@ class ScheduleFragment :
                     entity = scheduleEntity,
                     category = Category.SCHEDULE,
                     onClickUpdate = {
-                        val intent = Intent(requireContext(), DetailActivity::class.java)
-                        intent.putExtra(SCHEDULE_ENTITY, scheduleEntity)
-                        startActivity(intent)
+                        //TODO Update
                     },
                     onClickDelete = { viewModel.delete(scheduleEntity.id) },
                     onClickDone = { viewModel.success(scheduleEntity.id) }

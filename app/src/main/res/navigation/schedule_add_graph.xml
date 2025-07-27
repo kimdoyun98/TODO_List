@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule_add_graph"
+    app:startDestination="@id/schedule_add_title">
+
+    <fragment
+        android:id="@+id/schedule_add_title"
+        android:name="com.example.todo_list.ui.schedule.add.ScheduleTitleFragment"
+        android:label="schedule_add_title"
+        tools:layout="@layout/add_schedule_title_layout" >
+    </fragment>
+</navigation>
