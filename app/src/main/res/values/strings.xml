@@ -75,4 +75,7 @@
     <string name="total">전체</string>
     <string name="success">완료</string>
     <string name="fail">실패</string>
+
+    <string name="next">다음</string>
+    <string name="add_schedule_title">추가 할 스케줄의 제목을 입력해주세요.</string>
 </resources>

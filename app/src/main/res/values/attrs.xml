@@ -7,4 +7,8 @@
         <attr name="lineColor" format="color"/>
         <attr name="lineSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="AddTopBar">
+        <attr name="title" format="string|reference"/>
+    </declare-styleable>
 </resources>

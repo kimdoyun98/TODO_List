@@ -2,4 +2,8 @@
 <resources>
     <dimen name="routine_not_success_padding">15dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="next_button_text_size">18sp</dimen>
+    <dimen name="next_button_height">55dp</dimen>
+    <dimen name="add_title_text">25sp</dimen>
+    <dimen name="add_title_text_width">260dp</dimen>
 </resources>
