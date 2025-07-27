@@ -18,4 +18,9 @@ class ScheduleDateFragment :
         binding.viewModel = viewModel
         navController = findNavController()
     }
+
+    fun register(){
+        viewModel.insert()
+        activity?.finish()
+    }
 }
