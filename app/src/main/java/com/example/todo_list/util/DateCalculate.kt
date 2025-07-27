@@ -1,5 +1,6 @@
 package com.example.todo_list.util
 
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
@@ -12,22 +13,24 @@ object DateCalculate {
     fun getDDayString(date: LocalDate?): String {
         if (date == null) return "기간 없음"
 
-        val endDate = date.calculateFormat()
+        val formatDate = date.calculateFormat()
+        val endDate = SimpleDateFormat("yyyyMMdd").parse(formatDate).time
         val today = selectionFormatter.format(LocalDate.now())
 
-        return if (today == endDate) "D-Day"
-        else if (today.toInt() > endDate.toInt()) "기간 지남"
-        else "D-${(endDate.toInt() - todayDate) / (24 * 60 * 60 * 1000) + 1}"
+        return if (today == formatDate) "D-Day"
+        else if (today.toInt() > formatDate.toInt()) "기간 지남"
+        else "D-${(endDate - todayDate) / (24 * 60 * 60 * 1000) + 1}"
     }
 
     fun getDDay(date: LocalDate?): Long {
         if (date == null) return -1
 
-        val endDate = date.calculateFormat()
+        val formatDate = date.calculateFormat()
+        val endDate = SimpleDateFormat("yyyyMMdd").parse(formatDate).time
         val today = selectionFormatter.format(LocalDate.now())
-        val day = (endDate.toInt() - todayDate) / (24 * 60 * 60 * 1000) + 1
+        val day = (endDate - todayDate) / (24 * 60 * 60 * 1000) + 1
 
-        return if (today.toInt() > endDate.toInt() || day < 0) -1 else day
+        return if (today.toInt() > formatDate.toInt() || day < 0) -1 else day
     }
 
     fun isWeekSchedule(date: LocalDate?): Boolean {
@@ -46,7 +49,7 @@ object DateCalculate {
         return this.format(formatter)
     }
 
-    fun LocalDate.calculateFormat(): String {
+    private fun LocalDate.calculateFormat(): String {
         return selectionFormatter.format(this)
     }
 }
