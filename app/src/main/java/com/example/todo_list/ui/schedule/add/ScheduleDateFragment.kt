@@ -1,17 +1,22 @@
 package com.example.todo_list.ui.schedule.add
 
+import android.content.Context
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.example.todo_list.R
 import com.example.todo_list.databinding.AddScheduleDateLayoutBinding
 import com.example.todo_list.ui.util.basefragment.DataBindingFragment
 
 class ScheduleDateFragment :
     DataBindingFragment<AddScheduleDateLayoutBinding>(AddScheduleDateLayoutBinding::inflate) {
     private val viewModel: ScheduleAddViewModel by activityViewModels()
+    private lateinit var callback: OnBackPressedCallback
     private lateinit var navController: NavController
-    val backButton = { navController.navigate(R.id.action_schedule_add_date_to_schedule_add_title) }
+    val backButton = {
+        navController.popBackStack()
+        Unit
+    }
 
     override fun initView() {
         binding.fragment = this
@@ -19,7 +24,22 @@ class ScheduleDateFragment :
         navController = findNavController()
     }
 
-    fun register(){
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
+
+    fun register() {
         viewModel.insert()
         activity?.finish()
     }
