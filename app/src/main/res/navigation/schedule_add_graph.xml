@@ -10,5 +10,18 @@
         android:name="com.example.todo_list.ui.schedule.add.ScheduleTitleFragment"
         android:label="schedule_add_title"
         tools:layout="@layout/add_schedule_title_layout" >
+        <action
+            android:id="@+id/action_schedule_add_title_to_schedule_add_date"
+            app:destination="@id/schedule_add_date" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/schedule_add_date"
+        android:name="com.example.todo_list.ui.schedule.add.ScheduleDateFragment"
+        android:label="schedule_add_date"
+        tools:layout="@layout/add_schedule_date_layout">
+        <action
+            android:id="@+id/action_schedule_add_date_to_schedule_add_title"
+            app:destination="@id/schedule_add_title" />
     </fragment>
 </navigation>

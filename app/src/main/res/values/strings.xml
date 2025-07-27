@@ -78,4 +78,5 @@
 
     <string name="next">다음</string>
     <string name="add_schedule_title">추가 할 스케줄의 제목을 입력해주세요.</string>
+    <string name="add_schedule_date">날짜를 입력해주세요.</string>
 </resources>
