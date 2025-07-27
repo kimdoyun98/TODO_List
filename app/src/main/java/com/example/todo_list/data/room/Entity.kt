@@ -12,11 +12,10 @@ data class ScheduleEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String?,
-    val content: String?,
-    val start_date: String?,
-    val deadline_date: String?,
+    val start_date: LocalDate?,
+    val end_date: LocalDate?,
     val color: Int?,
-    @ColumnInfo(defaultValue = "false") val success: Boolean?
+    val success: Boolean? = false
 ) : Serializable
 
 @Entity

@@ -49,7 +49,7 @@ class ScheduleFragment :
                     ScheduleViewModel.DEADLINE -> {
                         adapter.submitList(
                             list
-                                .sortedByDescending { it.deadline_date }
+                                .sortedByDescending { it.end_date }
                                 .reversed()
                         )
                     }

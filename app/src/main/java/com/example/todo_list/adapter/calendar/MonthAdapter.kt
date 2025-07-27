@@ -71,10 +71,10 @@ class MonthAdapter(
 
         private fun filterToMonth(year: Int, month: Int): List<ScheduleEntity> {
             return schedule.filter {
-                val scheduleStartYear = it.start_date?.substring(0, 4)?.toInt()
-                val scheduleStartMonth = it.start_date?.substring(4, 6)?.toInt()
-                val scheduleEndYear = it.deadline_date?.substring(0, 4)?.toInt()
-                val scheduleEndMonth = it.deadline_date?.substring(4, 6)?.toInt()
+                val scheduleStartYear = it.start_date?.year
+                val scheduleStartMonth = it.start_date?.monthValue
+                val scheduleEndYear = it.end_date?.year
+                val scheduleEndMonth = it.end_date?.monthValue
 
                 (scheduleStartYear == year && scheduleStartMonth == month)
                         || (scheduleEndYear == year && scheduleEndMonth == month)

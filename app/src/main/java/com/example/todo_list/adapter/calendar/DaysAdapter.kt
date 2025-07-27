@@ -53,8 +53,8 @@ class DaysAdapter(
             val day = dayList[position]?.date!!
             val checked = Array<Boolean>(4) { false }
             val todaySchedule = schedule.filter {
-                val startDate = it.start_date?.substring(6, 8)?.toInt()!!
-                val endDate = it.deadline_date?.substring(6, 8)?.toInt()!!
+                val startDate = it.start_date?.dayOfMonth!!
+                val endDate = it.end_date?.dayOfMonth!!
 
                 day in startDate..endDate
             }
@@ -88,15 +88,15 @@ class DaysAdapter(
                 else -> binding.schedule4
             }
 
-            if (schedule.start_date == schedule.deadline_date) {
+            if (schedule.start_date == schedule.end_date) {
                 view.setBackgroundResource(R.drawable.calendar_schedule_single)
                 val drawable: GradientDrawable = view.background as GradientDrawable
                 drawable.setColor(schedule.color!!)
                 return
             }
 
-            val startDate = schedule.start_date?.substring(6, 8)?.toInt()!!
-            val endDate = schedule.deadline_date?.substring(6, 8)?.toInt()!!
+            val startDate = schedule.start_date?.dayOfMonth!!
+            val endDate = schedule.end_date?.dayOfMonth!!
             if (startDate == day) {
                 view.setBackgroundResource(R.drawable.calendar_schedule_multi_start)
                 val drawable: GradientDrawable = view.background as GradientDrawable

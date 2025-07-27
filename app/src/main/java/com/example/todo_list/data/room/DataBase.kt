@@ -18,7 +18,7 @@ import com.example.todo_list.data.room.dao.StatisticsLogDAO
         RoutineLog::class,
         StatisticsLog::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converter::class)

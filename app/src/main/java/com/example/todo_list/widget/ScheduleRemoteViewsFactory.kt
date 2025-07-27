@@ -35,10 +35,10 @@ class ScheduleRemoteViewsFactory(
             weekSchedule.collect { scheduleList ->
                 val weekSchedule = scheduleList
                     .filter {
-                        dateCalculate.isWeekSchedule(it.deadline_date)
+                        dateCalculate.isWeekSchedule(it.end_date)
                     }
                     .sortedBy {
-                        dateCalculate.getDDay(it.deadline_date)
+                        dateCalculate.getDDay(it.end_date)
                     }
 
                 widgetScheduleData = WidgetScheduleData.Schedule(weekSchedule)
@@ -52,10 +52,10 @@ class ScheduleRemoteViewsFactory(
             weekSchedule.collect { scheduleList ->
                 val weekSchedule = scheduleList
                     .filter {
-                        dateCalculate.isWeekSchedule(it.deadline_date)
+                        dateCalculate.isWeekSchedule(it.end_date)
                     }
                     .sortedBy {
-                        dateCalculate.getDDay(it.deadline_date)
+                        dateCalculate.getDDay(it.end_date)
                     }
 
                 widgetScheduleData = WidgetScheduleData.Schedule(weekSchedule)
@@ -84,7 +84,7 @@ class ScheduleRemoteViewsFactory(
                 listviewWidget.setTextViewText(
                     R.id.widget_schedule_day_tv,
                     dateCalculate.getDDayString(
-                        (widgetScheduleData as WidgetScheduleData.Schedule).data[position].deadline_date
+                        (widgetScheduleData as WidgetScheduleData.Schedule).data[position].end_date
                     )
                 )
             }

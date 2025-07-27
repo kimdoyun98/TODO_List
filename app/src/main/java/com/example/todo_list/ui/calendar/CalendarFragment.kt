@@ -41,10 +41,10 @@ class CalendarFragment :
     private suspend fun setCalendarScheduleData(scheduleList: List<ScheduleEntity>) {
         binding.calendar.currentDate.collect { currentDate ->
             val currentSchedule = scheduleList.filter {
-                val scheduleStartYear = it.start_date?.substring(0, 4)?.toInt()
-                val scheduleStartMonth = it.start_date?.substring(4, 6)?.toInt()
-                val scheduleEndYear = it.deadline_date?.substring(0, 4)?.toInt()
-                val scheduleEndMonth = it.deadline_date?.substring(4, 6)?.toInt()
+                val scheduleStartYear = it.start_date?.year
+                val scheduleStartMonth = it.start_date?.monthValue
+                val scheduleEndYear = it.end_date?.year
+                val scheduleEndMonth = it.end_date?.monthValue
 
                 (scheduleStartYear == currentDate?.year && scheduleStartMonth == currentDate?.month)
                         || (scheduleEndYear == currentDate?.year && scheduleEndMonth == currentDate?.month)
