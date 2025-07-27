@@ -46,7 +46,6 @@
     <string name="optional_field">선택 사항</string>
     <string name="detail_content">상세 내용</string>
     <string name="period">기간</string>
-    <string name="date_type">YYYYMMDD</string>
     <string name="tilde">~</string>
     <string name="recent_sort">최신순</string>
     <string name="deadline_sort">마감순</string>
@@ -79,4 +78,9 @@
     <string name="next">다음</string>
     <string name="add_schedule_title">추가 할 스케줄의 제목을 입력해주세요.</string>
     <string name="add_schedule_date">날짜를 입력해주세요.</string>
+
+    <string name="start_date">시작일</string>
+    <string name="end_date">종료일</string>
+    <string name="date_type">YYYY-MM-DD</string>
+    <string name="add_end_date">당일 일정이 아니신가요?</string>
 </resources>

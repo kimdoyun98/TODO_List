@@ -1,5 +1,6 @@
 package com.example.todo_list.ui.schedule.add
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
@@ -7,7 +8,12 @@ import com.example.todo_list.data.room.ScheduleEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,9 +23,61 @@ class ScheduleAddViewModel @Inject constructor(
     private val _title = MutableStateFlow("")
     val title = _title.asStateFlow()
 
+    private val _endDateState = MutableStateFlow(false)
+    val endDateState = _endDateState.asStateFlow()
+
+    private val _date = MutableStateFlow("")
+    val date = _date.asStateFlow()
+
+    private val _endDate = MutableStateFlow("")
+    val endDate = _endDate.asStateFlow()
+
+    private val _registerButtonEnabled = MutableStateFlow(false)
+    val registerButtonEnabled = _registerButtonEnabled.asStateFlow()
+
     val titleChanged = { title: String -> _title.value = title }
+    val dateChanged = { date: String -> _date.value = date }
+    val endDateChanged = { date: String -> _endDate.value = date }
 
-    fun insert(scheduleEntity: ScheduleEntity) =
-        viewModelScope.launch { repository.insert(scheduleEntity) }
+    init {
+        date
+            .onEach {
+                if (it.length < 10) _registerButtonEnabled.value = false
+            }
+            .filter { it.length == 10 }
+            .flatMapLatest { endDateState }
+            .onEach {
+                if (!it) _registerButtonEnabled.value = true
+            }
+            .filter { it }
+            .flatMapLatest { endDate }
+            .onEach {
+                _registerButtonEnabled.value = it.length == 10
+            }
+            .launchIn(viewModelScope)
+    }
 
+    fun endDateStateChanged() {
+        _endDateState.value = true
+    }
+
+    fun insert() {
+        viewModelScope.launch {
+            repository.insert(convertScheduleEntity())
+        }
+    }
+
+    private fun convertScheduleEntity(): ScheduleEntity {
+        return ScheduleEntity(
+            title = title.value,
+            start_date = LocalDate.parse(date.value),
+            end_date = LocalDate.parse(endDate.value),
+            color = getRandomColor()
+        )
+    }
+
+    private fun getRandomColor(): Int {
+        val range = (0..255)
+        return Color.argb(255, range.random(), range.random(), range.random())
+    }
 }

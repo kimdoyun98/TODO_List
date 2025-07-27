@@ -8,15 +8,23 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.util.DateCalculate
+import com.example.todo_list.util.DateCalculate.entityFormat
+import java.time.LocalDate
 
 object TextBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("d-day")
-    fun setDDayText(view: TextView, date: String?) {
+    fun setDDayText(view: TextView, date: LocalDate?) {
         date?.let {
             view.text = DateCalculate.getDDayString(date)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("date")
+    fun dateText(view: TextView, date: LocalDate?) {
+        view.text = date?.entityFormat()
     }
 
     @JvmStatic
