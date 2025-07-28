@@ -20,7 +20,7 @@
     </style>
 
     <style name="TimePickerStyle">
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textColorPrimary">@color/purple_200</item>
         <item name="colorControlNormal">@android:color/transparent</item>
     </style>
