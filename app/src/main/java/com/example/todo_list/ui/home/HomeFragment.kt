@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.viewModels
 import com.example.todo_list.R
 import com.example.todo_list.databinding.FragmentHomeBinding
+import com.example.todo_list.ui.util.StateDialog
 import com.example.todo_list.ui.util.basefragment.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,28 +17,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: HomeViewModel by viewModels()
     val openDialog = { position: Int, title: String?, context: Context ->
-        val dialog = Dialog(context)
-        dialog.apply {
-            setContentView(R.layout.dialog_routine_state_layout)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
-
-        val content = dialog.findViewById<TextView>(R.id.content_tv)
-        val failButton = dialog.findViewById<AppCompatButton>(R.id.fail_bt)
-        val successButton = dialog.findViewById<AppCompatButton>(R.id.success_bt)
-
-        content.text = title
-        failButton.setOnClickListener {
-            viewModel.updateToRoutine(position, false)
-            dialog.dismiss()
-        }
-
-        successButton.setOnClickListener {
-            viewModel.updateToRoutine(position, true)
-            dialog.dismiss()
-        }
-
-        dialog.show()
+        StateDialog.showDialog(
+            context = context,
+            title = title,
+            onClickPositiveButton = { viewModel.updateToRoutine(position, true) },
+            onClickNegativeButton = { viewModel.updateToRoutine(position, false) }
+        )
     }
 
     override fun initView() {
