@@ -10,11 +10,11 @@ object RoutinesBindingAdapter {
     private val adapter = HomeRoutineAdapter()
 
     @JvmStatic
-    @BindingAdapter("app:adapter", "app:onClick")
+    @BindingAdapter("app:items", "app:onClick")
     fun setAdapterRecyclerView(
         view: RecyclerView,
         items: List<RoutineEntity>,
-        onClick: (Int, String?, Context) -> Unit
+        onClick: (Int, String?, Context) -> Any
     ) {
         view.adapter = adapter
         adapter.setClickEvent { position ->

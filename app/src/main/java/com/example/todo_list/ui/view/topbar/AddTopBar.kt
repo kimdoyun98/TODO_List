@@ -11,7 +11,7 @@ import com.example.todo_list.databinding.AddTopBarLayoutBinding
 class AddTopBar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding: AddTopBarLayoutBinding =
         AddTopBarLayoutBinding.inflate(LayoutInflater.from(context), this, true)
-    private lateinit var onBackButtonClick: () -> Unit?
+    private lateinit var onBackButtonClick: () -> Any
 
     init {
         val attr = context.theme.obtainStyledAttributes(attrs, R.styleable.AddTopBar, 0, 0)
@@ -22,14 +22,14 @@ class AddTopBar(context: Context, attrs: AttributeSet) : ConstraintLayout(contex
         }
     }
 
-    fun setOnClickListener(onClick: () -> Unit?){
+    fun setOnClickListener(onClick: () -> Any) {
         onBackButtonClick = onClick
     }
 
-    object AddTopBarBindingAdapter{
+    object AddTopBarBindingAdapter {
         @JvmStatic
         @BindingAdapter("app:onBackClick")
-        fun setBackButtonClick(view: AddTopBar, onClick: () -> Unit?){
+        fun setBackButtonClick(view: AddTopBar, onClick: () -> Any) {
             view.setOnClickListener(onClick)
         }
     }

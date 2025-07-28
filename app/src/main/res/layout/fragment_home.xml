@@ -69,7 +69,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:background="@drawable/all_side_shadow"
                 android:padding="10dp"
-                app:adapter="@{viewModel.todayRoutine}"
+                app:items="@{viewModel.todayRoutine}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

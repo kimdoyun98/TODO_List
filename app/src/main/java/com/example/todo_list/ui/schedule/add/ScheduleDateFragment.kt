@@ -15,7 +15,6 @@ class ScheduleDateFragment :
     private lateinit var navController: NavController
     val backButton = {
         navController.popBackStack()
-        Unit
     }
 
     override fun initView() {
