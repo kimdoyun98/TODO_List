@@ -22,4 +22,7 @@ interface RoutineLogDAO {
 
     @Query("SELECT * FROM ROUTINELOG ORDER BY id DESC LIMIT 1")
     fun getTodayLog(): Flow<RoutineLog?>
+
+    @Query("SELECT * FROM ROUTINELOG WHERE date = :date")
+    fun getWidgetTodayLog(date: LocalDate): RoutineLog?
 }

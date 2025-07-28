@@ -24,4 +24,8 @@ class RoutineLogRepositoryImpl @Inject constructor(
     override fun getTodayLog(): Flow<RoutineLog?> {
         return routineLogDAO.getTodayLog()
     }
+
+    override suspend fun getWidgetTodayLog(date: LocalDate): RoutineLog? {
+        return routineLogDAO.getWidgetTodayLog(date)
+    }
 }

@@ -1,69 +1,41 @@
-package com.example.todo_list.widget
+package com.example.todo_list.widget.routine
 
 import android.content.Context
 import android.graphics.Color
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.todo_list.R
-import com.example.todo_list.data.repository.routine.RoutineRepository
+import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.room.RoutineEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.Calendar
+import java.time.LocalDate
 
 
 class RoutineRemoteViewsFactory(
     private val context: Context,
-    private val repo: RoutineRepository
+    private val repository: RoutineLogRepository
 ) : RemoteViewsService.RemoteViewsFactory {
     private var widgetRoutineData: WidgetRoutineData = WidgetRoutineData.IsEmptyRoutine()
     private var scope = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
-    private val allRoutine = repo.selectAll()
-        .stateIn(
-            scope,
-            SharingStarted.WhileSubscribed(5_000L),
-            emptyList()
-        )
 
     override fun onCreate() {
-        job = scope.launch {
-            allRoutine.collect { routineList ->
-                val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-                val todayRoutine = routineList
-                    .filter {
-                        it.day?.get(today - 1) ?: false
-                    }.sortedBy {
-                        it.time
-                    }
 
-                widgetRoutineData =
-                    if (todayRoutine.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutine)
-                    else WidgetRoutineData.IsEmptyRoutine()
-            }
-        }
     }
 
     override fun onDataSetChanged() {
         widgetRoutineData = WidgetRoutineData.Idle
         job = scope.launch {
-            allRoutine.collect { routineList ->
-                val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-                val todayRoutine = routineList
-                    .filter {
-                        it.day?.get(today - 1) ?: false
-                    }.sortedBy {
-                        it.time
-                    }
+            val routineLog = repository.getWidgetTodayLog(LocalDate.now())
+            val routines = routineLog?.routines?.values?.toList() ?: emptyList()
 
-                widgetRoutineData =
-                    if (todayRoutine.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutine)
-                    else WidgetRoutineData.IsEmptyRoutine()
-            }
+            val todayRoutines = routines.sortedBy { it.time }
+            widgetRoutineData =
+                if (todayRoutines.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutines)
+                else WidgetRoutineData.IsEmptyRoutine()
         }
     }
 
@@ -86,11 +58,11 @@ class RoutineRemoteViewsFactory(
     }
 
     override fun getViewAt(position: Int): RemoteViews {
-        val listviewWidget = RemoteViews(context.packageName, R.layout.todo_widget_routine_item)
+        val listviewWidget = RemoteViews(context.packageName, R.layout.widget_routine_item)
         when (widgetRoutineData) {
             is WidgetRoutineData.IsEmptyRoutine -> {
                 listviewWidget.setTextViewText(
-                    R.id.widget_routine,
+                    R.id.widget_routine_title,
                     (widgetRoutineData as WidgetRoutineData.IsEmptyRoutine).data[position]
                 )
             }
@@ -100,7 +72,7 @@ class RoutineRemoteViewsFactory(
                     (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position]
 
                 listviewWidget.setTextViewText(
-                    R.id.widget_routine,
+                    R.id.widget_routine_title,
                     routineData.title
                 )
 
@@ -110,17 +82,17 @@ class RoutineRemoteViewsFactory(
                 )
 
                 if (routineData.success == true) {
-                    listviewWidget.setTextColor(R.id.widget_routine, Color.GRAY)
+                    listviewWidget.setTextColor(R.id.widget_routine_title, Color.GRAY)
                     listviewWidget.setTextColor(R.id.widget_routine_time, Color.GRAY)
                 } else {
-                    listviewWidget.setTextColor(R.id.widget_routine, Color.WHITE)
+                    listviewWidget.setTextColor(R.id.widget_routine_title, Color.WHITE)
                     listviewWidget.setTextColor(R.id.widget_routine_time, Color.WHITE)
                 }
             }
 
             else -> {
                 listviewWidget.setTextViewText(
-                    R.id.widget_routine,
+                    R.id.widget_routine_title,
                     NOT_LOADING
                 )
             }
@@ -130,7 +102,7 @@ class RoutineRemoteViewsFactory(
     }
 
     override fun getLoadingView(): RemoteViews {
-        return RemoteViews(context.packageName, R.layout.todo_widget_loading)
+        return RemoteViews(context.packageName, R.layout.widget_loading)
     }
 
     override fun getViewTypeCount(): Int {

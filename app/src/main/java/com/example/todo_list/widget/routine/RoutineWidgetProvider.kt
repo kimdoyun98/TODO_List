@@ -1,4 +1,4 @@
-package com.example.todo_list.widget
+package com.example.todo_list.widget.routine
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -6,22 +6,19 @@ import android.content.Context
 import android.widget.RemoteViews
 import com.example.todo_list.R
 
-class TodoAppWidgetProvider : AppWidgetProvider() {
+class RoutineWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(
         context: Context?,
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-        val todoWidgetHelper =
-            TodoWidgetHelper(context, RemoteViews(context?.packageName, R.layout.todo_widget))
+        val routineWidgetHelper =
+            RoutineWidgetHelper(context, RemoteViews(context?.packageName, R.layout.widget_routine))
                 .setTodayRoutine()
-                .setWeekSchedule()
-                .setTodayDate()
                 .setOnClickWidget()
 
-        appWidgetManager?.updateAppWidget(appWidgetIds, todoWidgetHelper.widget)
+        appWidgetManager?.updateAppWidget(appWidgetIds, routineWidgetHelper.widget)
         appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_routine_lv)
-        appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_schedule_lv)
     }
 }

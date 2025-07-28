@@ -42,7 +42,7 @@
             tools:node="remove"/>
 
         <receiver
-            android:name=".widget.TodoAppWidgetProvider"
+            android:name=".widget.routine.RoutineWidgetProvider"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

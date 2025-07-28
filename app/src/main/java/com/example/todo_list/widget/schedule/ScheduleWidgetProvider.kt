@@ -3,6 +3,7 @@ package com.example.todo_list.widget.schedule
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.util.Log
 import android.widget.RemoteViews
 import com.example.todo_list.R
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
@@ -29,7 +30,7 @@ class ScheduleWidgetProvider : AppWidgetProvider() {
         appWidgetIds: IntArray?
     ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-
+        Log.e("Schedule Widget", "onUpdate")
         job = scope.launch {
             val recentSchedule = repository.getWidgetRecentSchedule()
             val title = recentSchedule?.title ?: "일정 없음"
