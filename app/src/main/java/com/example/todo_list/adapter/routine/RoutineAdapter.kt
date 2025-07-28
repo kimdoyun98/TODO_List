@@ -2,26 +2,26 @@ package com.example.todo_list.adapter.routine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.databinding.RecyclerviewCycleItemBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class RoutineAdapter(
-    private val showDialog: (RoutineEntity) -> Unit,
-    private val getRoutineDetails: (Int) -> StateFlow<List<RoutineDetailEntity>>,
-    private val scope: LifecycleCoroutineScope
-) : ListAdapter<RoutineEntity, RoutineAdapter.RoutineViewHolder>(
+class RoutineAdapter : ListAdapter<RoutineEntity, RoutineAdapter.RoutineViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 ) {
+    private lateinit var onClick: (RoutineEntity) -> Any
+    private lateinit var getRoutineDetails: (Int) -> StateFlow<List<RoutineDetailEntity>>
+    private lateinit var scope: CoroutineScope
+
     inner class RoutineViewHolder(
         private val binding: RecyclerviewCycleItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -29,7 +29,7 @@ class RoutineAdapter(
         init {
             itemView.setOnClickListener {
                 val pos: Int = adapterPosition
-                showDialog(getItem(pos))
+                onClick(getItem(pos))
             }
         }
 
@@ -44,6 +44,18 @@ class RoutineAdapter(
                 }
             }
         }
+    }
+
+    fun setItemClick(onClick: (RoutineEntity) -> Any) {
+        this.onClick = onClick
+    }
+
+    fun getRoutineDetails(details: (Int) -> StateFlow<List<RoutineDetailEntity>>) {
+        this.getRoutineDetails = details
+    }
+
+    fun setScope(scope: CoroutineScope) {
+        this.scope = scope
     }
 
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
