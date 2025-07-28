@@ -18,87 +18,55 @@ class RoutineRemoteViewsFactory(
     private val context: Context,
     private val repository: RoutineLogRepository
 ) : RemoteViewsService.RemoteViewsFactory {
-    private var widgetRoutineData: WidgetRoutineData = WidgetRoutineData.IsEmptyRoutine()
     private var scope = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
+    private var routineList: List<RoutineEntity> = emptyList()
 
     override fun onCreate() {
-
+        job = scope.launch { getRoutines() }
     }
 
     override fun onDataSetChanged() {
-        widgetRoutineData = WidgetRoutineData.Idle
-        job = scope.launch {
-            val routineLog = repository.getWidgetTodayLog(LocalDate.now())
-            val routines = routineLog?.routines?.values?.toList() ?: emptyList()
-
-            val todayRoutines = routines.sortedBy { it.time }
-            widgetRoutineData =
-                if (todayRoutines.isNotEmpty()) WidgetRoutineData.IsNotEmptyRoutine(todayRoutines)
-                else WidgetRoutineData.IsEmptyRoutine()
-        }
+        job = scope.launch { getRoutines() }
     }
 
     override fun getCount(): Int {
-        while (true) {
-            if (widgetRoutineData !is WidgetRoutineData.Idle) break
-        }
-
-        return when (widgetRoutineData) {
-            is WidgetRoutineData.IsEmptyRoutine -> {
-                1
-            }
-
-            is WidgetRoutineData.IsNotEmptyRoutine -> {
-                (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data.size
-            }
-
-            else -> throw Exception(NOT_LOADING)
-        }
+        return if (routineList.isEmpty()) 1 else routineList.size
     }
 
     override fun getViewAt(position: Int): RemoteViews {
         val listviewWidget = RemoteViews(context.packageName, R.layout.widget_routine_item)
-        when (widgetRoutineData) {
-            is WidgetRoutineData.IsEmptyRoutine -> {
-                listviewWidget.setTextViewText(
-                    R.id.widget_routine_title,
-                    (widgetRoutineData as WidgetRoutineData.IsEmptyRoutine).data[position]
-                )
-            }
 
-            is WidgetRoutineData.IsNotEmptyRoutine -> {
-                val routineList = (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data
-                val routineData = routineList[position]
+        if (routineList.isEmpty()) {
+            listviewWidget.setTextViewText(
+                R.id.widget_routine_title,
+                NO_ROUTINE
+            )
 
-                listviewWidget.setTextViewText(
-                    R.id.widget_routine_title,
-                    routineData.title
-                )
+            return listviewWidget
+        }
 
-                listviewWidget.setTextViewText(
-                    R.id.widget_routine_time,
-                    routineData.time
-                )
+        val routineData = routineList[position]
 
-                when (routineData.success) {
-                    true -> setTextColor(listviewWidget, Color.GREEN)
-                    false -> setTextColor(listviewWidget, Color.RED)
-                    else -> {
-                        if (position == 0 || routineList[position - 1].success != null) {
-                            setTextColor(listviewWidget, Color.BLUE)
-                        } else {
-                            setTextColor(listviewWidget, Color.GRAY)
-                        }
-                    }
-                }
-            }
+        listviewWidget.setTextViewText(
+            R.id.widget_routine_title,
+            routineData.title
+        )
 
+        listviewWidget.setTextViewText(
+            R.id.widget_routine_time,
+            routineData.time
+        )
+
+        when (routineData.success) {
+            true -> setTextColor(listviewWidget, context.getColor(R.color.green))
+            false -> setTextColor(listviewWidget, Color.RED)
             else -> {
-                listviewWidget.setTextViewText(
-                    R.id.widget_routine_title,
-                    NOT_LOADING
-                )
+                if (position == 0 || routineList[position - 1].success != null) {
+                    setTextColor(listviewWidget, Color.BLUE)
+                } else {
+                    setTextColor(listviewWidget, Color.GRAY)
+                }
             }
         }
 
@@ -130,24 +98,15 @@ class RoutineRemoteViewsFactory(
         job = null
     }
 
+    private suspend fun getRoutines() {
+        val routineLog = repository.getWidgetTodayLog(LocalDate.now())
+        val routines = routineLog?.routines?.values?.toList() ?: emptyList()
+
+        routineList = routines.sortedBy { it.time }
+    }
+
     companion object {
         private const val NOT_LOADING = "Error!! Not Loading Today Routine"
-    }
-}
-
-sealed interface WidgetRoutineData {
-
-    data object Idle : WidgetRoutineData
-
-    data class IsEmptyRoutine(
-        val data: List<String> = listOf(NO_ROUTINE)
-    ) : WidgetRoutineData
-
-    data class IsNotEmptyRoutine(
-        val data: List<RoutineEntity>
-    ) : WidgetRoutineData
-
-    companion object {
-        private const val NO_ROUTINE = "일정을 추가해주세요."
+        private const val NO_ROUTINE = "일정이 없습니다."
     }
 }
