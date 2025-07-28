@@ -5,8 +5,7 @@ import androidx.fragment.app.viewModels
 import com.example.todo_list.data.room.ScheduleEntity
 import com.example.todo_list.databinding.FragmentScheduleBinding
 import com.example.todo_list.ui.schedule.add.ScheduleRegisterActivity
-import com.example.todo_list.ui.util.BottomSheetDialog
-import com.example.todo_list.ui.util.Category
+import com.example.todo_list.ui.util.StateDialog
 import com.example.todo_list.ui.util.basefragment.DataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,15 +14,12 @@ class ScheduleFragment :
     DataBindingFragment<FragmentScheduleBinding>(FragmentScheduleBinding::inflate) {
     private val viewModel: ScheduleViewModel by viewModels()
     val showDialog = { scheduleEntity: ScheduleEntity ->
-        BottomSheetDialog(
+        StateDialog.showDialog(
             context = requireContext(),
-            entity = scheduleEntity,
-            category = Category.SCHEDULE,
-            onClickUpdate = {
-                //TODO Update
-            },
-            onClickDelete = { viewModel.delete(scheduleEntity.id) },
-            onClickDone = { viewModel.success(scheduleEntity.id) }
+            title = scheduleEntity.title,
+            negativeText = "삭제",
+            onClickPositiveButton = { viewModel.success(scheduleEntity.id) },
+            onClickNegativeButton = { viewModel.delete(scheduleEntity.id) }
         )
     }
 
