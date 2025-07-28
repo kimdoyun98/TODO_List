@@ -18,6 +18,9 @@ interface ScheduleDAO {
     @Query("SELECT * FROM scheduleentity WHERE success = 0 ORDER BY start_date LIMIT 1")
     fun getRecentSchedule(): Flow<ScheduleEntity>
 
+    @Query("SELECT * FROM scheduleentity WHERE success = 0 ORDER BY start_date LIMIT 1")
+    fun getWidgetRecentSchedule(): ScheduleEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(toDoEntity: ScheduleEntity)
 
