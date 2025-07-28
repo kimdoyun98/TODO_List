@@ -9,6 +9,7 @@ import com.example.todo_list.databinding.FragmentRoutineBinding
 import com.example.todo_list.ui.routine.add.RoutineRegisterActivity
 import com.example.todo_list.ui.util.BottomSheetDialog
 import com.example.todo_list.ui.util.Category
+import com.example.todo_list.ui.util.StateDialog
 import com.example.todo_list.ui.util.basefragment.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,16 +34,14 @@ class RoutineFragment :
     private fun initRoutineRecyclerView() {
         val adapter = RoutineAdapter(
             { routineEntity ->
-                BottomSheetDialog(
+                StateDialog.showDialog(
                     context = requireContext(),
-                    category = Category.ROUTINE,
-                    entity = routineEntity,
-                    onClickDelete = {
+                    title = routineEntity.title,
+                    negativeText = "삭제",
+                    onClickPositiveButton = { viewModel.todaySuccess(routineEntity.id) },
+                    onClickNegativeButton = {
                         viewModel.delete(routineEntity.id)
                         alarm.cancelAlarm(routineEntity.id)
-                    },
-                    onClickDone = {
-                        viewModel.todaySuccess(routineEntity.id)
                     }
                 )
             },
