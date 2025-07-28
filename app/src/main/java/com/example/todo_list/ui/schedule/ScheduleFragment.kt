@@ -26,14 +26,10 @@ class ScheduleFragment :
     override fun initView() {
         binding.viewModel = viewModel
         binding.fragment = this
-
-        addScheduleListener()
     }
 
-    private fun addScheduleListener() {
-        binding.addButton.setOnClickListener {
-            val intent = Intent(context, ScheduleRegisterActivity::class.java)
-            startActivity(intent)
-        }
+    fun addSchedule() {
+        val intent = Intent(context, ScheduleRegisterActivity::class.java)
+        startActivity(intent)
     }
 }

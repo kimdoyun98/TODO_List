@@ -93,12 +93,13 @@
             android:clickable="true"
             android:contentDescription="@string/routine_register_floating_button"
             android:focusable="true"
+            android:onClick="@{() -> fragment.addSchedule()}"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintHorizontal_bias="0.94"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.95" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.96" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
