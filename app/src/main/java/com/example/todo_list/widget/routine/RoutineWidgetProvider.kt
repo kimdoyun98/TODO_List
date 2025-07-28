@@ -17,6 +17,7 @@ class RoutineWidgetProvider : AppWidgetProvider() {
             RoutineWidgetHelper(context, RemoteViews(context?.packageName, R.layout.widget_routine))
                 .setTodayRoutine()
                 .setOnClickWidget()
+                .setOnListViewClick()
 
         appWidgetManager?.updateAppWidget(appWidgetIds, routineWidgetHelper.widget)
         appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_routine_lv)

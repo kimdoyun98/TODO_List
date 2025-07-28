@@ -1,6 +1,7 @@
 package com.example.todo_list.widget.routine
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -24,6 +25,8 @@ class RoutineRemoteViewsFactory(
 
     override fun onCreate() {
         job = scope.launch { getRoutines() }
+
+
     }
 
     override fun onDataSetChanged() {
@@ -36,6 +39,8 @@ class RoutineRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         val listviewWidget = RemoteViews(context.packageName, R.layout.widget_routine_item)
+
+        listviewWidget.setOnClickFillInIntent(R.id.routine_item_root, Intent())
 
         if (routineList.isEmpty()) {
             listviewWidget.setTextViewText(

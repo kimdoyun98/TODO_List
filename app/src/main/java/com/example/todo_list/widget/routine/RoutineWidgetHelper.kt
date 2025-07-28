@@ -30,4 +30,16 @@ class RoutineWidgetHelper(
         return RoutineWidgetHelper(context, widget)
     }
 
+    fun setOnListViewClick(): RoutineWidgetHelper {
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java),
+            PendingIntent.FLAG_MUTABLE
+        )
+
+        widget.setPendingIntentTemplate(R.id.widget_routine_lv, pendingIntent)
+
+        return RoutineWidgetHelper(context, widget)
+    }
 }
