@@ -68,8 +68,8 @@ class RoutineRemoteViewsFactory(
             }
 
             is WidgetRoutineData.IsNotEmptyRoutine -> {
-                val routineData =
-                    (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data[position]
+                val routineList = (widgetRoutineData as WidgetRoutineData.IsNotEmptyRoutine).data
+                val routineData = routineList[position]
 
                 listviewWidget.setTextViewText(
                     R.id.widget_routine_title,
@@ -81,12 +81,16 @@ class RoutineRemoteViewsFactory(
                     routineData.time
                 )
 
-                if (routineData.success == true) {
-                    listviewWidget.setTextColor(R.id.widget_routine_title, Color.GRAY)
-                    listviewWidget.setTextColor(R.id.widget_routine_time, Color.GRAY)
-                } else {
-                    listviewWidget.setTextColor(R.id.widget_routine_title, Color.WHITE)
-                    listviewWidget.setTextColor(R.id.widget_routine_time, Color.WHITE)
+                when (routineData.success) {
+                    true -> setTextColor(listviewWidget, Color.GREEN)
+                    false -> setTextColor(listviewWidget, Color.RED)
+                    else -> {
+                        if (position == 0 || routineList[position - 1].success != null) {
+                            setTextColor(listviewWidget, Color.BLUE)
+                        } else {
+                            setTextColor(listviewWidget, Color.GRAY)
+                        }
+                    }
                 }
             }
 
@@ -99,6 +103,11 @@ class RoutineRemoteViewsFactory(
         }
 
         return listviewWidget
+    }
+
+    private fun setTextColor(listViewWidget: RemoteViews, color: Int) {
+        listViewWidget.setTextColor(R.id.widget_routine_title, color)
+        listViewWidget.setTextColor(R.id.widget_routine_time, color)
     }
 
     override fun getLoadingView(): RemoteViews {
