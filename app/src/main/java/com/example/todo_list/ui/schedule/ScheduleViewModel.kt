@@ -1,14 +1,15 @@
 package com.example.todo_list.ui.schedule
 
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.ScheduleEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,17 +17,17 @@ import javax.inject.Inject
 class ScheduleViewModel @Inject constructor(
     private val repository: ScheduleRepository
 ) : ViewModel() {
-    var sortFilter: MutableLiveData<Int> = MutableLiveData<Int>(1)
+    private val _selectedSort = MutableStateFlow<SortItem>(SortItem.LATEST)
+    val selectedSort = _selectedSort.asStateFlow()
 
-    // Data Binding 을 위한 Boolean 변수들 (TextStyle, TextColor)
-    var isSortedByLatest: ObservableField<Boolean> = ObservableField<Boolean>(true)
-    var isSortedByDeadline: ObservableField<Boolean> = ObservableField<Boolean>(false)
-    var isSortedByRating: ObservableField<Boolean> = ObservableField<Boolean>(false)
+    private val _sortedScheduleItems = MutableStateFlow<List<ScheduleEntity>>(emptyList())
+    val sortedScheduleItems = _sortedScheduleItems.asStateFlow()
 
-    val getAll: LiveData<List<ScheduleEntity>> = repository.selectAll().asLiveData()
-
-    fun insert(scheduleEntity: ScheduleEntity) =
-        viewModelScope.launch { repository.insert(scheduleEntity) }
+    init {
+        repository.selectAll()
+            .flatMapLatest { sorted(it) }
+            .launchIn(viewModelScope)
+    }
 
     fun delete(id: Int) = viewModelScope.launch { repository.delete(id) }
 
@@ -37,33 +38,34 @@ class ScheduleViewModel @Inject constructor(
 
 
     fun onClickSetFilterLATEST() {
-        sortFilter.value = LATEST
-
-        isSortedByLatest.set(true)
-        isSortedByDeadline.set(false)
-        isSortedByRating.set(false)
+        _selectedSort.value = SortItem.LATEST
     }
 
     fun onClickSetFilterDEADLINE() {
-        sortFilter.value = DEADLINE
-
-        isSortedByLatest.set(false)
-        isSortedByDeadline.set(true)
-        isSortedByRating.set(false)
+        _selectedSort.value = SortItem.END_DATE
     }
 
-    fun onClickSetFilterRATING() {
-        sortFilter.value = RATING
+    private fun sorted(items: List<ScheduleEntity>) = selectedSort
+        .onEach {
+            val sortedItems =
+                when (it) {
+                    SortItem.LATEST -> {
+                        items
+                            .sortedByDescending { item -> item.start_date }
+                            .reversed()
+                    }
 
-        isSortedByLatest.set(false)
-        isSortedByDeadline.set(false)
-        isSortedByRating.set(true)
+                    SortItem.END_DATE -> {
+                        items
+                            .sortedByDescending { item -> item.end_date }
+                            .reversed()
+                    }
+                }
+
+            _sortedScheduleItems.value = sortedItems
+        }
+
+    enum class SortItem {
+        LATEST, END_DATE
     }
-
-    companion object {
-        const val LATEST = 1
-        const val DEADLINE = 2
-        const val RATING = 3
-    }
-
 }

@@ -5,13 +5,19 @@
 
     <data>
 
+        <import type="com.example.todo_list.ui.schedule.ScheduleViewModel.SortItem" />
+
         <import type="androidx.core.content.ContextCompat" />
 
         <import type="com.example.todo_list.R" />
 
         <variable
-            name="todoViewModel"
+            name="viewModel"
             type="com.example.todo_list.ui.schedule.ScheduleViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.todo_list.ui.schedule.ScheduleFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,9 +53,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{()->todoViewModel.onClickSetFilterLATEST()}"
+                android:onClick="@{() -> viewModel.onClickSetFilterLATEST()}"
                 android:text="@string/recent_sort"
-                android:textColor="@{todoViewModel.isSortedByLatest()? ContextCompat.getColor(context, R.color.filter):ContextCompat.getColor(context, R.color.black)}"
+                android:textColor="@{viewModel.selectedSort == SortItem.LATEST ? ContextCompat.getColor(context, R.color.filter) : ContextCompat.getColor(context, R.color.black)}"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -58,9 +64,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{()->todoViewModel.onClickSetFilterDEADLINE()}"
+                android:onClick="@{() -> viewModel.onClickSetFilterDEADLINE()}"
                 android:text="@string/deadline_sort"
-                android:textColor="@{todoViewModel.isSortedByDeadline()? ContextCompat.getColor(context, R.color.filter):ContextCompat.getColor(context, R.color.black)}"
+                android:textColor="@{viewModel.selectedSort == SortItem.END_DATE ? ContextCompat.getColor(context, R.color.filter) : ContextCompat.getColor(context, R.color.black)}"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -69,12 +75,14 @@
             android:id="@+id/recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:items="@{viewModel.sortedScheduleItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="1.0"
+            app:onClick="@{fragment.showDialog}"
             tool:itemCount="2"
             tool:listitem="@layout/recyclerview_todo_item" />
 

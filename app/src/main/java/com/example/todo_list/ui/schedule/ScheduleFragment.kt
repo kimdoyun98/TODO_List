@@ -2,7 +2,7 @@ package com.example.todo_list.ui.schedule
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
-import com.example.todo_list.adapter.schedule.ScheduleAdapter
+import com.example.todo_list.data.room.ScheduleEntity
 import com.example.todo_list.databinding.FragmentScheduleBinding
 import com.example.todo_list.ui.schedule.add.ScheduleRegisterActivity
 import com.example.todo_list.ui.util.BottomSheetDialog
@@ -14,48 +14,24 @@ import dagger.hilt.android.AndroidEntryPoint
 class ScheduleFragment :
     DataBindingFragment<FragmentScheduleBinding>(FragmentScheduleBinding::inflate) {
     private val viewModel: ScheduleViewModel by viewModels()
-
-    override fun initView() {
-        binding.todoViewModel = viewModel
-
-        initRecyclerViewAdapter()
-        addScheduleListener()
+    val showDialog = { scheduleEntity: ScheduleEntity ->
+        BottomSheetDialog(
+            context = requireContext(),
+            entity = scheduleEntity,
+            category = Category.SCHEDULE,
+            onClickUpdate = {
+                //TODO Update
+            },
+            onClickDelete = { viewModel.delete(scheduleEntity.id) },
+            onClickDone = { viewModel.success(scheduleEntity.id) }
+        )
     }
 
-    private fun initRecyclerViewAdapter() {
-        val adapter = ScheduleAdapter(
-            showDialog = { scheduleEntity ->
-                BottomSheetDialog(
-                    context = requireContext(),
-                    entity = scheduleEntity,
-                    category = Category.SCHEDULE,
-                    onClickUpdate = {
-                        //TODO Update
-                    },
-                    onClickDelete = { viewModel.delete(scheduleEntity.id) },
-                    onClickDone = { viewModel.success(scheduleEntity.id) }
-                )
-            }
-        )
-        binding.recyclerview.adapter = adapter
+    override fun initView() {
+        binding.viewModel = viewModel
+        binding.fragment = this
 
-        viewModel.getAll.observe(viewLifecycleOwner) { list ->
-            viewModel.sortFilter.observe(viewLifecycleOwner) { filter ->
-                when (filter) {
-                    ScheduleViewModel.LATEST -> {
-                        adapter.submitList(list.sortedByDescending { it.id })
-                    }
-
-                    ScheduleViewModel.DEADLINE -> {
-                        adapter.submitList(
-                            list
-                                .sortedByDescending { it.end_date }
-                                .reversed()
-                        )
-                    }
-                }
-            }
-        }
+        addScheduleListener()
     }
 
     private fun addScheduleListener() {

@@ -8,14 +8,14 @@ import com.example.todo_list.adapter.ItemDiffCallback
 import com.example.todo_list.data.room.ScheduleEntity
 import com.example.todo_list.databinding.RecyclerviewTodoItemBinding
 
-class ScheduleAdapter(
-    private val showDialog: (ScheduleEntity) -> Unit
-) : ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleViewHolder>(
+class ScheduleAdapter: ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 ) {
+    private lateinit var showDialog: (ScheduleEntity) -> Unit
+
     inner class ScheduleViewHolder(
         private val binding: RecyclerviewTodoItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -29,6 +29,10 @@ class ScheduleAdapter(
         fun bind(toDoEntity: ScheduleEntity) {
             binding.todoEntity = toDoEntity
         }
+    }
+
+    fun setDialogEvent(showDialog: (ScheduleEntity) -> Unit) {
+        this.showDialog = showDialog
     }
 
     // 여기서 set 설정
