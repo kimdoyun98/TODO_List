@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.todo_list.ui.view.sideline.ProgressSideLine
+        <com.example.todo_list.ui.view.bullet_point.ProgressBulletPoint
             android:id="@+id/progressSideLine"
             android:layout_width="30dp"
             android:layout_height="0dp"

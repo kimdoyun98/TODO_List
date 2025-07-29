@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.view.sideline
+package com.example.todo_list.ui.view.bullet_point
 
 import android.content.Context
 import android.content.res.Configuration
@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.todo_list.R
 
-open class SideLine(context: Context, attrs: AttributeSet) : View(context, attrs), LineDraw {
+open class BulletPoint(context: Context, attrs: AttributeSet) : View(context, attrs), Bullet {
     private var position: Position? = null
     private val lineSize: Int
     private val lineColor: Int

@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.view.sideline
+package com.example.todo_list.ui.view.bullet_point
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.util.AttributeSet
 
-class ProgressSideLine(context: Context, attrs: AttributeSet) : SideLine(context, attrs) {
+class ProgressBulletPoint(context: Context, attrs: AttributeSet) : BulletPoint(context, attrs) {
     private var state: ProgressState? = null
     private var doColor: Int = Color.BLUE
     private var successColor: Int = Color.GREEN
