@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SideLine">
+    <declare-styleable name="BulletPoint">
         <attr name="color" format="color"/>
         <attr name="circleColor" format="color"/>
         <attr name="circleSize" format="dimension"/>

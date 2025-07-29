@@ -24,12 +24,12 @@ open class BulletPoint(context: Context, attrs: AttributeSet) : View(context, at
     }
 
     init {
-        val attr = context.theme.obtainStyledAttributes(attrs, R.styleable.SideLine, 0, 0)
-        color = attr.getColor(R.styleable.SideLine_color, Color.BLUE)
-        circleSize = attr.getDimensionPixelSize(R.styleable.SideLine_circleSize, 15)
-        circleColor = attr.getColor(R.styleable.SideLine_circleColor, Color.BLUE)
-        lineSize = attr.getDimensionPixelSize(R.styleable.SideLine_lineSize, 5)
-        lineColor = attr.getDimensionPixelSize(R.styleable.SideLine_lineColor, Color.BLUE)
+        val attr = context.theme.obtainStyledAttributes(attrs, R.styleable.BulletPoint, 0, 0)
+        color = attr.getColor(R.styleable.BulletPoint_color, Color.BLUE)
+        circleSize = attr.getDimensionPixelSize(R.styleable.BulletPoint_circleSize, 15)
+        circleColor = attr.getColor(R.styleable.BulletPoint_circleColor, Color.BLUE)
+        lineSize = attr.getDimensionPixelSize(R.styleable.BulletPoint_lineSize, 5)
+        lineColor = attr.getDimensionPixelSize(R.styleable.BulletPoint_lineColor, Color.BLUE)
     }
 
     fun setPosition(position: Position) {
