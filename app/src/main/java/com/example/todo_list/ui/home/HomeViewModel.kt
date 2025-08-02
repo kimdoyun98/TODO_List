@@ -12,6 +12,7 @@ import com.example.todo_list.data.room.RoutineLog
 import com.example.todo_list.ui.home.utils.PeriodStatistics
 import com.example.todo_list.ui.home.utils.StatisticsTab
 import com.example.todo_list.ui.home.utils.createLogStatisticsLog
+import com.example.todo_list.ui.home.utils.createRoutineLog
 import com.example.todo_list.ui.home.utils.filterTodayRoutine
 import com.example.todo_list.ui.home.utils.isTodayRoutineLog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -151,9 +152,6 @@ class HomeViewModel @Inject constructor(
     private fun createRoutineLog() {
         routineRepository.selectAll()
             .map { it.filterTodayRoutine() }
-            .filter {
-                it.isNotEmpty()
-            }
             .flatMapLatest {
                 checkRoutineLog(it)
             }
@@ -167,7 +165,7 @@ class HomeViewModel @Inject constructor(
             }
             .onEach {
                 it?.let { createLogStatisticsLog(statisticsLogRepository, it) }
-                com.example.todo_list.ui.home.utils.createRoutineLog(
+                createRoutineLog(
                     routineLogRepository,
                     todayRoutine
                 )
