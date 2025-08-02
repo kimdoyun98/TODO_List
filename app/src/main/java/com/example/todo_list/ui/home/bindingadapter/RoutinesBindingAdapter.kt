@@ -8,6 +8,7 @@ import com.example.todo_list.data.room.RoutineEntity
 
 object RoutinesBindingAdapter {
     private val adapter = HomeRoutineAdapter()
+    private val EMPTY_ROUTINE = listOf(RoutineEntity(title = "일정이 없습니다.", day = null, time = ""))
 
     @JvmStatic
     @BindingAdapter("app:items", "app:onClick")
@@ -20,6 +21,6 @@ object RoutinesBindingAdapter {
         adapter.setClickEvent { position ->
             onClick(position, items[position].title, view.context)
         }
-        adapter.submitList(items.sortedBy { it.time })
+        adapter.submitList(if (items.isEmpty()) EMPTY_ROUTINE else items.sortedBy { it.time })
     }
 }
