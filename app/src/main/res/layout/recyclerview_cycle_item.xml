@@ -17,33 +17,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shadow">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@string/routine_done_checked"
-            android:paddingStart="20dp"
-            android:paddingEnd="@dimen/zero"
-            android:src="@drawable/done"
-            android:visibility="@{routineEntity.success ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toStartOf="@id/recycler_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/green" />
-
         <TextView
             android:id="@+id/recycler_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
-            android:paddingStart="@{routineEntity.success ? @dimen/zero : @dimen/routine_not_success_padding}"
-            android:paddingEnd="@dimen/zero"
             android:text="@{routineEntity.title}"
             android:textColor="@color/black"
             android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="테스트" />
 
