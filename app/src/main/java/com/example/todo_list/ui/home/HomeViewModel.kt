@@ -135,13 +135,22 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateRoutineLog(todayRoutine: List<RoutineEntity>) =
-        routineLogRepository.getTodayLog()
+        todayRoutineLog
             .filterNotNull()
-            .filter { isTodayRoutineLog(it.date) && todayRoutine.size != it.routines?.size }
+            .filter { isTodayRoutineLog(it.date) && todayRoutine.size != it.routines!!.size }
             .onEach { routineLog ->
-                val newRoutinesMap = routineLog.routines!!.toMutableMap()
-                todayRoutine.forEach { entity ->
-                    newRoutinesMap.getOrPut(entity.id) { entity }
+                val newRoutinesMap: Map<Int, RoutineEntity>
+
+                if (todayRoutine.size > routineLog.routines!!.size) {
+                    newRoutinesMap = routineLog.routines.toMutableMap()
+                    todayRoutine.forEach { entity ->
+                        newRoutinesMap.getOrPut(entity.id) { entity }
+                    }
+                } else {
+                    newRoutinesMap = mutableMapOf()
+                    todayRoutine.forEach { todayRoutine ->
+                        newRoutinesMap.getOrPut(todayRoutine.id) { routineLog.routines[todayRoutine.id]!! }
+                    }
                 }
 
                 routineLogRepository.update(
