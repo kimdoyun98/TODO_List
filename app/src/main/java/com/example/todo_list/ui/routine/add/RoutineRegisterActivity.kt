@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.todo_list.R
-import com.example.todo_list.adapter.routine.RoutineDetailAddAdapter
 import com.example.todo_list.databinding.ActivityRoutineRegisterBinding
 import com.example.todo_list.util.MyApplication
 import com.gun0912.tedpermission.PermissionListener
@@ -37,8 +36,6 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
 
         binding.timePicker.setOnTimeChangedListener(this)
 
-        setRoutineDetail()
-
         binding.cycleCancel.setOnClickListener {
             finish()
         }
@@ -58,33 +55,6 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
 
         toggle.forEach {
             it.setOnCheckedChangeListener(DayToggle())
-        }
-    }
-
-    private fun setRoutineDetail() {
-        binding.routineDetailAdd.setOnClickListener {
-            viewModel.addRoutineDetail()
-        }
-
-        val adapter = RoutineDetailAddAdapter(
-            { position, title ->
-                viewModel.changeRoutineDetailTitle(
-                    position,
-                    title
-                )
-            },
-            { position ->
-                viewModel.deleteRoutineDetail(position)
-            }
-        )
-        binding.routineDetailRv.adapter = adapter
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.routineDetailList.collect { routineDetailList ->
-                    adapter.submitList(routineDetailList)
-                }
-            }
         }
     }
 

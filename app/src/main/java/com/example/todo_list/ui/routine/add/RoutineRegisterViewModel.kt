@@ -5,12 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.alarm.Alarm
 import com.example.todo_list.data.repository.routine.RoutineRepository
-import com.example.todo_list.data.room.RoutineDetailEntity
 import com.example.todo_list.data.room.RoutineEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -25,10 +23,6 @@ class RoutineRegisterViewModel @Inject constructor(
 
     private val _checkedDayText = MutableStateFlow<String>("")
     val checkedDayText: StateFlow<String> = _checkedDayText
-
-    private var _routineDetailNumber = 1
-    private val _routineDetailList = MutableStateFlow<List<RoutineDetailEntity>>(emptyList())
-    val routineDetailList = _routineDetailList.asStateFlow()
 
     fun setTime(hourOfDay: Int, minute: Int) {
         time[0] = hourOfDay
@@ -62,7 +56,7 @@ class RoutineRegisterViewModel @Inject constructor(
         val time2 = time.map { "%02d".format(it) }
 
         viewModelScope.launch {
-            val id = repository.insert(
+            repository.insert(
                 RoutineEntity(
                     title = title,
                     day = checkedDayList,
@@ -70,36 +64,8 @@ class RoutineRegisterViewModel @Inject constructor(
                 )
             )
 
-            routineDetailList.value.forEach { routineDetail ->
-                routineDetail.routineId = id.toInt()
-                repository.insertRoutineDetail(routineDetail)
-            }
-
             setAlarm(title, time2)
         }
-    }
-
-    fun addRoutineDetail() {
-        _routineDetailList.value = _routineDetailList.value.toMutableList()
-            .apply {
-                add(
-                    RoutineDetailEntity(
-                        number = _routineDetailNumber++,
-                        title = ""
-                    )
-                )
-            }
-    }
-
-    fun deleteRoutineDetail(position: Int){
-        _routineDetailList.value = _routineDetailList.value.toMutableList()
-            .apply {
-                removeAt(position)
-            }
-    }
-
-    fun changeRoutineDetailTitle(position: Int, title: String) {
-        routineDetailList.value[position].title = title
     }
 
     private fun setAlarm(title: String, time: List<String>) {

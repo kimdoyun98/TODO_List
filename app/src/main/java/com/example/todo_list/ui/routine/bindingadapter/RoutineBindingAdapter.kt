@@ -11,20 +11,15 @@ object RoutineBindingAdapter {
     private val adapter = RoutineAdapter()
 
     @JvmStatic
-    @BindingAdapter("app:items", "app:onClick", "app:viewModel")
+    @BindingAdapter("app:items", "app:onClick")
     fun setAdapterRecyclerView(
         view: RecyclerView,
         items: List<RoutineEntity>,
         onClick: (RoutineEntity) -> Any,
-        viewModel: RoutineViewModel
     ) {
         view.adapter = adapter
 
         adapter.setItemClick { routineEntity -> onClick(routineEntity) }
-
-        adapter.getRoutineDetails { id: Int -> viewModel.getRoutineDetails(id) }
-
-        adapter.setScope(viewModel.viewModelScope)
 
         adapter.submitList(items)
     }

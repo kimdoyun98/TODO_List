@@ -29,24 +29,6 @@ data class RoutineEntity(
 )
 
 @Entity(
-    tableName = "RoutineDetail",
-    foreignKeys = [
-        ForeignKey(
-            entity = RoutineEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["routine_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-data class RoutineDetailEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "routine_id") var routineId: Int = -1,
-    val number: Int,
-    var title: String
-)
-
-@Entity(
     tableName = "RoutineLog"
 )
 data class RoutineLog(
