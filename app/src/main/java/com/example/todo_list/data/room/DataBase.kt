@@ -14,11 +14,10 @@ import com.example.todo_list.data.room.dao.StatisticsLogDAO
     entities = [
         ScheduleEntity::class,
         RoutineEntity::class,
-        RoutineDetailEntity::class,
         RoutineLog::class,
         StatisticsLog::class
     ],
-    version = 4,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(Converter::class)

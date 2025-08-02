@@ -21,12 +21,6 @@ class RoutineViewModel @Inject constructor(
         emptyList()
     )
 
-    fun getRoutineDetails(id: Int) = repository.getRoutineDetail(id).stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000L),
-        emptyList()
-    )
-
     fun update() = viewModelScope.launch { repository.update() }
 
     fun todaySuccess(id: Int) = viewModelScope.launch { repository.todaySuccess(id) }

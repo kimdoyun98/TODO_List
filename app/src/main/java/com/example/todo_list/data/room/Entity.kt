@@ -1,6 +1,5 @@
 package com.example.todo_list.data.room
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -26,24 +25,6 @@ data class RoutineEntity(
     val day: List<Boolean>?,
     var success: Boolean? = null,
     var time: String
-)
-
-@Entity(
-    tableName = "RoutineDetail",
-    foreignKeys = [
-        ForeignKey(
-            entity = RoutineEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["routine_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-data class RoutineDetailEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "routine_id") var routineId: Int = -1,
-    val number: Int,
-    var title: String
 )
 
 @Entity(
