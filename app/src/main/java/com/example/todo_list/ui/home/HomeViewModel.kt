@@ -4,24 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.log.RoutineLogRepository
 import com.example.todo_list.data.repository.log.StatisticsLogRepository
-import com.example.todo_list.data.repository.routine.RoutineRepository
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.PeriodRoutineLog
-import com.example.todo_list.data.room.RoutineEntity
 import com.example.todo_list.data.room.RoutineLog
 import com.example.todo_list.ui.home.utils.PeriodStatistics
 import com.example.todo_list.ui.home.utils.StatisticsTab
-import com.example.todo_list.ui.home.utils.createLogStatisticsLog
-import com.example.todo_list.ui.home.utils.createRoutineLog
-import com.example.todo_list.ui.home.utils.filterTodayRoutine
-import com.example.todo_list.ui.home.utils.isTodayRoutineLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -33,13 +24,21 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
-    private val routineRepository: RoutineRepository,
     private val routineLogRepository: RoutineLogRepository,
     private val statisticsLogRepository: StatisticsLogRepository,
 ) : ViewModel() {
 
+    private val _selectedTab: MutableStateFlow<StatisticsTab> = MutableStateFlow(StatisticsTab.WEEK)
+    private val selectedTab = _selectedTab.asStateFlow()
+
     private val _todayRoutineLog = MutableStateFlow<RoutineLog?>(null)
     private val todayRoutineLog = _todayRoutineLog.asStateFlow()
+
+    private val _periodLog = MutableStateFlow<List<PeriodRoutineLog>>(emptyList())
+    private val periodLog = _periodLog.asStateFlow()
+
+    private val _periodStatistics = MutableStateFlow<PeriodStatistics>(PeriodStatistics())
+    val periodStatistics = _periodStatistics.asStateFlow()
 
     val todayRoutine = routineLogRepository.getTodayLog()
         .onEach { _todayRoutineLog.value = it }
@@ -58,23 +57,11 @@ class HomeViewModel @Inject constructor(
             null
         )
 
-    private val _selectedTab: MutableStateFlow<StatisticsTab> = MutableStateFlow(StatisticsTab.WEEK)
-    private val selectedTab = _selectedTab.asStateFlow()
-
     val changedTab = { tab: StatisticsTab ->
         _selectedTab.value = tab
     }
 
-    private val _periodLog = MutableStateFlow<List<PeriodRoutineLog>>(emptyList())
-    val periodLog = _periodLog.asStateFlow()
-
-    private val _periodStatistics = MutableStateFlow<PeriodStatistics>(PeriodStatistics())
-    val periodStatistics = _periodStatistics.asStateFlow()
-
     init {
-        createRoutineLog()
-        updateRoutineLog()
-
         selectedTab
             .onEach {
                 getPeriodStatisticsLog(it)
@@ -121,62 +108,4 @@ class HomeViewModel @Inject constructor(
 
         _periodLog.value = statisticsLogRepository.getPeriodLog(start, end)
     }
-
-    private fun updateRoutineLog() {
-        routineRepository.selectAll()
-            .map { it.filterTodayRoutine() }
-            .filter {
-                it.isNotEmpty()
-            }
-            .flatMapLatest {
-                updateRoutineLog(it)
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun updateRoutineLog(todayRoutine: List<RoutineEntity>) =
-        todayRoutineLog
-            .filterNotNull()
-            .filter { isTodayRoutineLog(it.date) && todayRoutine.size != it.routines!!.size }
-            .onEach { routineLog ->
-                val newRoutinesMap: Map<Int, RoutineEntity>
-
-                if (todayRoutine.size > routineLog.routines!!.size) {
-                    newRoutinesMap = routineLog.routines.toMutableMap()
-                    todayRoutine.forEach { entity ->
-                        newRoutinesMap.getOrPut(entity.id) { entity }
-                    }
-                } else {
-                    newRoutinesMap = mutableMapOf()
-                    todayRoutine.forEach { todayRoutine ->
-                        newRoutinesMap.getOrPut(todayRoutine.id) { routineLog.routines[todayRoutine.id]!! }
-                    }
-                }
-
-                routineLogRepository.update(
-                    routineLog.copy(routines = newRoutinesMap)
-                )
-            }
-
-    private fun createRoutineLog() {
-        routineRepository.selectAll()
-            .map { it.filterTodayRoutine() }
-            .flatMapLatest {
-                checkRoutineLog(it)
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun checkRoutineLog(todayRoutine: List<RoutineEntity>) =
-        routineLogRepository.getTodayLog()
-            .filter {
-                it == null || !isTodayRoutineLog(it.date)
-            }
-            .onEach {
-                it?.let { createLogStatisticsLog(statisticsLogRepository, it) }
-                createRoutineLog(
-                    routineLogRepository,
-                    todayRoutine
-                )
-            }
 }
