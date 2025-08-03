@@ -4,7 +4,6 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.widget.CompoundButton
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,7 @@ import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedListener {
+class RoutineRegisterActivity : AppCompatActivity() {
     private val viewModel: RoutineRegisterViewModel by viewModels()
     private lateinit var binding: ActivityRoutineRegisterBinding
 
@@ -92,9 +91,5 @@ class RoutineRegisterActivity : AppCompatActivity(), TimePicker.OnTimeChangedLis
                 days = resources.getStringArray(R.array.Days)
             )
         }
-    }
-
-    override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        viewModel.setTime(hourOfDay, minute)
     }
 }

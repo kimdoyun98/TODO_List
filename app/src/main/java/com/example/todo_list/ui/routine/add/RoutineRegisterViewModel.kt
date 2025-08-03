@@ -24,7 +24,7 @@ class RoutineRegisterViewModel @Inject constructor(
     private val _checkedDayText = MutableStateFlow<String>("")
     val checkedDayText: StateFlow<String> = _checkedDayText
 
-    fun setTime(hourOfDay: Int, minute: Int) {
+    val setTime = { hourOfDay: Int, minute: Int ->
         time[0] = hourOfDay
         time[1] = minute
     }
