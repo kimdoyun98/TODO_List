@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="activity"
             type="com.example.todo_list.ui.routine.add.RoutineRegisterActivity" />
@@ -22,10 +23,10 @@
             android:layout_height="200dp"
             android:theme="@style/TimePickerStyle"
             android:timePickerMode="spinner"
-            app:onTimeChanged="@{viewModel.setTime}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:onTimeChanged="@{viewModel.setTime}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,10 +71,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="@color/red"
-                    android:textOff="일"
-                    android:textOn="일"
+                    android:textOff="@string/sunday"
+                    android:textOn="@string/sunday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/monday"
@@ -83,10 +85,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="#202020"
-                    android:textOff="월"
-                    android:textOn="월"
+                    android:textOff="@string/monday"
+                    android:textOn="@string/monday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/tuesday"
@@ -96,10 +99,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="#202020"
-                    android:textOff="화"
-                    android:textOn="화"
+                    android:textOff="@string/tuesday"
+                    android:textOn="@string/tuesday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/wednesday"
@@ -109,10 +113,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="#202020"
-                    android:textOff="수"
-                    android:textOn="수"
+                    android:textOff="@string/wednesday"
+                    android:textOn="@string/wednesday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/thursday"
@@ -122,10 +127,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="#202020"
-                    android:textOff="목"
-                    android:textOn="목"
+                    android:textOff="@string/thursday"
+                    android:textOn="@string/thursday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/friday"
@@ -135,10 +141,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="#202020"
-                    android:textOff="금"
-                    android:textOn="금"
+                    android:textOff="@string/friday"
+                    android:textOn="@string/friday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
 
                 <ToggleButton
                     android:id="@+id/saturday"
@@ -148,10 +155,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/toggle"
                     android:textColor="@color/blue"
-                    android:textOff="토"
-                    android:textOn="토"
+                    android:textOff="@string/saturday"
+                    android:textOn="@string/saturday"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:onChecked="@{viewModel.checkDay}" />
             </LinearLayout>
 
             <EditText
@@ -175,11 +183,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:background="?attr/selectableItemBackground"
+                android:onClick="@{() -> activity.finish()}"
                 android:text="@string/cancel"
                 android:textColor="#202020"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:onClick="@{() -> activity.finish()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cycleRegister"
                 app:layout_constraintStart_toStartOf="parent" />

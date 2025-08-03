@@ -9,6 +9,7 @@ import com.example.todo_list.data.room.RoutineEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -29,20 +30,22 @@ class RoutineRegisterViewModel @Inject constructor(
         time[1] = minute
     }
 
-    fun checkDay(index: Int, isChecked: Boolean) {
+    val checkDay = { index: Int, isChecked: Boolean ->
         checkedDayList[index] = isChecked
+        changeCheckedDayText()
     }
 
-    fun changeCheckedDayText(daily: String, days: Array<String>) {
+    private fun changeCheckedDayText() {
         viewModelScope.launch {
-            if (checkedDayList.count { it } == 7) _checkedDayText.emit(daily)
-            else {
-                _checkedDayText.emit(
+            if (checkedDayList.count { it } == 7) {
+                _checkedDayText.update { DAILY }
+            } else {
+                _checkedDayText.update {
                     checkedDayList
-                        .mapIndexed { index, checked -> if (checked) days[index] else null }
+                        .mapIndexed { index, checked -> if (checked) WEEK[index] else null }
                         .filterNotNull()
                         .joinToString(" ")
-                )
+                }
             }
         }
     }
@@ -85,5 +88,10 @@ class RoutineRegisterViewModel @Inject constructor(
                 Log.e("RoutineRegisterActivity", e.message.toString())
             }
         }
+    }
+
+    companion object {
+        private const val DAILY = "매일"
+        private val WEEK = arrayOf("일 ", "월 ", "화 ", "수 ", "목 ", "금 ", "토 ")
     }
 }

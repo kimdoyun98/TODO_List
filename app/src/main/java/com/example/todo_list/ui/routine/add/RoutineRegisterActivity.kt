@@ -3,7 +3,6 @@ package com.example.todo_list.ui.routine.add
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,23 +27,10 @@ class RoutineRegisterActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.activity = this
 
-        initDaysToggle()
-
         binding.cycleRegister.setOnClickListener {
             viewModel.insert(binding.title.text.toString())
             permission()
             finish()
-        }
-    }
-
-    private fun initDaysToggle() {
-        val toggle = arrayOf(
-            binding.sunday, binding.monday, binding.tuesday,
-            binding.wednesday, binding.thursday, binding.friday, binding.saturday
-        )
-
-        toggle.forEach {
-            it.setOnCheckedChangeListener(DayToggle())
         }
     }
 
@@ -67,25 +53,6 @@ class RoutineRegisterActivity : AppCompatActivity() {
                 getString(R.string.permission_denied_toast_message),
                 Toast.LENGTH_SHORT
             ).show()
-        }
-    }
-
-    inner class DayToggle : CompoundButton.OnCheckedChangeListener {
-        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-            when (buttonView?.id) {
-                binding.sunday.id -> viewModel.checkDay(index = 0, isChecked)
-                binding.monday.id -> viewModel.checkDay(index = 1, isChecked)
-                binding.tuesday.id -> viewModel.checkDay(index = 2, isChecked)
-                binding.wednesday.id -> viewModel.checkDay(index = 3, isChecked)
-                binding.thursday.id -> viewModel.checkDay(index = 4, isChecked)
-                binding.friday.id -> viewModel.checkDay(index = 5, isChecked)
-                binding.saturday.id -> viewModel.checkDay(index = 6, isChecked)
-            }
-
-            viewModel.changeCheckedDayText(
-                daily = getString(R.string.daily),
-                days = resources.getStringArray(R.array.Days)
-            )
         }
     }
 }
