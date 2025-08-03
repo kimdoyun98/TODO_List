@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="activity"
+            type="com.example.todo_list.ui.routine.add.RoutineRegisterActivity" />
 
         <variable
             name="viewModel"
@@ -176,6 +179,7 @@
                 android:textColor="#202020"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:onClick="@{() -> activity.finish()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cycleRegister"
                 app:layout_constraintStart_toStartOf="parent" />

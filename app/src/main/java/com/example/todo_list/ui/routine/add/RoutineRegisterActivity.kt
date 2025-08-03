@@ -26,13 +26,9 @@ class RoutineRegisterActivity : AppCompatActivity() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.activity = this
 
         initDaysToggle()
-
-
-        binding.cycleCancel.setOnClickListener {
-            finish()
-        }
 
         binding.cycleRegister.setOnClickListener {
             viewModel.insert(binding.title.text.toString())
