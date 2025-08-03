@@ -28,7 +28,7 @@
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:text="스케줄 제목" />
+        android:text="@string/widget_schedule_title_preview" />
 
     <TextView
         android:id="@+id/schedule_period_date_widget"
@@ -37,6 +37,6 @@
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:text="D-15" />
+        android:text="@string/widget_schedule_d_day_preview" />
 
 </LinearLayout>

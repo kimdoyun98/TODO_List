@@ -4,6 +4,9 @@
     android:initialLayout="@layout/widget_schedule"
     android:minWidth="250dp"
     android:minHeight="60dp"
+    android:previewLayout="@layout/widget_schedule"
     android:resizeMode="vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="1"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen|keyguard" />

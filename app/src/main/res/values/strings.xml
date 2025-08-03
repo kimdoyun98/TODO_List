@@ -84,4 +84,7 @@
     <string name="end_date">종료일</string>
     <string name="date_type">YYYY-MM-DD</string>
     <string name="add_end_date">당일 일정이 아니신가요?</string>
+
+    <string name="widget_schedule_title_preview">스케줄</string>
+    <string name="widget_schedule_d_day_preview">D-15</string>
 </resources>
