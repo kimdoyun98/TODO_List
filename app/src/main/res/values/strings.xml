@@ -87,4 +87,6 @@
 
     <string name="widget_schedule_title_preview">스케줄</string>
     <string name="widget_schedule_d_day_preview">D-15</string>
+    <string name="widget_routine_title_preview">테스트</string>
+    <string name="widget_routine_time_preview">00:00</string>
 </resources>
