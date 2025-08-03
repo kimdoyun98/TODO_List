@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -53,114 +54,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <LinearLayout
-                android:id="@+id/linearLayout4"
+            <include
+                android:id="@+id/week_toggle_group"
+                layout="@layout/week_toggle_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:paddingBottom="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/choice_day">
-
-                <ToggleButton
-                    android:id="@+id/sunday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="@color/red"
-                    android:textOff="@string/sunday"
-                    android:textOn="@string/sunday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/monday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="#202020"
-                    android:textOff="@string/monday"
-                    android:textOn="@string/monday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/tuesday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="#202020"
-                    android:textOff="@string/tuesday"
-                    android:textOn="@string/tuesday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/wednesday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="#202020"
-                    android:textOff="@string/wednesday"
-                    android:textOn="@string/wednesday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/thursday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="#202020"
-                    android:textOff="@string/thursday"
-                    android:textOn="@string/thursday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/friday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="#202020"
-                    android:textOff="@string/friday"
-                    android:textOn="@string/friday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-
-                <ToggleButton
-                    android:id="@+id/saturday"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle"
-                    android:textColor="@color/blue"
-                    android:textOff="@string/saturday"
-                    android:textOn="@string/saturday"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:onChecked="@{viewModel.checkDay}" />
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/choice_day"
+                bind:viewModel="@{viewModel}" />
 
             <EditText
                 android:id="@+id/title"
@@ -175,7 +78,7 @@
                 android:textColor="@color/edittext_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+                app:layout_constraintTop_toBottomOf="@+id/week_toggle_group" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cycleCancel"

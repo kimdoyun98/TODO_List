@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.todo_list.ui.routine.add.RoutineRegisterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/sunday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="@color/red"
+            android:textOff="@string/sunday"
+            android:textOn="@string/sunday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/monday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/monday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="#202020"
+            android:textOff="@string/monday"
+            android:textOn="@string/monday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tuesday"
+            app:layout_constraintStart_toEndOf="@+id/sunday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/tuesday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="#202020"
+            android:textOff="@string/tuesday"
+            android:textOn="@string/tuesday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wednesday"
+            app:layout_constraintStart_toEndOf="@+id/monday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/wednesday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="#202020"
+            android:textOff="@string/wednesday"
+            android:textOn="@string/wednesday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/thursday"
+            app:layout_constraintStart_toEndOf="@+id/tuesday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/thursday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="#202020"
+            android:textOff="@string/thursday"
+            android:textOn="@string/thursday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/friday"
+            app:layout_constraintStart_toEndOf="@+id/wednesday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/friday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="#202020"
+            android:textOff="@string/friday"
+            android:textOn="@string/friday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/saturday"
+            app:layout_constraintStart_toEndOf="@+id/thursday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+
+        <ToggleButton
+            android:id="@+id/saturday"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/toggle"
+            android:textColor="@color/blue"
+            android:textOff="@string/saturday"
+            android:textOn="@string/saturday"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/friday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onChecked="@{viewModel.checkDay}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
