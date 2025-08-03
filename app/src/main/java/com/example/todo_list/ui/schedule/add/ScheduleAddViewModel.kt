@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -41,24 +43,32 @@ class ScheduleAddViewModel @Inject constructor(
 
     init {
         date
-            .onEach {
-                if (it.length < 10) _registerButtonEnabled.value = false
+            .onEach { _registerButtonEnabled.update { false } }
+            .map { it.length == 10 }
+            .flatMapLatest { dateState ->
+                endDateState
+                    .flatMapLatest { state ->
+                        endDate
+                            .onEach { _registerButtonEnabled.update { false } }
+                            .map { !state || it.length == 10 }
+                    }
+                    .filter { endDateState ->
+                        dateState && endDateState
+                    }
             }
-            .filter { it.length == 10 }
-            .flatMapLatest { endDateState }
             .onEach {
-                if (!it) _registerButtonEnabled.value = true
-            }
-            .filter { it }
-            .flatMapLatest { endDate }
-            .onEach {
-                _registerButtonEnabled.value = it.length == 10
+                _registerButtonEnabled.update { true }
             }
             .launchIn(viewModelScope)
     }
 
     fun endDateStateChanged() {
         _endDateState.value = true
+    }
+
+    fun endDateClosed() {
+        _endDateState.value = false
+        _endDate.value = ""
     }
 
     fun insert() {
@@ -71,7 +81,9 @@ class ScheduleAddViewModel @Inject constructor(
         return ScheduleEntity(
             title = title.value,
             start_date = LocalDate.parse(date.value),
-            end_date = if(endDateState.value) LocalDate.parse(endDate.value) else LocalDate.parse(date.value),
+            end_date = if (endDateState.value) LocalDate.parse(endDate.value) else LocalDate.parse(
+                date.value
+            ),
             color = getRandomColor()
         )
     }
