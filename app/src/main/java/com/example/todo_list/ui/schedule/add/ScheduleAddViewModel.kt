@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo_list.data.repository.schedule.ScheduleRepository
 import com.example.todo_list.data.room.ScheduleEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
@@ -36,6 +38,12 @@ class ScheduleAddViewModel @Inject constructor(
 
     private val _registerButtonEnabled = MutableStateFlow(false)
     val registerButtonEnabled = _registerButtonEnabled.asStateFlow()
+
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
+
+    private val _finish = MutableStateFlow<Boolean>(false)
+    val finish = _finish.asStateFlow()
 
     val titleChanged = { title: String -> _title.value = title }
     val dateChanged = { date: String -> _date.value = date }
@@ -73,19 +81,21 @@ class ScheduleAddViewModel @Inject constructor(
 
     fun insert() {
         viewModelScope.launch {
-            repository.insert(convertScheduleEntity())
+            runCatching {
+                ScheduleEntity(
+                    title = title.value,
+                    start_date = LocalDate.parse(date.value),
+                    end_date = if (endDateState.value) LocalDate.parse(endDate.value)
+                    else LocalDate.parse(date.value),
+                    color = getRandomColor()
+                )
+            }.onSuccess {
+                repository.insert(it)
+                _finish.update { true }
+            }.onFailure {
+                _toastMessage.emit("날짜 범위가 올바르지 않습니다.")
+            }
         }
-    }
-
-    private fun convertScheduleEntity(): ScheduleEntity {
-        return ScheduleEntity(
-            title = title.value,
-            start_date = LocalDate.parse(date.value),
-            end_date = if (endDateState.value) LocalDate.parse(endDate.value) else LocalDate.parse(
-                date.value
-            ),
-            color = getRandomColor()
-        )
     }
 
     private fun getRandomColor(): Int {

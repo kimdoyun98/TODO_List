@@ -8,6 +8,11 @@ import androidx.databinding.BindingAdapter
 import com.example.todo_list.R
 
 object EditTextBindingAdapter {
+    private const val DATE_MASK = "####-##-##"
+    private const val MASK = '#'
+    private const val MAX_LENGTH = DATE_MASK.length
+    private const val DATE_FORMAT = "\\D"
+
     @JvmStatic
     @BindingAdapter("app:onQueryTextChange")
     fun onQueryTextChange(view: EditText, onChanged: (String) -> Unit) {
@@ -29,9 +34,6 @@ object EditTextBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:date_format")
     fun onQueryTextChangeDate(view: EditText, onChanged: (String) -> Unit) {
-        val mask = "####-##-##"
-        val maxLength = mask.length
-
         view.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -42,17 +44,17 @@ object EditTextBindingAdapter {
             }
 
             private fun regexDate() {
-                val cleanString = view.text.toString().replace("\\D".toRegex(), "")
+                val cleanString = view.text.toString().replace(DATE_FORMAT.toRegex(), "")
                 val maskBuffer = StringBuilder()
                 var maskIndex = 0
                 var cleanIndex = 0
 
-                while (maskIndex < maxLength && cleanIndex < cleanString.length) {
-                    if (mask[maskIndex] == '#') {
+                while (maskIndex < MAX_LENGTH && cleanIndex < cleanString.length) {
+                    if (DATE_MASK[maskIndex] == MASK) {
                         maskBuffer.append(cleanString[cleanIndex])
                         cleanIndex++
                     } else {
-                        maskBuffer.append(mask[maskIndex])
+                        maskBuffer.append(DATE_MASK[maskIndex])
                     }
                     maskIndex++
                 }

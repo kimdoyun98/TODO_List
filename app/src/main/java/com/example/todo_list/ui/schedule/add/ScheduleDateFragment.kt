@@ -21,6 +21,12 @@ class ScheduleDateFragment :
         binding.fragment = this
         binding.viewModel = viewModel
         navController = findNavController()
+
+        fragmentScope {
+            viewModel.finish.collect{
+                if(it) activity?.finish()
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -40,6 +46,5 @@ class ScheduleDateFragment :
 
     fun register() {
         viewModel.insert()
-        activity?.finish()
     }
 }
