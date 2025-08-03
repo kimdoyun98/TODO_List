@@ -30,8 +30,8 @@ class ScheduleAddViewModel @Inject constructor(
     private val _endDateState = MutableStateFlow(false)
     val endDateState = _endDateState.asStateFlow()
 
-    private val _date = MutableStateFlow("")
-    val date = _date.asStateFlow()
+    private val _startDate = MutableStateFlow("")
+    val startDate = _startDate.asStateFlow()
 
     private val _endDate = MutableStateFlow("")
     val endDate = _endDate.asStateFlow()
@@ -46,22 +46,22 @@ class ScheduleAddViewModel @Inject constructor(
     val finish = _finish.asStateFlow()
 
     val titleChanged = { title: String -> _title.value = title }
-    val dateChanged = { date: String -> _date.value = date }
+    val dateChanged = { date: String -> _startDate.value = date }
     val endDateChanged = { date: String -> _endDate.value = date }
 
     init {
-        date
+        startDate
             .onEach { _registerButtonEnabled.update { false } }
             .map { it.length == 10 }
-            .flatMapLatest { dateState ->
+            .flatMapLatest { startDateEnabled ->
                 endDateState
                     .flatMapLatest { state ->
                         endDate
                             .onEach { _registerButtonEnabled.update { false } }
                             .map { !state || it.length == 10 }
                     }
-                    .filter { endDateState ->
-                        dateState && endDateState
+                    .filter { endDateEnabled ->
+                        startDateEnabled && endDateEnabled
                     }
             }
             .onEach {
@@ -84,9 +84,9 @@ class ScheduleAddViewModel @Inject constructor(
             runCatching {
                 ScheduleEntity(
                     title = title.value,
-                    start_date = LocalDate.parse(date.value),
+                    start_date = LocalDate.parse(startDate.value),
                     end_date = if (endDateState.value) LocalDate.parse(endDate.value)
-                    else LocalDate.parse(date.value),
+                    else LocalDate.parse(startDate.value),
                     color = getRandomColor()
                 )
             }.onSuccess {
