@@ -18,7 +18,7 @@
 
 # Tech Stack
 `Kotlin` `MVVM` `Jetpack` `AAC` `Databinding` `LiveData` `ViewModel` `Room DB` `Coroutine`
-`Flow` `Navigation Component` `Alarm Manager` `WorkManager` `Hilt`
+`Flow` `Navigation Component` `Alarm Manager` `WorkManager` `Hilt` `MPAndroidChart`
 <br>
 
 
@@ -36,28 +36,40 @@
 <br>
 
 # Learn
-* [AlarmManager](https://snaildeveloper.tistory.com/49)
-* [Data Layer의 DataSource와 Repository](https://snaildeveloper.tistory.com/117)
-* [Flow](https://snaildeveloper.tistory.com/130)
+* ### [AlarmManager](https://snaildeveloper.tistory.com/49)
+* ### [Data Layer의 DataSource와 Repository](https://snaildeveloper.tistory.com/117)
+* ### [Flow로 Enable 검사하기](https://snaildeveloper.tistory.com/150)
+* ### [Fragment](https://snaildeveloper.tistory.com/147)
+* ### [Widget](https://snaildeveloper.tistory.com/149)
+* ### [커스텀 목차 구현하기](https://snaildeveloper.tistory.com/146)
 
 # ScreenShot
+## 메인
 <p align="center" width="100%">
  <img 
-  src="https://github.com/user-attachments/assets/5d407caa-425f-4afa-815c-bf20603d8c40"
-  width="250"/>
+  src="https://github.com/user-attachments/assets/86974924-48d3-4075-af7f-c43bd7de9a64"
+  width="240"/>
  <img 
-  src="https://github.com/user-attachments/assets/d925a774-1bdb-4867-a4b8-322624baa013"
-  width="250"/>
+  src="https://github.com/user-attachments/assets/907112c4-af31-414c-b8d2-7d9f7a3f9c99"
+  width="240"/>
   <img 
- src="https://github.com/user-attachments/assets/763ef7f5-a193-418e-a738-cafdaae2e06d" 
- width="250"/>
- </p>
-<p align="center" width="100%">
-<img 
- src="https://github.com/user-attachments/assets/b49ee4f9-71aa-44a1-8870-46aacc6fa662" 
- width="250"/>
+ src="https://github.com/user-attachments/assets/3d7006f2-dc44-4498-a8df-54a1c3dbacd7" 
+ width="240"/>
  <img 
- src="https://github.com/user-attachments/assets/a47c5821-18fd-4151-9bb0-d618f30d8e7b" 
- width="250"/>
+ src="https://github.com/user-attachments/assets/975c42af-7287-4b71-956e-e2d7bb8e64f1" 
+ width="240"/> 
+</p>
+
+## 스케줄 및 루틴 추가
+<p align="center" width="100%">
+ <img 
+ src="https://github.com/user-attachments/assets/44fce508-7442-42fa-8d06-e79d113a6289" 
+ width="240"/> 
+<img 
+ src="https://github.com/user-attachments/assets/7094054a-a730-4616-9844-bb719639e8a4" 
+ width="240"/> 
+ <img 
+ src="https://github.com/user-attachments/assets/78d86044-3e2f-4dee-8093-92c5976d7866" 
+ width="240"/> 
 </p>
 
