@@ -14,10 +14,13 @@ import com.example.todo_list.R
 import com.example.todo_list.alarm.Alarm.Companion.ALARM_REQUEST_CODE
 import com.example.todo_list.alarm.Alarm.Companion.CONTENT
 import com.example.todo_list.ui.MainActivity
+import com.example.todo_list.util.MyApplication
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
+        if (!MyApplication.prefs.getAlarm()) return
+
         val requestCode = intent?.extras!!.getInt(ALARM_REQUEST_CODE)
         val content = intent.extras!!.getString(CONTENT)
 

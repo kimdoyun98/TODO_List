@@ -6,27 +6,29 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreference
 import com.example.todo_list.R
 import com.example.todo_list.util.MyApplication
 
-
 class SettingFragment : PreferenceFragmentCompat() {
     private lateinit var prefs: SharedPreferences
+    private var alarmSwitch: SwitchPreference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting, rootKey)
 
         if (rootKey == null) {
-            prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+            alarmSwitch = findPreference(PUSH_ALERT)
         }
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity())
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
             PUSH_ALERT -> {
-                if (MyApplication.prefs.getAlarm()) MyApplication.prefs.setAlarm(false)
-                else MyApplication.prefs.setAlarm(true)
+                MyApplication.prefs.setAlarm(alarmSwitch!!.isChecked)
             }
         }
     }

@@ -8,7 +8,7 @@ class PreferenceUtil(context: Context) {
         context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
 
     fun getAlarm(): Boolean {
-        return prefs.getBoolean(PUSH_ALARM, false)
+        return prefs.getBoolean(PUSH_ALARM, true)
     }
 
     fun setAlarm(value: Boolean) {
