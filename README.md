@@ -24,14 +24,17 @@
 
 # 핵심 기능
 ### 1. 일정 관리 및 루틴 관리
-- 오프라인에서도 사용할 수 있게 Room으로 구현
-- Calendar View를 구현하여 Calendar를 통해 일정을 한 눈에 확인
-- 완료한 루틴을 체크하여 수행하지 못한 루틴 파악 용이
+- 서버 없이 오프라인 앱으로 사용하기 위해 Room으로 구현
+- 루틴 진행 상황을 직관적으로 보여주기 위해 커스텀 구현
+- 스케줄 등록 시 필수 입력 상황에 따라 Button Enabled 처리
+- Calendar View를 구현하여 Calendar를 통해 스케줄을 한 눈에 확인
 
 ### 2. 정해진 요일과 시간에 루틴 알림 기능
-- WorkManager를 통해 매일 자정에 당일 루틴에 대한 알림을 AlarmManager에 등록
+- 자정마다 금일 루틴 초기화를 위한 작업을 위해 WorkManager 사용
+- 루틴 시간에 정확한 알림을 위해 AlarmManager 사용
 
 ### 3. 위젯으로 당일 루틴 및 일정 확인
+- 스케줄과 루틴 각각의 위젯 구현
 
 <br>
 
@@ -73,3 +76,7 @@
  width="240"/> 
 </p>
 
+## 위젯
+<img 
+ src="https://github.com/user-attachments/assets/15649eb4-6cd6-4d5e-8fcf-cfdcc203f4b4" 
+ width="240"/> 
