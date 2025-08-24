@@ -1,4 +1,6 @@
 pluginManagement {
+    includeBuild("build-logic")
+
     repositories {
         gradlePluginPortal()
         google()
@@ -15,5 +17,8 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "TODO_List"
 include ':app'
