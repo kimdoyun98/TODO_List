@@ -29,7 +29,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             configureKotlin<KotlinAndroidProjectExtension>()
 
             dependencies {
-                implementation(libs.getLibrary("hilt.android"))
+                implementation(libs.getLibrary("dagger.hilt.android"))
                 kapt(libs.getLibrary("hilt.compiler"))
                 androidTestImplementation(libs.getLibrary("hilt.android.testing"))
             }
