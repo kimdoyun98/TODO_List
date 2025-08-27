@@ -1,10 +1,10 @@
-package com.example.todo_list.widget.routine
+package com.project.widget.routine
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
-import com.example.todo_list.R
+import com.project.widget.R
 
 class RoutineWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(

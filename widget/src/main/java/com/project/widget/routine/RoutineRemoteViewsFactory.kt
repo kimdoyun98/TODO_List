@@ -1,13 +1,13 @@
-package com.example.todo_list.widget.routine
+package com.project.widget.routine
 
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.example.todo_list.R
-import com.example.todo_list.data.repository.log.RoutineLogRepository
-import com.example.todo_list.data.room.RoutineEntity
+import com.project.data.local.room.entity.RoutineEntity
+import com.project.data.repository.log.RoutineLogRepository
+import com.project.widget.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -64,7 +64,11 @@ class RoutineRemoteViewsFactory(
         )
 
         when (routineData.success) {
-            true -> setTextColor(listviewWidget, context.getColor(R.color.green))
+            true -> setTextColor(
+                listviewWidget,
+                context.getColor(com.project.core.ui.R.color.green)
+            )
+
             false -> setTextColor(listviewWidget, Color.RED)
             else -> {
                 if (position == 0 || routineList[position - 1].success != null) {

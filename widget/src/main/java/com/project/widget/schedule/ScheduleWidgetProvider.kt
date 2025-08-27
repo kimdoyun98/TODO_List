@@ -1,4 +1,4 @@
-package com.example.todo_list.widget.schedule
+package com.project.widget.schedule
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -6,10 +6,10 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import com.example.todo_list.R
-import com.example.todo_list.data.repository.schedule.ScheduleRepository
-import com.example.todo_list.ui.MainActivity
-import com.example.todo_list.util.DateCalculate
+import com.project.data.repository.schedule.ScheduleRepository
+import com.project.main.MainActivity
+import com.project.ui.date.DateCalculate
+import com.project.widget.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
