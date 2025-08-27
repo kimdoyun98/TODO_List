@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.example.todo_list.worker.ResetRoutineWorker
+import com.project.data.local.preference.PreferenceUtil
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -12,6 +13,9 @@ class MyApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    @Inject
+    lateinit var pref: PreferenceUtil
+
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)
@@ -19,17 +23,15 @@ class MyApplication : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        prefs = PreferenceUtil(applicationContext)
         instance = this
 
-        if(prefs.getWorkerState()){
+        if (pref.getWorkerState()) {
             ResetRoutineWorker.runReset(this)
-            prefs.setWorkerState(false)
+            pref.setWorkerState(false)
         }
     }
 
     companion object {
         lateinit var instance: MyApplication
-        lateinit var prefs: PreferenceUtil
     }
 }

@@ -1,7 +1,8 @@
-package com.example.todo_list.util
+package com.project.data.local.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class PreferenceUtil(context: Context) {
     private val prefs: SharedPreferences =
@@ -12,7 +13,7 @@ class PreferenceUtil(context: Context) {
     }
 
     fun setAlarm(value: Boolean) {
-        prefs.edit().putBoolean(PUSH_ALARM, value).apply()
+        prefs.edit { putBoolean(PUSH_ALARM, value) }
     }
 
     fun getWorkerState(): Boolean {
@@ -20,7 +21,7 @@ class PreferenceUtil(context: Context) {
     }
 
     fun setWorkerState(value: Boolean) {
-        prefs.edit().putBoolean(MIDNIGHT_RESET, value).apply()
+        prefs.edit { putBoolean(MIDNIGHT_RESET, value) }
     }
 
     companion object {
