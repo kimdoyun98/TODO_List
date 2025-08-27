@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.preference)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -47,11 +48,6 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.runtime)
-
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    kapt(libs.androidx.room.compiler)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -76,6 +72,11 @@ dependencies {
 
     //Graph
     implementation(libs.mpandroidchart)
+
+    implementation(projects.feature.main)
+    implementation(projects.core.navigation)
+    implementation(projects.core.ui)
+    implementation(projects.data)
 }
 
 kapt {
