@@ -1,4 +1,4 @@
-package com.example.todo_list.alarm
+package com.project.alarm
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,11 +10,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.example.todo_list.R
-import com.example.todo_list.alarm.Alarm.Companion.ALARM_REQUEST_CODE
-import com.example.todo_list.alarm.Alarm.Companion.CONTENT
-import com.example.todo_list.ui.MainActivity
-import com.example.todo_list.util.MyApplication
+import com.project.alarm.Alarm.Companion.ALARM_REQUEST_CODE
+import com.project.alarm.Alarm.Companion.CONTENT
+import com.project.main.MainActivity
+import com.project.core.ui.R
 
 class AlarmReceiver : BroadcastReceiver() {
 

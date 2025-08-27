@@ -1,7 +1,7 @@
-package com.example.todo_list.di
+package com.project.alarm.di
 
 import android.content.Context
-import com.example.todo_list.alarm.Alarm
+import com.project.alarm.Alarm
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

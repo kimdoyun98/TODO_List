@@ -1,4 +1,4 @@
-package com.example.todo_list.alarm
+package com.project.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
