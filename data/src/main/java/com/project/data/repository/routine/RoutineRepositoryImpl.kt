@@ -1,7 +1,7 @@
-package com.example.todo_list.data.repository.routine
+package com.project.data.repository.routine
 
-import com.example.todo_list.data.room.RoutineEntity
-import com.example.todo_list.data.room.dao.RoutineDAO
+import com.project.data.local.room.dao.RoutineDAO
+import com.project.data.local.room.entity.RoutineEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

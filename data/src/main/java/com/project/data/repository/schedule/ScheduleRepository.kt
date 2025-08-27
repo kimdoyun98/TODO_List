@@ -1,6 +1,6 @@
-package com.example.todo_list.data.repository.schedule
+package com.project.data.repository.schedule
 
-import com.example.todo_list.data.room.ScheduleEntity
+import com.project.data.local.room.entity.ScheduleEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ScheduleRepository {

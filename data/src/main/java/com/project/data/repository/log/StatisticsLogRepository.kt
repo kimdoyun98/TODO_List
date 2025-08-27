@@ -1,7 +1,7 @@
-package com.example.todo_list.data.repository.log
+package com.project.data.repository.log
 
-import com.example.todo_list.data.room.PeriodRoutineLog
-import com.example.todo_list.data.room.StatisticsLog
+import com.project.data.local.room.entity.StatisticsLog
+import com.project.data.repository.model.PeriodRoutineLog
 import java.time.LocalDate
 
 interface StatisticsLogRepository {
