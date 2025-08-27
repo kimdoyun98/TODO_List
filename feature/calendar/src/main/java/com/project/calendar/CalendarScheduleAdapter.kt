@@ -1,12 +1,12 @@
-package com.example.todo_list.adapter.calendar
+package com.project.calendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.adapter.ItemDiffCallback
-import com.example.todo_list.data.room.ScheduleEntity
-import com.example.todo_list.databinding.CalendarScheduleItemBinding
+import com.project.data.local.room.entity.ScheduleEntity
+import com.project.feature.calendar.databinding.CalendarScheduleItemBinding
+import com.project.ui.ItemDiffCallback
 
 class CalendarScheduleAdapter :
     ListAdapter<ScheduleEntity, CalendarScheduleAdapter.CalendarScheduleViewHolder>(

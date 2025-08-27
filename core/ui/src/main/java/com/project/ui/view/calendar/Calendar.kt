@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.calendar.view
+package com.project.ui.view.calendar
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,9 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
-import com.example.todo_list.adapter.calendar.MonthAdapter
-import com.example.todo_list.data.room.ScheduleEntity
+import com.project.core.ui.R
+import com.project.data.local.room.entity.ScheduleEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.Calendar

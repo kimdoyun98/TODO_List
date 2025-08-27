@@ -1,18 +1,17 @@
-package com.example.todo_list.adapter.calendar
+package com.project.ui.view.calendar
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.data.room.ScheduleEntity
-import com.example.todo_list.databinding.CalendarDaysItemBinding
-import com.example.todo_list.ui.calendar.view.Calendar.OnDayClickListener
+import com.project.core.ui.databinding.CalendarDaysItemBinding
+import com.project.data.local.room.entity.ScheduleEntity
 import java.util.Calendar
 import java.util.Date
 
 class MonthAdapter(
     private val context: Context,
-    private val onClick: OnDayClickListener
+    private val onClick: com.project.ui.view.calendar.Calendar.OnDayClickListener
 ) : RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
     private var schedule = emptyList<ScheduleEntity>()
 

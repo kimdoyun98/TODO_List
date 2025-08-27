@@ -1,4 +1,4 @@
-package com.example.todo_list.adapter.calendar
+package com.project.ui.view.calendar
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
-import com.example.todo_list.data.room.ScheduleEntity
-import com.example.todo_list.databinding.CalendarDayItemBinding
-import com.example.todo_list.ui.calendar.view.Calendar.OnDayClickListener
+import com.project.core.ui.R
+import com.project.core.ui.databinding.CalendarDayItemBinding
+import com.project.data.local.room.entity.ScheduleEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class DaysAdapter(
     private val context: Context,
-    private val onClick: OnDayClickListener,
+    private val onClick: Calendar.OnDayClickListener,
     private val year: Int,
     private val month: Int,
     private val dayList: MutableList<MonthAdapter.Day?>,
