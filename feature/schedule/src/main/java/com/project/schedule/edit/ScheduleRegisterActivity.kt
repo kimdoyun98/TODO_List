@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.schedule.add
+package com.project.schedule.edit
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.todo_list.databinding.ActivityRegisterBinding
+import com.project.feature.schedule.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

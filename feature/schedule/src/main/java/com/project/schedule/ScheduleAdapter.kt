@@ -1,14 +1,14 @@
-package com.example.todo_list.adapter.schedule
+package com.project.schedule
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.adapter.ItemDiffCallback
-import com.example.todo_list.data.room.ScheduleEntity
-import com.example.todo_list.databinding.RecyclerviewTodoItemBinding
+import com.project.data.local.room.entity.ScheduleEntity
+import com.project.feature.schedule.databinding.RecyclerviewTodoItemBinding
+import com.project.ui.ItemDiffCallback
 
-class ScheduleAdapter: ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleViewHolder>(
+class ScheduleAdapter : ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }

@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.todo.android.library)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -8,6 +7,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -22,4 +22,5 @@ dependencies {
 
     implementation(projects.core.ui)
     implementation(projects.core.navigation)
+    implementation(projects.data)
 }

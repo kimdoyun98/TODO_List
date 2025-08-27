@@ -1,9 +1,9 @@
-package com.example.todo_list.ui.schedule
+package com.project.schedule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo_list.data.repository.schedule.ScheduleRepository
-import com.example.todo_list.data.room.ScheduleEntity
+import com.project.data.local.room.entity.ScheduleEntity
+import com.project.data.repository.schedule.ScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

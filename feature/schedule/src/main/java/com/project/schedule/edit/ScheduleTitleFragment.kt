@@ -1,11 +1,11 @@
-package com.example.todo_list.ui.schedule.add
+package com.project.schedule.edit
 
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.example.todo_list.R
-import com.example.todo_list.databinding.AddScheduleTitleLayoutBinding
-import com.example.todo_list.ui.util.basefragment.DataBindingFragment
+import com.project.feature.schedule.R
+import com.project.feature.schedule.databinding.AddScheduleTitleLayoutBinding
+import com.project.ui.base.DataBindingFragment
 
 class ScheduleTitleFragment :
     DataBindingFragment<AddScheduleTitleLayoutBinding>(AddScheduleTitleLayoutBinding::inflate) {

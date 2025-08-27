@@ -1,9 +1,9 @@
-package com.example.todo_list.ui.schedule.bindingadapter
+package com.project.schedule.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.adapter.schedule.ScheduleAdapter
-import com.example.todo_list.data.room.ScheduleEntity
+import com.project.data.local.room.entity.ScheduleEntity
+import com.project.schedule.ScheduleAdapter
 
 object ScheduleBindingAdapter {
     private val adapter = ScheduleAdapter()

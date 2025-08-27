@@ -23,11 +23,5 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove"/>
-
-        <activity
-            android:name=".ui.schedule.add.ScheduleRegisterActivity"
-            android:windowSoftInputMode="adjustResize" />
-
-
     </application>
 </manifest>

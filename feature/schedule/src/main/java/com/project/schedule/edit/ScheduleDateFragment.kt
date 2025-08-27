@@ -1,12 +1,12 @@
-package com.example.todo_list.ui.schedule.add
+package com.project.schedule.edit
 
 import android.content.Context
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.example.todo_list.databinding.AddScheduleDateLayoutBinding
-import com.example.todo_list.ui.util.basefragment.DataBindingFragment
+import com.project.feature.schedule.databinding.AddScheduleDateLayoutBinding
+import com.project.ui.base.DataBindingFragment
 
 class ScheduleDateFragment :
     DataBindingFragment<AddScheduleDateLayoutBinding>(AddScheduleDateLayoutBinding::inflate) {
@@ -23,8 +23,8 @@ class ScheduleDateFragment :
         navController = findNavController()
 
         fragmentScope {
-            viewModel.finish.collect{
-                if(it) activity?.finish()
+            viewModel.finish.collect {
+                if (it) activity?.finish()
             }
         }
     }
