@@ -1,11 +1,11 @@
-package com.example.todo_list.ui.routine.add
+package com.project.routine.edit
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo_list.alarm.Alarm
-import com.example.todo_list.data.repository.routine.RoutineRepository
-import com.example.todo_list.data.room.RoutineEntity
+import com.project.alarm.Alarm
+import com.project.data.local.room.entity.RoutineEntity
+import com.project.data.repository.routine.RoutineRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

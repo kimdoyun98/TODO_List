@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -33,9 +27,7 @@
         <activity
             android:name=".ui.schedule.add.ScheduleRegisterActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.routine.add.RoutineRegisterActivity"
-            android:windowSoftInputMode="adjustPan" />
+
 
     </application>
 </manifest>

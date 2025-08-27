@@ -12,13 +12,20 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.project.alarm.Alarm.Companion.ALARM_REQUEST_CODE
 import com.project.alarm.Alarm.Companion.CONTENT
-import com.project.main.MainActivity
 import com.project.core.ui.R
+import com.project.data.local.preference.PreferenceUtil
+import com.project.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AlarmReceiver : BroadcastReceiver() {
 
+    @Inject
+    lateinit var prefs: PreferenceUtil
+
     override fun onReceive(context: Context, intent: Intent?) {
-        if (!MyApplication.prefs.getAlarm()) return
+        if (!prefs.getAlarm()) return
 
         val requestCode = intent?.extras!!.getInt(ALARM_REQUEST_CODE)
         val content = intent.extras!!.getString(CONTENT)

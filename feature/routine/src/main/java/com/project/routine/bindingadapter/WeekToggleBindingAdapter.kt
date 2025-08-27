@@ -1,8 +1,8 @@
-package com.example.todo_list.ui.routine.bindingadapter
+package com.project.routine.bindingadapter
 
 import android.widget.ToggleButton
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
+import com.project.core.ui.R
 
 object WeekToggleBindingAdapter {
     @JvmStatic
@@ -12,7 +12,7 @@ object WeekToggleBindingAdapter {
         onChecked: (Int, Boolean) -> Unit,
     ) {
         view.setOnCheckedChangeListener { buttonView, isChecked ->
-            with(view.context){
+            with(view.context) {
                 when (buttonView?.text) {
                     getString(R.string.sunday) -> onChecked(0, isChecked)
                     getString(R.string.monday) -> onChecked(1, isChecked)

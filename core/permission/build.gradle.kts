@@ -3,11 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "com.project.alarm"
+    namespace = "com.project.permission"
 }
 
 dependencies {
+    implementation(libs.tedpermission.normal)
     implementation(projects.core.ui)
-    implementation(projects.feature.main)
-    implementation(projects.data)
 }
