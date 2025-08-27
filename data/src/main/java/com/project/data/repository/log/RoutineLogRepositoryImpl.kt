@@ -1,7 +1,7 @@
 package com.example.todo_list.data.repository.log
 
 import com.example.todo_list.data.room.RoutineLog
-import com.example.todo_list.data.room.dao.RoutineLogDAO
+import com.project.data.local.room.dao.RoutineLogDAO
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import javax.inject.Inject

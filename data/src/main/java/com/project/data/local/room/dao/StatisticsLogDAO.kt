@@ -1,11 +1,11 @@
-package com.example.todo_list.data.room.dao
+package com.project.data.local.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.todo_list.data.room.PeriodRoutineLog
-import com.example.todo_list.data.room.StatisticsLog
+import com.project.data.local.room.entity.StatisticsLog
+import com.project.data.repository.model.PeriodRoutineLog
 import java.time.LocalDate
 
 @Dao
@@ -17,7 +17,8 @@ interface StatisticsLogDAO {
     @Query("SELECT * FROM STATISTICSLOG")
     suspend fun getAll(): List<StatisticsLog>
 
-    @Query("""
+    @Query(
+        """
         SELECT
             RoutineLog.date As date,
             RoutineLog.routines As routines,
@@ -26,6 +27,7 @@ interface StatisticsLogDAO {
         FROM RoutineLog
         JOIN StatisticsLog ON RoutineLog.id = StatisticsLog.routineLogId
         WHERE RoutineLog.date BETWEEN :start AND :end
-    """)
+    """
+    )
     suspend fun getPeriodLog(start: LocalDate, end: LocalDate): List<PeriodRoutineLog>
 }

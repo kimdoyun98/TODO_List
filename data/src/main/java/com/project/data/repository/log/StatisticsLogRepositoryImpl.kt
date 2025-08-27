@@ -2,7 +2,7 @@ package com.example.todo_list.data.repository.log
 
 import com.example.todo_list.data.room.PeriodRoutineLog
 import com.example.todo_list.data.room.StatisticsLog
-import com.example.todo_list.data.room.dao.StatisticsLogDAO
+import com.project.data.local.room.dao.StatisticsLogDAO
 import java.time.LocalDate
 import javax.inject.Inject
 
