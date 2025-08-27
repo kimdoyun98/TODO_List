@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.os.PowerManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.project.feature.main.R
 import com.project.feature.main.databinding.ActivityMainBinding
-import com.project.ui.BatteryDialog
+import com.project.ui.dialog.BatteryDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +26,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
         binding.navBar.setupWithNavController(navController)
+
+        viewModel
 
         addWhiteListToBattery()
     }
