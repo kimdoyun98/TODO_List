@@ -1,4 +1,4 @@
-package com.example.todo_list.ui.home.utils
+package com.project.home.utils
 
 data class PeriodStatistics(
     val total: Int = 0,

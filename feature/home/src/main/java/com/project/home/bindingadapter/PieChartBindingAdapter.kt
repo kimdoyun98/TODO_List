@@ -1,16 +1,16 @@
-package com.example.todo_list.ui.home.bindingadapter
+package com.project.home.bindingadapter
 
 import android.content.Context
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
-import com.example.todo_list.ui.home.utils.PeriodStatistics
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.project.core.ui.R
+import com.project.home.utils.PeriodStatistics
 
 object PieChartBindingAdapter {
 

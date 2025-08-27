@@ -1,14 +1,14 @@
-package com.example.todo_list.ui.home
+package com.project.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo_list.data.repository.log.RoutineLogRepository
-import com.example.todo_list.data.repository.log.StatisticsLogRepository
-import com.example.todo_list.data.repository.schedule.ScheduleRepository
-import com.example.todo_list.data.room.PeriodRoutineLog
-import com.example.todo_list.data.room.RoutineLog
-import com.example.todo_list.ui.home.utils.PeriodStatistics
-import com.example.todo_list.ui.home.utils.StatisticsTab
+import com.project.data.local.room.entity.RoutineLog
+import com.project.data.repository.log.RoutineLogRepository
+import com.project.data.repository.log.StatisticsLogRepository
+import com.project.data.repository.model.PeriodRoutineLog
+import com.project.data.repository.schedule.ScheduleRepository
+import com.project.home.utils.PeriodStatistics
+import com.project.home.utils.StatisticsTab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

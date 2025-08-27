@@ -1,17 +1,17 @@
-package com.example.todo_list.ui.home.bindingadapter
+package com.project.home.bindingadapter
 
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.ui.home.utils.StatisticsTab
 import com.google.android.material.tabs.TabLayout
+import com.project.home.utils.StatisticsTab
 
 object TabBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:tab_selected")
-    fun tabSelectedListener(tabLayout: TabLayout, changedTab: (StatisticsTab) -> Unit){
+    fun tabSelectedListener(tabLayout: TabLayout, changedTab: (StatisticsTab) -> Unit) {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 changedTab(
-                    when(tabLayout.selectedTabPosition){
+                    when (tabLayout.selectedTabPosition) {
                         StatisticsTab.WEEK.position -> StatisticsTab.WEEK
                         StatisticsTab.MONTH.position -> StatisticsTab.MONTH
                         StatisticsTab.HALF_OF_YEAR.position -> StatisticsTab.HALF_OF_YEAR
@@ -19,8 +19,10 @@ object TabBindingAdapter {
                     }
                 )
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })

@@ -1,10 +1,10 @@
-package com.example.todo_list.ui.home.bindingadapter
+package com.project.home.bindingadapter
 
 import android.content.Context
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.adapter.home.HomeRoutineAdapter
-import com.example.todo_list.data.room.RoutineEntity
+import com.project.data.local.room.entity.RoutineEntity
+import com.project.home.adapter.HomeRoutineAdapter
 
 object RoutinesBindingAdapter {
     private val adapter = HomeRoutineAdapter()
