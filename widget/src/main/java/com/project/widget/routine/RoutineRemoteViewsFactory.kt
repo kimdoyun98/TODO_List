@@ -8,15 +8,16 @@ import android.widget.RemoteViewsService
 import com.project.data.local.room.entity.RoutineEntity
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.widget.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import javax.inject.Inject
 
-
-class RoutineRemoteViewsFactory(
-    private val context: Context,
+class RoutineRemoteViewsFactory @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val repository: RoutineLogRepository
 ) : RemoteViewsService.RemoteViewsFactory {
     private var scope = CoroutineScope(Dispatchers.IO)
