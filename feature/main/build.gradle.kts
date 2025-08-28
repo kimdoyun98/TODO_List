@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(projects.data)
+    implementation(projects.core.model)
 
     implementation(projects.feature.home)
     implementation(projects.feature.routine)

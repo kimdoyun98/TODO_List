@@ -2,11 +2,11 @@ package com.project.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.data.local.room.entity.RoutineEntity
-import com.project.data.local.room.entity.RoutineLog
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.log.StatisticsLogRepository
 import com.project.data.repository.routine.RoutineRepository
+import com.project.model.Routine
+import com.project.model.RoutineLog
 import com.project.ui.createLogStatisticsLog
 import com.project.ui.filterTodayRoutine
 import com.project.ui.isTodayRoutineLog
@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun checkRoutineLog(todayRoutine: List<RoutineEntity>) =
+    private fun checkRoutineLog(todayRoutine: List<Routine>) =
         routineLogRepository.getTodayLog()
             .onEach { _todayRoutineLog.value = it }
             .filter {
@@ -67,12 +67,12 @@ class MainViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun updateRoutineLog(todayRoutine: List<RoutineEntity>) =
+    private fun updateRoutineLog(todayRoutine: List<Routine>) =
         todayRoutineLog
             .filterNotNull()
             .filter { isTodayRoutineLog(it.date) && todayRoutine.size != it.routines!!.size }
             .onEach { routineLog ->
-                val newRoutinesMap: Map<Int, RoutineEntity>
+                val newRoutinesMap: Map<Int, Routine>
 
                 if (todayRoutine.size > routineLog.routines!!.size) {
                     newRoutinesMap = routineLog.routines!!.toMutableMap()
