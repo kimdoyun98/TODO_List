@@ -19,6 +19,22 @@ dependencyResolutionManagement {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+//gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
 
 rootProject.name = "TODO_List"
 include ':app'
+include ':feature'
+include ':feature:main'
+include ':core'
+include ':core:navigation'
+include ':core:ui'
+include ':feature:home'
+include ':feature:schedule'
+include ':feature:routine'
+include ':feature:calendar'
+include ':feature:setting'
+include ':data'
+include ':core:alarm'
+include ':core:worker'
+include ':widget'
+include ':core:permission'

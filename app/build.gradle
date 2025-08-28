@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.todo.android.application)
-    id 'kotlin-parcelize'
 }
 
 android {
@@ -10,11 +9,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding true
-        dataBinding true
     }
 
     signingConfigs {
@@ -31,54 +25,31 @@ android {
             keyPassword properties["keyPassword"]
         }
     }
+
+    buildFeatures.dataBinding = true
+
     namespace 'com.example.todo_list'
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.preference)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.runtime)
-
-    // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    // LiveData
-    implementation(libs.lifecycle.livedata.ktx)
-
-    // gson
-    implementation(libs.gson)
-
-    // 설정
-    implementation(libs.androidx.preference.ktx)
-
-    //permission
-    implementation(libs.tedpermission.normal)
-
-    // WorkManager dependency
+    implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.work.runtime.ktx)
 
-    // Hilt with WorkManager
-    implementation(libs.androidx.hilt.work)
-    kapt(libs.androidx.hilt.compiler)
-
-    //Graph
-    implementation(libs.mpandroidchart)
-
     implementation(projects.feature.main)
+    implementation(projects.feature.home)
+    implementation(projects.feature.routine)
+    implementation(projects.feature.schedule)
+    implementation(projects.feature.calendar)
+    implementation(projects.feature.setting)
+
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
-    implementation(projects.data)
-}
+    implementation(projects.core.worker)
+    implementation(projects.core.alarm)
+    implementation(projects.core.permission)
 
-kapt {
-    correctErrorTypes true
+    implementation(projects.data)
+
+    implementation(projects.widget)
 }
