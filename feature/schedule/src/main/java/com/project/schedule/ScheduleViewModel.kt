@@ -2,8 +2,8 @@ package com.project.schedule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.data.local.room.entity.ScheduleEntity
 import com.project.data.repository.schedule.ScheduleRepository
+import com.project.model.Schedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +20,7 @@ class ScheduleViewModel @Inject constructor(
     private val _selectedSort = MutableStateFlow<SortItem>(SortItem.LATEST)
     val selectedSort = _selectedSort.asStateFlow()
 
-    private val _sortedScheduleItems = MutableStateFlow<List<ScheduleEntity>>(emptyList())
+    private val _sortedScheduleItems = MutableStateFlow<List<Schedule>>(emptyList())
     val sortedScheduleItems = _sortedScheduleItems.asStateFlow()
 
     init {
@@ -31,7 +31,7 @@ class ScheduleViewModel @Inject constructor(
 
     fun delete(id: Int) = viewModelScope.launch { repository.delete(id) }
 
-    fun update(scheduleEntity: ScheduleEntity) =
+    fun update(scheduleEntity: Schedule) =
         viewModelScope.launch { repository.update(scheduleEntity) }
 
     fun success(id: Int) = viewModelScope.launch { repository.success(id) }
@@ -45,7 +45,7 @@ class ScheduleViewModel @Inject constructor(
         _selectedSort.value = SortItem.END_DATE
     }
 
-    private fun sorted(items: List<ScheduleEntity>) = selectedSort
+    private fun sorted(items: List<Schedule>) = selectedSort
         .onEach {
             val sortedItems =
                 when (it) {

@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.project.data.local.room.entity.ScheduleEntity" />
+        <import type="com.project.model.Schedule" />
 
         <variable
             name="todoEntity"
-            type="com.project.data.local.room.entity.ScheduleEntity" />
+            type="com.project.model.Schedule" />
     </data>
 
     <LinearLayout

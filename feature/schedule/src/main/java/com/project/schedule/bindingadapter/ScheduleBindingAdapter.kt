@@ -2,7 +2,7 @@ package com.project.schedule.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Schedule
 import com.project.schedule.ScheduleAdapter
 
 object ScheduleBindingAdapter {
@@ -12,11 +12,11 @@ object ScheduleBindingAdapter {
     @BindingAdapter("app:items", "app:onClick")
     fun setAdapterRecyclerView(
         view: RecyclerView,
-        items: List<ScheduleEntity>,
-        onClick: (ScheduleEntity) -> Any
+        items: List<Schedule>,
+        onClick: (Schedule) -> Any
     ) {
         view.adapter = adapter
-        adapter.setDialogEvent { scheduleEntity -> onClick(scheduleEntity) }
+        adapter.setDialogEvent { schedule -> onClick(schedule) }
         adapter.submitList(items)
     }
 }

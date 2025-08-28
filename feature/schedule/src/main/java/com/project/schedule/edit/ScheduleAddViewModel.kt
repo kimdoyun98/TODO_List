@@ -3,8 +3,8 @@ package com.project.schedule.edit
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.data.local.room.entity.ScheduleEntity
 import com.project.data.repository.schedule.ScheduleRepository
+import com.project.model.Schedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -82,7 +82,7 @@ class ScheduleAddViewModel @Inject constructor(
     fun insert() {
         viewModelScope.launch {
             runCatching {
-                ScheduleEntity(
+                Schedule(
                     title = title.value,
                     start_date = LocalDate.parse(startDate.value),
                     end_date = if (endDateState.value) LocalDate.parse(endDate.value)

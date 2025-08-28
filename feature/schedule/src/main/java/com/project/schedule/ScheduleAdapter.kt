@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.project.data.local.room.entity.ScheduleEntity
 import com.project.feature.schedule.databinding.RecyclerviewTodoItemBinding
+import com.project.model.Schedule
 import com.project.ui.ItemDiffCallback
 
-class ScheduleAdapter : ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleViewHolder>(
+class ScheduleAdapter : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 ) {
-    private lateinit var showDialog: (ScheduleEntity) -> Unit
+    private lateinit var showDialog: (Schedule) -> Unit
 
     inner class ScheduleViewHolder(
         private val binding: RecyclerviewTodoItemBinding
@@ -26,12 +26,12 @@ class ScheduleAdapter : ListAdapter<ScheduleEntity, ScheduleAdapter.ScheduleView
             }
         }
 
-        fun bind(toDoEntity: ScheduleEntity) {
+        fun bind(toDoEntity: Schedule) {
             binding.todoEntity = toDoEntity
         }
     }
 
-    fun setDialogEvent(showDialog: (ScheduleEntity) -> Unit) {
+    fun setDialogEvent(showDialog: (Schedule) -> Unit) {
         this.showDialog = showDialog
     }
 
