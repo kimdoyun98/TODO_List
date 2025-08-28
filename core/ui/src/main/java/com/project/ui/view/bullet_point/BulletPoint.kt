@@ -7,13 +7,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import com.example.todo_list.R
+import com.project.core.ui.R
 
 open class BulletPoint(context: Context, attrs: AttributeSet) : View(context, attrs), Bullet {
     private var position: Position? = null
     private val lineSize: Int
     private val lineColor: Int
-    private var background = context.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
+    private var background =
+        context.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
     protected val circleColor: Int
     protected val circleSize: Int
     protected val paint = Paint()
@@ -89,20 +90,21 @@ open class BulletPoint(context: Context, attrs: AttributeSet) : View(context, at
         settingBackgroundCircle(canvas)
     }
 
-    protected fun settingBackgroundCircle(canvas: Canvas){
-        paint.color = when(background){
+    protected fun settingBackgroundCircle(canvas: Canvas) {
+        paint.color = when (background) {
             Configuration.UI_MODE_NIGHT_YES -> {
                 Color.BLACK
             }
+
             else -> {
                 Color.WHITE
             }
         }
 
-        canvas.drawCircle(width / 2F, height / 2F, circleSize.toFloat()-5, paint)
+        canvas.drawCircle(width / 2F, height / 2F, circleSize.toFloat() - 5, paint)
     }
 
-    protected fun settingDrawLine(color: Int = this.color ?: lineColor){
+    protected fun settingDrawLine(color: Int = this.color ?: lineColor) {
         paint.color = color
         paint.strokeWidth = lineSize.toFloat()
     }

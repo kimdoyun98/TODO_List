@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
-import com.example.todo_list.databinding.AddTopBarLayoutBinding
+import com.project.core.ui.R
+import com.project.core.ui.databinding.AddTopBarLayoutBinding
 
 class AddTopBar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding: AddTopBarLayoutBinding =

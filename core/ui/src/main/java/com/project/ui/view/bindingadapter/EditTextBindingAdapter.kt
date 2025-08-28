@@ -5,7 +5,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
+import com.project.core.ui.R
 
 object EditTextBindingAdapter {
     private const val DATE_MASK = "####-##-##"

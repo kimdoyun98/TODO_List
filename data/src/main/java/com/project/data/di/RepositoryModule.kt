@@ -1,9 +1,5 @@
 package com.project.data.di
 
-import com.project.data.local.room.dao.RoutineDAO
-import com.project.data.local.room.dao.RoutineLogDAO
-import com.project.data.local.room.dao.ScheduleDAO
-import com.project.data.local.room.dao.StatisticsLogDAO
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.log.RoutineLogRepositoryImpl
 import com.project.data.repository.log.StatisticsLogRepository
@@ -14,11 +10,8 @@ import com.project.data.repository.schedule.ScheduleRepository
 import com.project.data.repository.schedule.ScheduleRepositoryImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.jetbrains.annotations.Async
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

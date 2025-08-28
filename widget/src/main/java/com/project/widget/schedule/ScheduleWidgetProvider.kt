@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import com.project.data.repository.schedule.ScheduleRepository
-import com.project.main.MainActivity
 import com.project.ui.date.DateCalculate
 import com.project.widget.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,10 +38,14 @@ class ScheduleWidgetProvider : AppWidgetProvider() {
                 if (recentSchedule == null) "" else dateCalculate.getDDayString(recentSchedule.start_date)
 
             val remoteViews = RemoteViews(context?.packageName, R.layout.widget_schedule)
+
+            val intent = Intent()
+            intent.setClassName(context!!, MAIN_ACTIVITY)
+
             val pendingIntent = PendingIntent.getActivity(
                 context,
                 0,
-                Intent(context, MainActivity::class.java),
+                intent,
                 PendingIntent.FLAG_IMMUTABLE
             )
 
@@ -58,5 +61,9 @@ class ScheduleWidgetProvider : AppWidgetProvider() {
         super.onDisabled(context)
         scope.cancel()
         job = null
+    }
+
+    companion object {
+        private const val MAIN_ACTIVITY = "com.project.main.MainActivity"
     }
 }
