@@ -11,7 +11,6 @@ import com.project.ui.createLogStatisticsLog
 import com.project.ui.filterTodayRoutine
 import com.project.ui.isTodayRoutineLog
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
