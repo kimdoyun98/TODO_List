@@ -6,15 +6,16 @@ import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import com.project.feature.home.databinding.FragmentHomeBinding
-import com.project.ui.base.ViewBindingFragment
+import com.project.ui.base.DataBindingFragment
 import com.project.ui.dialog.StateDialog
 import com.project.widget.routine.RoutineWidgetProvider
 import com.project.widget.schedule.ScheduleWidgetProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlin.getValue
 
-class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-        private val viewModel: HomeViewModel by viewModels()
+@AndroidEntryPoint
+class HomeFragment : DataBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    private val viewModel: HomeViewModel by viewModels()
     val openDialog = { position: Int, title: String?, context: Context ->
         StateDialog.showDialog(
             context = context,
@@ -26,7 +27,6 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView() {
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
         binding.fragment = this@HomeFragment
 
         fragmentScope {
