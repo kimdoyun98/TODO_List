@@ -9,7 +9,7 @@
 
         <variable
             name="routineEntity"
-            type="com.project.data.local.room.entity.RoutineEntity" />
+            type="com.project.model.Routine" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.project.data.local.room.entity.RoutineEntity
 import com.project.feature.routine.databinding.RecyclerviewRoutineItemBinding
+import com.project.model.Routine
 import com.project.ui.ItemDiffCallback
 
-class RoutineAdapter : ListAdapter<RoutineEntity, RoutineAdapter.RoutineViewHolder>(
+class RoutineAdapter : ListAdapter<Routine, RoutineAdapter.RoutineViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 ) {
-    private lateinit var onClick: (RoutineEntity) -> Any
+    private lateinit var onClick: (Routine) -> Any
 
     inner class RoutineViewHolder(
         private val binding: RecyclerviewRoutineItemBinding
@@ -27,12 +27,12 @@ class RoutineAdapter : ListAdapter<RoutineEntity, RoutineAdapter.RoutineViewHold
             }
         }
 
-        fun bind(routineEntity: RoutineEntity) {
+        fun bind(routineEntity: Routine) {
             binding.routineEntity = routineEntity
         }
     }
 
-    fun setItemClick(onClick: (RoutineEntity) -> Any) {
+    fun setItemClick(onClick: (Routine) -> Any) {
         this.onClick = onClick
     }
 

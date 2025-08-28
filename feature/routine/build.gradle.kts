@@ -22,4 +22,5 @@ dependencies {
     implementation(projects.data)
     implementation(projects.core.alarm)
     implementation(projects.core.permission)
+    implementation(projects.core.model)
 }

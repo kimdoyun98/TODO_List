@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.alarm.Alarm
-import com.project.data.local.room.entity.RoutineEntity
 import com.project.data.repository.routine.RoutineRepository
+import com.project.model.Routine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -60,7 +60,8 @@ class RoutineRegisterViewModel @Inject constructor(
 
         viewModelScope.launch {
             val id = repository.insert(
-                RoutineEntity(
+                Routine(
+                    id = 0,
                     title = title,
                     day = checkedDayList,
                     time = "${time2[0]}:${time2[1]}"

@@ -2,10 +2,10 @@ package com.project.routine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.data.local.room.entity.RoutineEntity
-import com.project.data.local.room.entity.RoutineLog
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.routine.RoutineRepository
+import com.project.model.Routine
+import com.project.model.RoutineLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +22,7 @@ class RoutineViewModel @Inject constructor(
     private val repository: RoutineRepository,
     private val routineLogRepository: RoutineLogRepository,
 ) : ViewModel() {
-    val getAll: StateFlow<List<RoutineEntity>> = repository.selectAll().stateIn(
+    val getAll: StateFlow<List<Routine>> = repository.selectAll().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000L),
         emptyList()
