@@ -3,11 +3,11 @@ package com.project.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.project.data.local.room.entity.RoutineEntity
 import com.project.feature.home.databinding.RecyclerviewHomeItemBinding
+import com.project.model.Routine
 
 class HomeRoutineAdapter : RecyclerView.Adapter<HomeRoutineAdapter.HomeRoutineViewHolder>() {
-    private var currentList: List<RoutineEntity> = emptyList()
+    private var currentList: List<Routine> = emptyList()
     private lateinit var onClick: (Int) -> Unit
 
     inner class HomeRoutineViewHolder(
@@ -20,14 +20,14 @@ class HomeRoutineAdapter : RecyclerView.Adapter<HomeRoutineAdapter.HomeRoutineVi
             }
         }
 
-        fun bind(routineEntity: RoutineEntity) {
+        fun bind(routineEntity: Routine) {
             binding.routineEntity = routineEntity
             binding.items = currentList
             binding.index = adapterPosition
         }
     }
 
-    fun submitList(list: List<RoutineEntity>) {
+    fun submitList(list: List<Routine>) {
         this.currentList = list
         notifyDataSetChanged()
     }

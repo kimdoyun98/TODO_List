@@ -9,11 +9,11 @@
 
         <import type="java.util.List" />
 
-        <import type="com.project.data.local.room.entity.RoutineEntity" />
+        <import type="com.project.model.Routine" />
 
         <variable
             name="routineEntity"
-            type="com.project.data.local.room.entity.RoutineEntity" />
+            type="com.project.model.Routine" />
 
         <variable
             name="index"
@@ -21,7 +21,7 @@
 
         <variable
             name="items"
-            type="List&lt;RoutineEntity>" />
+            type="List&lt;Routine>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

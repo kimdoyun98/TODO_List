@@ -24,4 +24,5 @@ dependencies {
 
     implementation(projects.data)
     implementation(projects.widget)
+    implementation(projects.core.model)
 }
