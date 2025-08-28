@@ -2,7 +2,7 @@ package com.project.home.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
-import com.project.home.utils.StatisticsTab
+import com.project.home.model.StatisticsTab
 
 object TabBindingAdapter {
     @JvmStatic

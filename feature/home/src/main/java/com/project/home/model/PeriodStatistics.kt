@@ -1,4 +1,4 @@
-package com.project.home.utils
+package com.project.home.model
 
 data class PeriodStatistics(
     val total: Int = 0,

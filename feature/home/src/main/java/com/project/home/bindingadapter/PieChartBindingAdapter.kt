@@ -10,7 +10,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.project.core.ui.R
-import com.project.home.utils.PeriodStatistics
+import com.project.home.model.PeriodStatistics
 
 object PieChartBindingAdapter {
 
