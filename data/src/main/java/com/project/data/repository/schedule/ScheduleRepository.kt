@@ -1,6 +1,6 @@
 package com.project.data.repository.schedule
 
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.database.entity.ScheduleEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ScheduleRepository {

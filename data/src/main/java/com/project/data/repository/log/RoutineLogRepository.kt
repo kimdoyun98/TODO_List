@@ -1,6 +1,6 @@
 package com.project.data.repository.log
 
-import com.project.data.local.room.entity.RoutineLog
+import com.project.database.entity.RoutineLog
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

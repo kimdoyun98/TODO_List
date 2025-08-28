@@ -50,6 +50,7 @@ dependencies {
     implementation(projects.core.permission)
 
     implementation(projects.data)
+    implementation(projects.database)
 
     implementation(projects.widget)
 }

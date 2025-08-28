@@ -1,7 +1,7 @@
 package com.project.data.repository.log
 
-import com.project.data.local.room.entity.StatisticsLog
-import com.project.data.repository.model.PeriodRoutineLog
+import com.project.database.entity.StatisticsLog
+import com.project.database.model.PeriodRoutineLog
 import java.time.LocalDate
 
 interface StatisticsLogRepository {

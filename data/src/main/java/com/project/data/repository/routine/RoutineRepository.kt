@@ -1,6 +1,6 @@
 package com.project.data.repository.routine
 
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.database.entity.RoutineEntity
 import kotlinx.coroutines.flow.Flow
 
 interface RoutineRepository {

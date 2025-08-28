@@ -1,11 +1,11 @@
-package com.project.data.local.room.dao
+package com.project.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.database.entity.ScheduleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

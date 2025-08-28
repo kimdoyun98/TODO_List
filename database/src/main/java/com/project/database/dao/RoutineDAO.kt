@@ -1,9 +1,9 @@
-package com.project.data.local.room.dao
+package com.project.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.database.entity.RoutineEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

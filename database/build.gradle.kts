@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.project.data"
+    namespace = "com.project.database"
 }
 
 dependencies {
@@ -14,6 +14,4 @@ dependencies {
     kapt(libs.androidx.room.compiler)
 
     implementation(libs.gson)
-
-    implementation(projects.database)
 }

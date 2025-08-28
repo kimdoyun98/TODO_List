@@ -1,7 +1,7 @@
 package com.project.data.repository.schedule
 
-import com.project.data.local.room.dao.ScheduleDAO
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.database.dao.ScheduleDAO
+import com.project.database.entity.ScheduleEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

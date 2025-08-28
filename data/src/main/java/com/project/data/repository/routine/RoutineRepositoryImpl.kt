@@ -1,7 +1,7 @@
 package com.project.data.repository.routine
 
-import com.project.data.local.room.dao.RoutineDAO
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.database.dao.RoutineDAO
+import com.project.database.entity.RoutineEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

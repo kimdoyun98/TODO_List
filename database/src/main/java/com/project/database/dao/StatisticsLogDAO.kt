@@ -1,11 +1,11 @@
-package com.project.data.local.room.dao
+package com.project.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.project.data.local.room.entity.StatisticsLog
-import com.project.data.repository.model.PeriodRoutineLog
+import com.project.database.entity.StatisticsLog
+import com.project.database.model.PeriodRoutineLog
 import java.time.LocalDate
 
 @Dao

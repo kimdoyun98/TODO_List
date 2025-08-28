@@ -1,10 +1,10 @@
-package com.project.data.di
+package com.project.database.di
 
-import com.project.data.local.room.DataBase
-import com.project.data.local.room.dao.RoutineDAO
-import com.project.data.local.room.dao.RoutineLogDAO
-import com.project.data.local.room.dao.ScheduleDAO
-import com.project.data.local.room.dao.StatisticsLogDAO
+import com.project.database.DataBase
+import com.project.database.dao.RoutineDAO
+import com.project.database.dao.RoutineLogDAO
+import com.project.database.dao.ScheduleDAO
+import com.project.database.dao.StatisticsLogDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

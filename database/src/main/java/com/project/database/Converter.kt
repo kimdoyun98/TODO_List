@@ -1,9 +1,9 @@
-package com.project.data.local.room
+package com.project.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.database.entity.RoutineEntity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

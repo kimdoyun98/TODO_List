@@ -1,6 +1,6 @@
-package com.project.data.repository.model
+package com.project.database.model
 
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.database.entity.RoutineEntity
 import java.time.LocalDate
 
 data class PeriodRoutineLog(

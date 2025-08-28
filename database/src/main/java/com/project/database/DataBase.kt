@@ -1,18 +1,18 @@
-package com.project.data.local.room
+package com.project.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.project.data.local.room.dao.RoutineLogDAO
-import com.project.data.local.room.dao.StatisticsLogDAO
-import com.project.data.local.room.dao.RoutineDAO
-import com.project.data.local.room.dao.ScheduleDAO
-import com.project.data.local.room.entity.RoutineEntity
-import com.project.data.local.room.entity.RoutineLog
-import com.project.data.local.room.entity.ScheduleEntity
-import com.project.data.local.room.entity.StatisticsLog
+import com.project.database.dao.RoutineDAO
+import com.project.database.dao.RoutineLogDAO
+import com.project.database.dao.ScheduleDAO
+import com.project.database.dao.StatisticsLogDAO
+import com.project.database.entity.RoutineEntity
+import com.project.database.entity.RoutineLog
+import com.project.database.entity.ScheduleEntity
+import com.project.database.entity.StatisticsLog
 
 @Database(
     entities = [

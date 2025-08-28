@@ -1,7 +1,7 @@
-package com.project.data.di
+package com.project.database.di
 
 import android.content.Context
-import com.project.data.local.room.DataBase
+import com.project.database.DataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
