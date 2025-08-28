@@ -4,8 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.project.database.entity.StatisticsLog
+import com.project.database.entity.StatisticsLogEntity
 import com.project.database.model.PeriodRoutineLog
+import com.project.model.StatisticsLog
 import java.time.LocalDate
 
 @Dao
@@ -15,7 +16,7 @@ interface StatisticsLogDAO {
     suspend fun createStatisticsLog(entity: StatisticsLog)
 
     @Query("SELECT * FROM STATISTICSLOG")
-    suspend fun getAll(): List<StatisticsLog>
+    suspend fun getAll(): List<StatisticsLogEntity>
 
     @Query(
         """

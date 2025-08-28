@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.project.database.entity.RoutineEntity
+import com.project.model.Routine
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,7 +16,7 @@ interface RoutineDAO {
     suspend fun getId(title: String): Int
 
     @Insert
-    suspend fun insert(routineEntity: RoutineEntity): Long
+    suspend fun insert(routineEntity: Routine): Long
 
     @Query("UPDATE RoutineEntity SET success =:suc")
     suspend fun update(suc: Boolean = false)

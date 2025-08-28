@@ -1,31 +1,32 @@
 package com.project.data.repository.log
 
 import com.project.database.dao.RoutineLogDAO
-import com.project.database.entity.RoutineLogEntity
+import com.project.database.entity.asExternalModel
+import com.project.model.RoutineLog
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
 
 class RoutineLogRepositoryImpl @Inject constructor(
     private val routineLogDAO: RoutineLogDAO
 ) : RoutineLogRepository {
-    override suspend fun createLog(entity: RoutineLogEntity) {
+    override suspend fun createLog(entity: RoutineLog) {
         routineLogDAO.createLog(entity)
     }
 
-    override suspend fun getDateLog(date: LocalDate): RoutineLogEntity {
-        return routineLogDAO.getDateLog(date)
-    }
+    override suspend fun getDateLog(date: LocalDate): RoutineLog =
+        routineLogDAO.getDateLog(date).asExternalModel()
 
-    override suspend fun update(entity: RoutineLogEntity) {
+    override suspend fun update(entity: RoutineLog) {
         routineLogDAO.update(entity)
     }
 
-    override fun getTodayLog(): Flow<RoutineLogEntity?> {
-        return routineLogDAO.getTodayLog()
-    }
+    override fun getTodayLog(): Flow<RoutineLog?> =
+        routineLogDAO.getTodayLog()
+            .map { it?.asExternalModel() }
 
-    override suspend fun getWidgetTodayLog(date: LocalDate): RoutineLogEntity? {
-        return routineLogDAO.getWidgetTodayLog(date)
+    override suspend fun getWidgetTodayLog(date: LocalDate): RoutineLog? {
+        return routineLogDAO.getWidgetTodayLog(date)?.asExternalModel()
     }
 }
