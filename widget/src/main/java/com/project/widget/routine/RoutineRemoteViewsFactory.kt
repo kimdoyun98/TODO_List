@@ -5,8 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.project.data.local.room.entity.RoutineEntity
 import com.project.data.repository.log.RoutineLogRepository
+import com.project.model.Routine
 import com.project.widget.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,7 @@ class RoutineRemoteViewsFactory @Inject constructor(
 ) : RemoteViewsService.RemoteViewsFactory {
     private var scope = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
-    private var routineList: List<RoutineEntity> = emptyList()
+    private var routineList: List<Routine> = emptyList()
 
     override fun onCreate() {
         job = scope.launch { getRoutines() }
