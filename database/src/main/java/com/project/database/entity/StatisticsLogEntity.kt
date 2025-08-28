@@ -3,6 +3,7 @@ package com.project.database.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.project.model.StatisticsLog
 
 @Entity(
     tableName = "StatisticsLog",
@@ -21,4 +22,11 @@ data class StatisticsLogEntity(
     val routineLogId: Int?,
     val total: Int,
     val success: Int,
+)
+
+fun StatisticsLogEntity.asExternalModel() = StatisticsLog(
+    id = id,
+    routineLogId = routineLogId,
+    total = total,
+    success = success
 )
