@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class StatisticsLog(
+data class StatisticsLogEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val routineLogId: Int?,
