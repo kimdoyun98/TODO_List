@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.todo_list.ui.home.HomeViewModel" />
+            type="com.project.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

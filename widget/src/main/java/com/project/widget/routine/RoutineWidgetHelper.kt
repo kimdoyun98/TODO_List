@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import com.project.main.MainActivity
 import com.project.widget.R
 import com.project.widget.RoutineRemoteViewsService
 
@@ -19,10 +18,12 @@ class RoutineWidgetHelper(
     }
 
     fun setOnClickWidget(): RoutineWidgetHelper {
+        val intent = Intent()
+        intent.setClassName(context!!, MAIN_ACTIVITY)
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
-            Intent(context, MainActivity::class.java),
+            intent,
             PendingIntent.FLAG_IMMUTABLE
         )
         widget.setOnClickPendingIntent(R.id.widget, pendingIntent)
@@ -31,15 +32,22 @@ class RoutineWidgetHelper(
     }
 
     fun setOnListViewClick(): RoutineWidgetHelper {
+        val intent = Intent()
+        intent.setClassName(context!!, MAIN_ACTIVITY)
+
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
-            Intent(context, MainActivity::class.java),
+            intent,
             PendingIntent.FLAG_MUTABLE
         )
 
         widget.setPendingIntentTemplate(R.id.widget_routine_lv, pendingIntent)
 
         return RoutineWidgetHelper(context, widget)
+    }
+
+    companion object {
+        private const val MAIN_ACTIVITY = "com.project.main.MainActivity"
     }
 }

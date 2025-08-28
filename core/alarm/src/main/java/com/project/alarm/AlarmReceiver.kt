@@ -14,7 +14,6 @@ import com.project.alarm.Alarm.Companion.ALARM_REQUEST_CODE
 import com.project.alarm.Alarm.Companion.CONTENT
 import com.project.core.ui.R
 import com.project.data.local.preference.PreferenceUtil
-import com.project.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -66,7 +65,8 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun createPendingIntent(context: Context, requestCode: Int): PendingIntent {
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent()
+        intent.setClassName(context, MAIN_ACTIVITY)
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
             PendingIntent.getActivity(
@@ -86,5 +86,6 @@ class AlarmReceiver : BroadcastReceiver() {
     companion object {
         private const val CHANNEL_ID = "TodayAlarm"
         private const val CHANNEL_NAME = "Alarm"
+        private const val MAIN_ACTIVITY = "com.project.main.MainActivity"
     }
 }

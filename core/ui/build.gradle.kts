@@ -13,8 +13,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(projects.data)
     implementation(libs.androidx.appcompat.resources)
-
     implementation(libs.material)
+
+    implementation(projects.data)
 }

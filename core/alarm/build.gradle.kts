@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.todo.android.library)
+    alias(libs.plugins.todo.hilt)
 }
 
 android {
@@ -8,6 +9,5 @@ android {
 
 dependencies {
     implementation(projects.core.ui)
-    implementation(projects.feature.main)
     implementation(projects.data)
 }

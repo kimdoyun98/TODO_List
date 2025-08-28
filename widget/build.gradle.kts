@@ -16,5 +16,4 @@ dependencies {
 
     implementation(projects.data)
     implementation(projects.core.ui)
-    implementation(projects.feature.main)
 }
