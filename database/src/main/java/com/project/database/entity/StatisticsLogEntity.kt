@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "StatisticsLog",
     foreignKeys = [
         ForeignKey(
-            entity = RoutineLog::class,
+            entity = RoutineLogEntity::class,
             parentColumns = ["id"],
             childColumns = ["routineLogId"],
             onDelete = ForeignKey.NO_ACTION

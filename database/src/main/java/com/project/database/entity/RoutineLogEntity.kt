@@ -7,7 +7,7 @@ import java.time.LocalDate
 @Entity(
     tableName = "RoutineLog"
 )
-data class RoutineLog(
+data class RoutineLogEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val date: LocalDate?,
