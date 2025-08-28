@@ -15,4 +15,5 @@ dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.alarm)
     implementation(projects.data)
+    implementation(projects.core.model)
 }

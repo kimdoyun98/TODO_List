@@ -17,7 +17,6 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.project.alarm.Alarm
-import com.project.data.local.room.entity.RoutineEntity
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.log.StatisticsLogRepository
 import com.project.data.repository.routine.RoutineRepository
@@ -40,6 +39,7 @@ import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
 import com.project.core.ui.R
+import com.project.model.Routine
 
 @HiltWorker
 class ResetRoutineWorker @AssistedInject constructor(
@@ -121,13 +121,13 @@ class ResetRoutineWorker @AssistedInject constructor(
         }
     }
 
-    private fun setTodayAlarm(routine: RoutineEntity) {
+    private fun setTodayAlarm(routine: Routine) {
         val (hour, min) = routine.time.split(":").map { it.toInt() }
         alarm.setAlarm(
             hour = hour,
             minute = min,
             alarm_code = routine.id,
-            content = routine.title ?: ""
+            content = routine.title
         )
     }
 
