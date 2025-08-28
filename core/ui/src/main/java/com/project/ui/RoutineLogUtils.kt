@@ -1,16 +1,16 @@
 package com.project.ui
 
-import com.project.data.local.room.entity.RoutineEntity
-import com.project.data.local.room.entity.RoutineLog
-import com.project.data.local.room.entity.StatisticsLog
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.log.StatisticsLogRepository
+import com.project.model.Routine
+import com.project.model.RoutineLog
+import com.project.model.StatisticsLog
 import java.time.LocalDate
 import java.util.Calendar
 
 suspend fun createRoutineLog(
     repository: RoutineLogRepository,
-    todayRoutine: List<RoutineEntity>
+    todayRoutine: List<Routine>
 ) {
     repository.createLog(
         RoutineLog(
@@ -20,9 +20,9 @@ suspend fun createRoutineLog(
     )
 }
 
-fun List<RoutineEntity>.filterTodayRoutine(): List<RoutineEntity> {
+fun List<Routine>.filterTodayRoutine(): List<Routine> {
     val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-    return this.filter { it.day?.get(today - 1) ?: false }
+    return this.filter { it.day[today - 1] }
 }
 
 fun isTodayRoutineLog(dateTime: LocalDate?): Boolean {

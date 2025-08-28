@@ -1,14 +1,14 @@
 package com.project.ui.view.bindingadapter
 
 import androidx.databinding.BindingAdapter
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.model.Routine
 import com.project.ui.view.bullet_point.BulletPoint
 import com.project.ui.view.bullet_point.ProgressBulletPoint
 
 object BulletPointBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:items", "app:item_index", requireAll = true)
-    fun bulletPointBinding(view: BulletPoint, items: List<RoutineEntity>, index: Int) {
+    fun bulletPointBinding(view: BulletPoint, items: List<Routine>, index: Int) {
         setPosition(view, items, index)
     }
 
@@ -16,7 +16,7 @@ object BulletPointBindingAdapter {
     @BindingAdapter("app:items", "app:item_index", requireAll = true)
     fun progressBulletPointState(
         view: ProgressBulletPoint,
-        items: List<RoutineEntity>,
+        items: List<Routine>,
         index: Int
     ) {
         setPosition(view, items, index)
@@ -32,7 +32,7 @@ object BulletPointBindingAdapter {
         )
     }
 
-    private fun setPosition(view: BulletPoint, items: List<RoutineEntity>, index: Int) {
+    private fun setPosition(view: BulletPoint, items: List<Routine>, index: Int) {
         view.setPosition(
             when (index) {
                 0 -> {

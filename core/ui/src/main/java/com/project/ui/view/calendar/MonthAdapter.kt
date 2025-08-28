@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.core.ui.databinding.CalendarDaysItemBinding
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Schedule
 import java.util.Calendar
 import java.util.Date
 
@@ -13,7 +13,7 @@ class MonthAdapter(
     private val context: Context,
     private val onClick: com.project.ui.view.calendar.Calendar.OnDayClickListener
 ) : RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
-    private var schedule = emptyList<ScheduleEntity>()
+    private var schedule = emptyList<Schedule>()
 
     inner class MonthViewHolder(
         private val binding: CalendarDaysItemBinding
@@ -68,7 +68,7 @@ class MonthAdapter(
             return dayList to calendarLine
         }
 
-        private fun filterToMonth(year: Int, month: Int): List<ScheduleEntity> {
+        private fun filterToMonth(year: Int, month: Int): List<Schedule> {
             return schedule.filter {
                 val scheduleStartYear = it.start_date?.year
                 val scheduleStartMonth = it.start_date?.monthValue
@@ -97,7 +97,7 @@ class MonthAdapter(
 
     override fun getItemCount(): Int = 30
 
-    fun addSchedule(scheduleData: List<ScheduleEntity>) {
+    fun addSchedule(scheduleData: List<Schedule>) {
         schedule = scheduleData
         notifyDataSetChanged()
     }

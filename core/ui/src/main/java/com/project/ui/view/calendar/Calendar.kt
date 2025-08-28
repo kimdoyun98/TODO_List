@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.project.core.ui.R
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Schedule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.Calendar
@@ -60,7 +60,7 @@ class Calendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context
         snap.attachToRecyclerView(monthRecyclerView)
     }
 
-    fun addSchedule(scheduleData: List<ScheduleEntity>) {
+    fun addSchedule(scheduleData: List<Schedule>) {
         adapter.addSchedule(scheduleData)
     }
 

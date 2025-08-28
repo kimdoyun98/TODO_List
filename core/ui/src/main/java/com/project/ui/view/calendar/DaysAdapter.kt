@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.project.core.ui.R
 import com.project.core.ui.databinding.CalendarDayItemBinding
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +25,7 @@ class DaysAdapter(
 ) : RecyclerView.Adapter<DaysAdapter.DaysViewHolder>() {
     private val _clickDay = MutableStateFlow<Int>(-1)
     private val clickDay = _clickDay.asStateFlow()
-    private var schedule = emptyList<ScheduleEntity>()
+    private var schedule = emptyList<Schedule>()
     private val schedulePosition = HashMap<Int, Int>()
 
     inner class DaysViewHolder(
@@ -79,7 +79,7 @@ class DaysAdapter(
             }
         }
 
-        private fun setSchedule(position: Int, schedule: ScheduleEntity, day: Int) {
+        private fun setSchedule(position: Int, schedule: Schedule, day: Int) {
             val view = when (position) {
                 0 -> binding.schedule1
                 1 -> binding.schedule2
@@ -156,7 +156,7 @@ class DaysAdapter(
         CalendarLine.SIX -> 42
     }
 
-    fun addSchedule(scheduleData: List<ScheduleEntity>) {
+    fun addSchedule(scheduleData: List<Schedule>) {
         schedule = scheduleData
         notifyDataSetChanged()
     }

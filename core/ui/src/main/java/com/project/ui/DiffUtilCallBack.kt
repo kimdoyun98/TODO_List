@@ -1,7 +1,7 @@
 package com.project.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Schedule
 
 class ItemDiffCallback<T : Any>(
     val onItemsTheSame: (T, T) -> Boolean,
@@ -19,8 +19,8 @@ class ItemDiffCallback<T : Any>(
 }
 
 class DiffUtilCallBackTODO(
-    private val oldList: List<ScheduleEntity>,
-    private val newList: List<ScheduleEntity>
+    private val oldList: List<Schedule>,
+    private val newList: List<Schedule>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size

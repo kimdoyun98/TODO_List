@@ -7,8 +7,8 @@ import androidx.annotation.StyleRes
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.core.ui.R
 import com.project.core.ui.databinding.BottomsheetLayoutBinding
-import com.project.data.local.room.entity.RoutineEntity
-import com.project.data.local.room.entity.ScheduleEntity
+import com.project.model.Routine
+import com.project.model.Schedule
 
 class BottomSheetDialog<out T>(
     context: Context,
@@ -69,11 +69,11 @@ class BottomSheetDialog<out T>(
 
     private fun showDeleteDialog(context: Context, entity: T) {
         when (entity) {
-            is RoutineEntity -> {
+            is Routine -> {
                 deleteDialog(context, entity.title)
             }
 
-            is ScheduleEntity -> {
+            is Schedule -> {
                 deleteDialog(context, entity.title)
             }
         }
