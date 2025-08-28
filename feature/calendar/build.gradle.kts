@@ -16,4 +16,5 @@ dependencies {
     implementation(libs.material)
 
     implementation(projects.data)
+    implementation(projects.core.model)
 }

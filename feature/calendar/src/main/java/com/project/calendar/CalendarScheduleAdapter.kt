@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.project.data.local.room.entity.ScheduleEntity
 import com.project.feature.calendar.databinding.CalendarScheduleItemBinding
+import com.project.model.Schedule
 import com.project.ui.ItemDiffCallback
 
 class CalendarScheduleAdapter :
-    ListAdapter<ScheduleEntity, CalendarScheduleAdapter.CalendarScheduleViewHolder>(
+    ListAdapter<Schedule, CalendarScheduleAdapter.CalendarScheduleViewHolder>(
         ItemDiffCallback(
             onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
             onContentsTheSame = { oldItem, newItem -> oldItem == newItem }
@@ -20,7 +20,7 @@ class CalendarScheduleAdapter :
         val binding: CalendarScheduleItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(schedule: ScheduleEntity) {
+        fun bind(schedule: Schedule) {
             binding.color.setBackgroundColor(schedule.color!!)
             binding.scheduleTitleTv.text = schedule.title
         }

@@ -18,6 +18,4 @@ class CalendarViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000L),
             emptyList()
         )
-
-
 }

@@ -2,8 +2,8 @@ package com.project.calendar
 
 import android.util.Log
 import androidx.fragment.app.viewModels
-import com.project.data.local.room.entity.ScheduleEntity
 import com.project.feature.calendar.databinding.FragmentCalendarBinding
+import com.project.model.Schedule
 import com.project.ui.base.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,7 +37,7 @@ class CalendarFragment :
         }
     }
 
-    private suspend fun setCalendarScheduleData(scheduleList: List<ScheduleEntity>) {
+    private suspend fun setCalendarScheduleData(scheduleList: List<Schedule>) {
         binding.calendar.currentDate.collect { currentDate ->
             val currentSchedule = scheduleList.filter {
                 val scheduleStartYear = it.start_date?.year
