@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.todo.android.library)
-    id("kotlin-kapt")
+    alias(libs.plugins.todo.hilt)
 }
 
 android {

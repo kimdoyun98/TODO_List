@@ -2,6 +2,7 @@ import com.project.convention.implementation
 
 plugins {
     alias(libs.plugins.todo.android.library)
+    alias(libs.plugins.todo.hilt)
 }
 
 android {
