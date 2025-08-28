@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.project.database.entity.StatisticsLogEntity
-import com.project.database.model.PeriodRoutineLog
+import com.project.model.PeriodRoutineLog
 import com.project.model.StatisticsLog
 import java.time.LocalDate
 
