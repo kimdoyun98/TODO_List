@@ -1,5 +1,6 @@
 package com.project.data.repository.log
 
+import com.project.data.model.asEntity
 import com.project.database.dao.RoutineLogDAO
 import com.project.database.entity.asExternalModel
 import com.project.model.RoutineLog
@@ -12,14 +13,14 @@ class RoutineLogRepositoryImpl @Inject constructor(
     private val routineLogDAO: RoutineLogDAO
 ) : RoutineLogRepository {
     override suspend fun createLog(entity: RoutineLog) {
-        routineLogDAO.createLog(entity)
+        routineLogDAO.createLog(entity.asEntity())
     }
 
     override suspend fun getDateLog(date: LocalDate): RoutineLog =
         routineLogDAO.getDateLog(date).asExternalModel()
 
     override suspend fun update(entity: RoutineLog) {
-        routineLogDAO.update(entity)
+        routineLogDAO.update(entity.asEntity())
     }
 
     override fun getTodayLog(): Flow<RoutineLog?> =

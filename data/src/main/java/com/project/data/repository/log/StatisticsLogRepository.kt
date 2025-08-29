@@ -1,6 +1,6 @@
 package com.project.data.repository.log
 
-import com.project.database.model.PeriodRoutineLog
+import com.project.model.PeriodRoutineLog
 import com.project.model.StatisticsLog
 import java.time.LocalDate
 

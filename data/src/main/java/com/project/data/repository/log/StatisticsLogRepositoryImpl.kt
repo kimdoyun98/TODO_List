@@ -1,9 +1,9 @@
 package com.project.data.repository.log
 
+import com.project.data.model.asEntity
 import com.project.database.dao.StatisticsLogDAO
-import com.project.database.entity.StatisticsLogEntity
 import com.project.database.entity.asExternalModel
-import com.project.database.model.PeriodRoutineLog
+import com.project.model.PeriodRoutineLog
 import com.project.model.StatisticsLog
 import java.time.LocalDate
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class StatisticsLogRepositoryImpl @Inject constructor(
     }
 
     override suspend fun createStatisticsLog(entity: StatisticsLog) {
-        statisticsLogDAO.createStatisticsLog(entity)
+        statisticsLogDAO.createStatisticsLog(entity.asEntity())
     }
 
     override suspend fun getPeriodLog(start: LocalDate, end: LocalDate): List<PeriodRoutineLog> {

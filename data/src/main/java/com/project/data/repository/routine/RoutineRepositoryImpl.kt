@@ -1,5 +1,6 @@
 package com.project.data.repository.routine
 
+import com.project.data.model.asEntity
 import com.project.database.dao.RoutineDAO
 import com.project.database.entity.asExternalModel
 import com.project.model.Routine
@@ -25,7 +26,7 @@ class RoutineRepositoryImpl @Inject constructor(
     override suspend fun todaySuccess(id: Int) = routineDAO.todaySuccess(id)
 
     override suspend fun insert(routineEntity: Routine): Long =
-        routineDAO.insert(routineEntity)
+        routineDAO.insert(routineEntity.asEntity())
 
     override suspend fun delete(id: Int) = routineDAO.delete(id)
 
