@@ -10,16 +10,16 @@ import com.project.database.dao.RoutineLogDAO
 import com.project.database.dao.ScheduleDAO
 import com.project.database.dao.StatisticsLogDAO
 import com.project.database.entity.RoutineEntity
-import com.project.database.entity.RoutineLog
+import com.project.database.entity.RoutineLogEntity
 import com.project.database.entity.ScheduleEntity
-import com.project.database.entity.StatisticsLog
+import com.project.database.entity.StatisticsLogEntity
 
 @Database(
     entities = [
         ScheduleEntity::class,
         RoutineEntity::class,
-        RoutineLog::class,
-        StatisticsLog::class
+        RoutineLogEntity::class,
+        StatisticsLogEntity::class
     ],
     version = 1,
     exportSchema = false
