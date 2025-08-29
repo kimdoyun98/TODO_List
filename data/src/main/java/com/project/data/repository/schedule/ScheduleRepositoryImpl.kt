@@ -1,11 +1,13 @@
 package com.project.data.repository.schedule
 
+import android.util.Log
 import com.project.data.model.asEntity
 import com.project.database.dao.ScheduleDAO
 import com.project.database.entity.asExternalModel
 import com.project.model.Schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,8 +23,9 @@ class ScheduleRepositoryImpl @Inject constructor(
                 }
             }
 
-    override fun getRecentSchedule(): Flow<Schedule> =
+    override fun getRecentSchedule() =
         scheduleDAO.getRecentSchedule()
+            .filterNotNull()
             .map {
                 it.asExternalModel()
             }
