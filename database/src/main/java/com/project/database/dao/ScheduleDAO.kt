@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.project.database.entity.ScheduleEntity
-import com.project.model.Schedule
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,13 +20,13 @@ interface ScheduleDAO {
     fun getWidgetRecentSchedule(): ScheduleEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(toDoEntity: Schedule)
+    suspend fun insert(toDoEntity: ScheduleEntity)
 
     @Query("Delete From scheduleEntity WHERE id = :id")
     suspend fun delete(id: Int): Int
 
     @Update
-    suspend fun update(toDoEntity: Schedule)
+    suspend fun update(toDoEntity: ScheduleEntity)
 
     @Query("Update scheduleEntity SET success = :suc WHERE id = :id")
     suspend fun success(id: Int, suc: Boolean = true)
