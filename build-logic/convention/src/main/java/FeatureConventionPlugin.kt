@@ -16,6 +16,7 @@ class FeatureConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("todo.android.library")
                 apply("todo.hilt")
+                apply("kotlin-kapt")
             }
 
             extensions.configure<LibraryExtension> {
