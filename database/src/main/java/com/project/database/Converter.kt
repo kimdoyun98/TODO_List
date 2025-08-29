@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.database.entity.RoutineEntity
+import com.project.model.Routine
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -29,13 +30,13 @@ class Converter {
     }
 
     @TypeConverter
-    fun mapToJson(value: Map<Int, RoutineEntity>?): String? {
+    fun mapToJson(value: Map<Int, Routine>?): String? {
         return Gson().toJson(value)
     }
 
     @TypeConverter
-    fun jsonToMap(value: String): Map<Int, RoutineEntity>? {
-        return Gson().fromJson(value, object : TypeToken<Map<Int, RoutineEntity>>() {}.type)
+    fun jsonToMap(value: String): Map<Int, Routine>? {
+        return Gson().fromJson(value, object : TypeToken<Map<Int, Routine>>() {}.type)
     }
 
     private fun String.toLocalDate(): LocalDate = LocalDate
