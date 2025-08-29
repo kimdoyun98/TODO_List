@@ -6,7 +6,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.project.data.local.room.entity.RoutineEntity
+import com.project.model.Routine
 import com.project.ui.date.DateCalculate
 import com.project.ui.date.DateCalculate.entityFormat
 import java.time.LocalDate
@@ -31,7 +31,7 @@ object TextBindingAdapter {
     @BindingAdapter("entity", "days_text", "daily_text", requireAll = true)
     fun setTextColorWithDays(
         view: TextView,
-        routineEntity: RoutineEntity,
+        routine: Routine,
         days: String,
         daily: String
     ) {
@@ -39,7 +39,7 @@ object TextBindingAdapter {
 
         val checkedDayIndex = ArrayList<Int>()
         for (i in 0..6) {
-            if (routineEntity.day?.get(i)!!) checkedDayIndex.add(i)
+            if (routine.day[i]) checkedDayIndex.add(i)
         }
 
         if (checkedDayIndex.size == 7) {
