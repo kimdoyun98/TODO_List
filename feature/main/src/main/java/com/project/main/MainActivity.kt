@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.project.feature.main.R
 import com.project.feature.main.databinding.ActivityMainBinding
 import com.project.ui.dialog.BatteryDialog
+import com.project.ui.turnOffDarkMode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        turnOffDarkMode()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
