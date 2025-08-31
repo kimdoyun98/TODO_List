@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_flow"
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:title="@string/home"
+        />
+
+    <item
+        android:id="@+id/schedule_flow"
+        android:enabled="true"
+        android:icon="@drawable/project"
+        android:title="@string/schedule_eng"
+        />
+
+    <item
+        android:id="@+id/routine_flow"
+        android:enabled="true"
+        android:title="@string/routine_eng"
+        android:icon="@drawable/cycle"
+        />
+
+    <item
+        android:id="@+id/calendar_flow"
+        android:enabled="true"
+        android:icon="@drawable/calendar"
+        android:title="@string/calendar_eng"
+        />
+
+    <item
+        android:id="@+id/settings_flow"
+        android:enabled="true"
+        android:icon="@drawable/settings"
+        android:title="@string/setting_eng"
+        />
+</menu>

@@ -1,0 +1,33 @@
+package com.project.database.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.project.database.entity.StatisticsLogEntity
+import com.project.model.PeriodRoutineLog
+import java.time.LocalDate
+
+@Dao
+interface StatisticsLogDAO {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun createStatisticsLog(entity: StatisticsLogEntity)
+
+    @Query("SELECT * FROM STATISTICSLOG")
+    suspend fun getAll(): List<StatisticsLogEntity>
+
+    @Query(
+        """
+        SELECT
+            RoutineLog.date As date,
+            RoutineLog.routines As routines,
+            StatisticsLog.total As total,
+            StatisticsLog.success As success
+        FROM RoutineLog
+        JOIN StatisticsLog ON RoutineLog.id = StatisticsLog.routineLogId
+        WHERE RoutineLog.date BETWEEN :start AND :end
+    """
+    )
+    suspend fun getPeriodLog(start: LocalDate, end: LocalDate): List<PeriodRoutineLog>
+}

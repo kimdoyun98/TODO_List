@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.project.schedule.ScheduleViewModel.SortItem" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <import type="com.project.core.ui.R"/>
+
+        <variable
+            name="viewModel"
+            type="com.project.schedule.ScheduleViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.project.schedule.ScheduleFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/scheduleToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/schedule_eng"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="146dp"
+            android:layout_height="46dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleToolbar">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/total_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{() -> viewModel.onClickSetFilterLATEST()}"
+                android:text="@string/recent_sort"
+                android:textColor="@{viewModel.selectedSort == SortItem.LATEST ? ContextCompat.getColor(context, R.color.filter) : ContextCompat.getColor(context, R.color.black)}"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/personal_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{() -> viewModel.onClickSetFilterDEADLINE()}"
+                android:text="@string/deadline_sort"
+                android:textColor="@{viewModel.selectedSort == SortItem.END_DATE ? ContextCompat.getColor(context, R.color.filter) : ContextCompat.getColor(context, R.color.black)}"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:items="@{viewModel.sortedScheduleItems}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="1.0"
+            app:onClick="@{fragment.showDialog}"
+            tool:itemCount="2"
+            tool:listitem="@layout/recyclerview_todo_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/routine_register_floating_button"
+            android:focusable="true"
+            android:onClick="@{() -> fragment.addSchedule()}"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.96" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_flow">
+
+    <include app:graph="@navigation/home_flow"/>
+
+    <include app:graph="@navigation/schedule_flow"/>
+
+    <include app:graph="@navigation/routine_flow"/>
+
+    <include app:graph="@navigation/calendar_flow"/>
+
+    <include app:graph="@navigation/settings_flow"/>
+
+    <action
+        android:id="@+id/action_home_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:destination="@id/home_flow"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/nav_graph"/>
+
+    <action
+        android:id="@+id/action_schedule_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:destination="@id/schedule_flow"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/nav_graph"/>
+
+    <action
+        android:id="@+id/action_routine_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:destination="@id/routine_flow"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/nav_graph"/>
+
+    <action
+        android:id="@+id/action_calendar_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:destination="@id/calendar_flow"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/nav_graph"/>
+
+    <action
+        android:id="@+id/action_settings_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:destination="@id/settings_flow"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/nav_graph"/>
+</navigation>
