@@ -1,6 +1,5 @@
 import com.project.convention.getLibrary
 import com.project.convention.implementation
-import com.project.convention.kapt
 import com.project.convention.ksp
 import com.project.convention.libs
 import org.gradle.api.Plugin
