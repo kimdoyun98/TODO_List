@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.todo.android.library)
     alias(libs.plugins.todo.hilt)
+    alias(libs.plugins.todo.room)
 }
 
 android {
@@ -8,11 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
-
     implementation(libs.gson)
 
     api(projects.core.model)

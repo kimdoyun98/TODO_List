@@ -38,6 +38,7 @@ preference = "1.2.0"
 preferenceKtx = "1.1.1"
 
 #room
+room = "2.6.1"
 roomKtx = "2.6.1"
 roomRuntime = "2.6.1"
 
@@ -106,7 +107,8 @@ android-tools-build-gradle-plugin = { group = "com.android.tools.build", name = 
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-appcompat-resources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "appcompatResources" }
-
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -122,3 +124,4 @@ todo-android-library = { id = "todo.android.library", version = "unspecified" }
 todo-android-test = { id = "todo.android.test", version = "unspecified" }
 todo-hilt = { id = "todo.hilt", version = "unspecified" }
 todo-feature = { id = "todo.feature", version = "unspecified" }
+todo-room = { id = "todo.room", version = "unspecified" }
