@@ -21,6 +21,8 @@
 `Flow` `Navigation Component` `Alarm Manager` `WorkManager` `Hilt` `MPAndroidChart`
 <br>
 
+# Module Dependency Graph
+<img width="1514" height="598" alt="Image" src="https://github.com/user-attachments/assets/fabaf9e9-c597-4ad5-988a-15458dcb5408" />
 
 # 핵심 기능
 ### 1. 일정 관리 및 루틴 관리
