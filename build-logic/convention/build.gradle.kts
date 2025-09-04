@@ -56,6 +56,11 @@ gradlePlugin {
                 id = "todo.room"
                 implementationClass = "RoomPlugin"
             }
+
+            register("Jvm") {
+                id = "todo.jvm"
+                implementationClass = "JvmLibraryConventionPlugin"
+            }
         }
     }
 }

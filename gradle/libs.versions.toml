@@ -125,3 +125,5 @@ todo-android-test = { id = "todo.android.test", version = "unspecified" }
 todo-hilt = { id = "todo.hilt", version = "unspecified" }
 todo-feature = { id = "todo.feature", version = "unspecified" }
 todo-room = { id = "todo.room", version = "unspecified" }
+todo-jvm = { id = "todo.jvm", version = "unspecified" }
+
