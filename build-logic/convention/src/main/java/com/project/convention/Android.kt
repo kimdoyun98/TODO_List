@@ -47,7 +47,5 @@ internal fun Project.configureAndroid(commonExtension: CommonExtension<*, *, *, 
                 )
             }
         }
-
-        //buildFeatures.buildConfig = true
     }
 }
