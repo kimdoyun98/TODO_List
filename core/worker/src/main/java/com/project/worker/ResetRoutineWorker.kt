@@ -4,7 +4,7 @@ import android.app.ForegroundServiceStartNotAllowedException
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -17,9 +17,11 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.project.alarm.Alarm
+import com.project.core.ui.R
 import com.project.data.repository.log.RoutineLogRepository
 import com.project.data.repository.log.StatisticsLogRepository
 import com.project.data.repository.routine.RoutineRepository
+import com.project.model.Routine
 import com.project.ui.createLogStatisticsLog
 import com.project.ui.createRoutineLog
 import com.project.ui.filterTodayRoutine
@@ -38,8 +40,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
-import com.project.core.ui.R
-import com.project.model.Routine
 
 @HiltWorker
 class ResetRoutineWorker @AssistedInject constructor(
@@ -145,7 +145,7 @@ class ResetRoutineWorker @AssistedInject constructor(
         createChannel()
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            ForegroundInfo(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            ForegroundInfo(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_SHORT_SERVICE)
         } else {
             ForegroundInfo(NOTIFICATION_ID, notification)
         }
