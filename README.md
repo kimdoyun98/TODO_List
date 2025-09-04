@@ -17,7 +17,7 @@
  <br>
 
 # Tech Stack
-`Kotlin` `MVVM` `Jetpack` `AAC` `Databinding` `LiveData` `ViewModel` `Room DB` `Coroutine`
+`Kotlin` `App Architecture` `MVVM` `Jetpack` `AAC` `Databinding` `LiveData` `ViewModel` `Room DB` `Coroutine`
 `Flow` `Navigation Component` `Alarm Manager` `WorkManager` `Hilt` `MPAndroidChart`
 <br>
 
