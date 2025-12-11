@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.home.adapter.HomeRoutineAdapter
 import com.project.model.Routine
 
-object RoutinesBindingAdapter {
+internal object RoutinesBindingAdapter {
     private val adapter = HomeRoutineAdapter()
     private val EMPTY_ROUTINE = listOf(Routine(title = "일정이 없습니다.", day = emptyList(), time = ""))
 

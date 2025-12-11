@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.feature.home.databinding.RecyclerviewHomeItemBinding
 import com.project.model.Routine
 
-class HomeRoutineAdapter : RecyclerView.Adapter<HomeRoutineAdapter.HomeRoutineViewHolder>() {
+internal class HomeRoutineAdapter : RecyclerView.Adapter<HomeRoutineAdapter.HomeRoutineViewHolder>() {
     private var currentList: List<Routine> = emptyList()
     private lateinit var onClick: (Int) -> Unit
 

@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 import com.project.home.model.StatisticsTab
 
-object TabBindingAdapter {
+internal object TabBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:tab_selected")
     fun tabSelectedListener(tabLayout: TabLayout, changedTab: (StatisticsTab) -> Unit) {

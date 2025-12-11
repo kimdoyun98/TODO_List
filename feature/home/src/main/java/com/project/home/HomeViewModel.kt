@@ -22,7 +22,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+internal class HomeViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val routineLogRepository: RoutineLogRepository,
     private val statisticsLogRepository: StatisticsLogRepository,

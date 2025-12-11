@@ -12,7 +12,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.project.core.ui.R
 import com.project.home.model.PeriodStatistics
 
-object PieChartBindingAdapter {
+internal object PieChartBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("app:set")
