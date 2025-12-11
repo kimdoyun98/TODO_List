@@ -7,7 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoutineRemoteViewsService : RemoteViewsService() {
+internal class RoutineRemoteViewsService : RemoteViewsService() {
     @Inject
     lateinit var factory: RoutineRemoteViewsFactory
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {

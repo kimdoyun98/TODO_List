@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
-class RoutineRemoteViewsFactory @Inject constructor(
+internal class RoutineRemoteViewsFactory @Inject constructor(
     @ApplicationContext private val context: Context,
     private val repository: RoutineLogRepository
 ) : RemoteViewsService.RemoteViewsFactory {

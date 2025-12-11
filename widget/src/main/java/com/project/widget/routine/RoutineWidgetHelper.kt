@@ -7,7 +7,7 @@ import android.widget.RemoteViews
 import com.project.widget.R
 import com.project.widget.RoutineRemoteViewsService
 
-class RoutineWidgetHelper(
+internal class RoutineWidgetHelper(
     private val context: Context?,
     val widget: RemoteViews
 ) {
