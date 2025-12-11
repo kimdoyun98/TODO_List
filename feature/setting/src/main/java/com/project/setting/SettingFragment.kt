@@ -11,7 +11,7 @@ import com.project.data.local.preference.PreferenceUtil
 import com.project.feature.setting.R
 import javax.inject.Inject
 
-class SettingFragment : PreferenceFragmentCompat() {
+internal class SettingFragment : PreferenceFragmentCompat() {
     private lateinit var prefs: SharedPreferences
     private var alarmSwitch: SwitchPreference? = null
 
