@@ -15,7 +15,7 @@ import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineRegisterViewModel @Inject constructor(
+internal class RoutineRegisterViewModel @Inject constructor(
     private val repository: RoutineRepository,
     private val alarm: Alarm
 ) : ViewModel() {

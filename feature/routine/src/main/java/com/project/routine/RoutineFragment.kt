@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoutineFragment :
+internal class RoutineFragment :
     DataBindingFragment<FragmentRoutineBinding>(FragmentRoutineBinding::inflate) {
     private val viewModel: RoutineViewModel by viewModels()
 

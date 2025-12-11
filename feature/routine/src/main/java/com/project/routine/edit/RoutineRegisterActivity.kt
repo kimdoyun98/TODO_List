@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoutineRegisterActivity : AppCompatActivity() {
+internal class RoutineRegisterActivity : AppCompatActivity() {
     private val viewModel: RoutineRegisterViewModel by viewModels()
     private lateinit var binding: ActivityRoutineRegisterBinding
 

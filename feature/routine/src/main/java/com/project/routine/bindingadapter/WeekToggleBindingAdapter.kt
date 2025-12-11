@@ -4,7 +4,7 @@ import android.widget.ToggleButton
 import androidx.databinding.BindingAdapter
 import com.project.core.ui.R
 
-object WeekToggleBindingAdapter {
+internal object WeekToggleBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:onChecked")
     fun setOnCheckedChangeListener(

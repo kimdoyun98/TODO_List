@@ -8,7 +8,7 @@ import com.project.feature.routine.databinding.RecyclerviewRoutineItemBinding
 import com.project.model.Routine
 import com.project.ui.ItemDiffCallback
 
-class RoutineAdapter : ListAdapter<Routine, RoutineAdapter.RoutineViewHolder>(
+internal class RoutineAdapter : ListAdapter<Routine, RoutineAdapter.RoutineViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.model.Routine
 import com.project.routine.RoutineAdapter
 
-object RoutineBindingAdapter {
+internal object RoutineBindingAdapter {
     private val adapter = RoutineAdapter()
 
     @JvmStatic

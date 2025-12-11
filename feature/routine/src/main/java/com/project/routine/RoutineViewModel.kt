@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineViewModel @Inject constructor(
+internal class RoutineViewModel @Inject constructor(
     private val repository: RoutineRepository,
     private val routineLogRepository: RoutineLogRepository,
 ) : ViewModel() {
