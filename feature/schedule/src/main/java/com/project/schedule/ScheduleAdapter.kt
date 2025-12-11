@@ -8,7 +8,7 @@ import com.project.feature.schedule.databinding.RecyclerviewTodoItemBinding
 import com.project.model.Schedule
 import com.project.ui.ItemDiffCallback
 
-class ScheduleAdapter : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(
+internal class ScheduleAdapter : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(
     ItemDiffCallback(
         onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
         onContentsTheSame = { oldItem, newItem -> oldItem == newItem }

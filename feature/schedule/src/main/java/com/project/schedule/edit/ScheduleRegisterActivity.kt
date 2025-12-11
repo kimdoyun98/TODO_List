@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ScheduleRegisterActivity : AppCompatActivity() {
+internal class ScheduleRegisterActivity : AppCompatActivity() {
     private val viewModel: ScheduleAddViewModel by viewModels()
     private lateinit var binding: ActivityRegisterBinding
 

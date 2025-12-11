@@ -7,7 +7,7 @@ import com.project.feature.schedule.R
 import com.project.feature.schedule.databinding.AddScheduleTitleLayoutBinding
 import com.project.ui.base.DataBindingFragment
 
-class ScheduleTitleFragment :
+internal class ScheduleTitleFragment :
     DataBindingFragment<AddScheduleTitleLayoutBinding>(AddScheduleTitleLayoutBinding::inflate) {
     private val viewModel: ScheduleAddViewModel by activityViewModels()
     private lateinit var navController: NavController

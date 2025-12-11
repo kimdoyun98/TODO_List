@@ -10,7 +10,7 @@ import com.project.ui.dialog.StateDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ScheduleFragment :
+internal class ScheduleFragment :
     DataBindingFragment<FragmentScheduleBinding>(FragmentScheduleBinding::inflate) {
     private val viewModel: ScheduleViewModel by viewModels()
     val showDialog = { scheduleEntity: Schedule ->

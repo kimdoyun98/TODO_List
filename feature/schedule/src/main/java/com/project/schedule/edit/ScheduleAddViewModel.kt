@@ -21,7 +21,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class ScheduleAddViewModel @Inject constructor(
+internal class ScheduleAddViewModel @Inject constructor(
     private val repository: ScheduleRepository
 ) : ViewModel() {
     private val _title = MutableStateFlow("")

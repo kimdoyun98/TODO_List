@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.project.feature.schedule.databinding.AddScheduleDateLayoutBinding
 import com.project.ui.base.DataBindingFragment
 
-class ScheduleDateFragment :
+internal class ScheduleDateFragment :
     DataBindingFragment<AddScheduleDateLayoutBinding>(AddScheduleDateLayoutBinding::inflate) {
     private val viewModel: ScheduleAddViewModel by activityViewModels()
     private lateinit var callback: OnBackPressedCallback

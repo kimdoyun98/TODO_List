@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.model.Schedule
 import com.project.schedule.ScheduleAdapter
 
-object ScheduleBindingAdapter {
+internal object ScheduleBindingAdapter {
     private val adapter = ScheduleAdapter()
 
     @JvmStatic
