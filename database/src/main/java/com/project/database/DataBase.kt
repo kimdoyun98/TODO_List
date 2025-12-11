@@ -25,7 +25,7 @@ import com.project.database.entity.StatisticsLogEntity
     exportSchema = false
 )
 @TypeConverters(Converter::class)
-abstract class DataBase : RoomDatabase() {
+internal abstract class DataBase : RoomDatabase() {
     abstract val scheduleDao: ScheduleDAO
     abstract val routineDao: RoutineDAO
     abstract val routineLogDao: RoutineLogDAO

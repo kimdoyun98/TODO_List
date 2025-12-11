@@ -8,7 +8,7 @@ import com.project.model.Routine
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class Converter {
+internal class Converter {
     @TypeConverter
     fun listToJson(value: List<Boolean>?): String? {
         return Gson().toJson(value)
