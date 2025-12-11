@@ -8,7 +8,7 @@ import com.project.model.StatisticsLog
 import java.time.LocalDate
 import javax.inject.Inject
 
-class StatisticsLogRepositoryImpl @Inject constructor(
+internal class StatisticsLogRepositoryImpl @Inject constructor(
     private val statisticsLogDAO: StatisticsLogDAO
 ) : StatisticsLogRepository {
     override suspend fun getAll(): List<StatisticsLog> {

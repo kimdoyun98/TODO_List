@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ScheduleRepositoryImpl @Inject constructor(
+internal class ScheduleRepositoryImpl @Inject constructor(
     private val scheduleDAO: ScheduleDAO
 ) : ScheduleRepository {
     override fun selectAll(): Flow<List<Schedule>> =

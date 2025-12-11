@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
 
-class RoutineLogRepositoryImpl @Inject constructor(
+internal class RoutineLogRepositoryImpl @Inject constructor(
     private val routineLogDAO: RoutineLogDAO
 ) : RoutineLogRepository {
     override suspend fun createLog(entity: RoutineLog) {

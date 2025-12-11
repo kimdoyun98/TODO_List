@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RoutineRepositoryImpl @Inject constructor(
+internal class RoutineRepositoryImpl @Inject constructor(
     private val routineDAO: RoutineDAO
 ) : RoutineRepository {
     override fun selectAll(): Flow<List<Routine>> =
