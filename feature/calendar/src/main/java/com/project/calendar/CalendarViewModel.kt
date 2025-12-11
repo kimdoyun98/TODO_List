@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class CalendarViewModel @Inject constructor(
+internal class CalendarViewModel @Inject constructor(
     private val repository: ScheduleRepository
 ): ViewModel() {
     val allSchedule = repository.selectAll()

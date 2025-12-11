@@ -8,7 +8,7 @@ import com.project.feature.calendar.databinding.CalendarScheduleItemBinding
 import com.project.model.Schedule
 import com.project.ui.ItemDiffCallback
 
-class CalendarScheduleAdapter :
+internal class CalendarScheduleAdapter :
     ListAdapter<Schedule, CalendarScheduleAdapter.CalendarScheduleViewHolder>(
         ItemDiffCallback(
             onItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },

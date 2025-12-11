@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CalendarFragment :
+internal class CalendarFragment :
     ViewBindingFragment<FragmentCalendarBinding>(FragmentCalendarBinding::inflate) {
     private val viewModel: CalendarViewModel by viewModels()
     private lateinit var adapter: CalendarScheduleAdapter
