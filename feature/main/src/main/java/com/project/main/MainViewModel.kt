@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+internal class MainViewModel @Inject constructor(
     private val routineRepository: RoutineRepository,
     private val routineLogRepository: RoutineLogRepository,
     private val statisticsLogRepository: StatisticsLogRepository,
