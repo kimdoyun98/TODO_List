@@ -8,7 +8,7 @@ import com.project.core.ui.R
 import com.project.core.ui.databinding.BottomsheetMenuItemBinding
 import com.project.ui.ItemDiffCallback
 
-class BottomSheetAdapter(
+internal class BottomSheetAdapter(
     private val onClickUpdate: () -> Unit = {},
     private val onClickDelete: () -> Unit = {},
     private val onClickDone: () -> Unit = {}

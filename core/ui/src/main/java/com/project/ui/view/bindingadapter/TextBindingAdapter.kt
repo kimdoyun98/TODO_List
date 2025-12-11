@@ -11,7 +11,7 @@ import com.project.ui.date.DateCalculate
 import com.project.ui.date.DateCalculate.entityFormat
 import java.time.LocalDate
 
-object TextBindingAdapter {
+internal object TextBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("d-day")

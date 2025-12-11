@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class DaysAdapter(
+internal class DaysAdapter(
     private val context: Context,
     private val onClick: Calendar.OnDayClickListener,
     private val year: Int,

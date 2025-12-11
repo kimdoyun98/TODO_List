@@ -3,7 +3,7 @@ package com.project.ui.view.bindingadapter
 import android.widget.TimePicker
 import androidx.databinding.BindingAdapter
 
-object TimePickerBindingAdapter {
+internal object TimePickerBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:onTimeChanged")
     fun onTimeChangedTimePicker(view: TimePicker, changed: (Int, Int) -> Unit) {

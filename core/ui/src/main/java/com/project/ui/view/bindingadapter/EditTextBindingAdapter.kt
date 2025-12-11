@@ -7,7 +7,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import com.project.core.ui.R
 
-object EditTextBindingAdapter {
+internal object EditTextBindingAdapter {
     private const val DATE_MASK = "####-##-##"
     private const val MASK = '#'
     private const val MAX_LENGTH = DATE_MASK.length

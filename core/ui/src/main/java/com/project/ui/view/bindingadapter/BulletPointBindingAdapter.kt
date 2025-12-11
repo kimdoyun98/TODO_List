@@ -5,7 +5,7 @@ import com.project.model.Routine
 import com.project.ui.view.bullet_point.BulletPoint
 import com.project.ui.view.bullet_point.ProgressBulletPoint
 
-object BulletPointBindingAdapter {
+internal object BulletPointBindingAdapter {
     @JvmStatic
     @BindingAdapter("app:items", "app:item_index", requireAll = true)
     fun bulletPointBinding(view: BulletPoint, items: List<Routine>, index: Int) {
