@@ -9,8 +9,10 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.project.data.local.preference.PreferenceUtil
 import com.project.feature.setting.R
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 internal class SettingFragment : PreferenceFragmentCompat() {
     private lateinit var prefs: SharedPreferences
     private var alarmSwitch: SwitchPreference? = null
