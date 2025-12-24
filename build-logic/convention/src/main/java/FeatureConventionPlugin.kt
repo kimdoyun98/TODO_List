@@ -19,10 +19,6 @@ class FeatureConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureAndroid(this)
-
-                buildFeatures {
-                    viewBinding = true
-                }
             }
 
             dependencies {
