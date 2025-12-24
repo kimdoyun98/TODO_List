@@ -26,41 +26,40 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        plugins {
-            register("AndroidApplication") {
-                id = "todo.android.application"
-                implementationClass = "AndroidApplicationConventionPlugin"
-            }
+        register("AndroidApplication") {
+            id = "todo.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
 
-            register("AndroidLibrary") {
-                id = "todo.android.library"
-                implementationClass = "AndroidLibraryConventionPlugin"
-            }
+        register("AndroidLibrary") {
+            id = "todo.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
 
-            register("AndroidTest") {
-                id = "todo.android.test"
-                implementationClass = "AndroidTestConventionPlugin"
-            }
+        register("AndroidTest") {
+            id = "todo.android.test"
+            implementationClass = "AndroidTestConventionPlugin"
+        }
 
-            register("Hilt") {
-                id = "todo.hilt"
-                implementationClass = "HiltPlugin"
-            }
+        register("Hilt") {
+            id = "todo.hilt"
+            implementationClass = "HiltPlugin"
+        }
 
-            register("Feature") {
-                id = "todo.feature"
-                implementationClass = "FeatureConventionPlugin"
-            }
+        register("Feature") {
+            id = "todo.feature"
+            implementationClass = "FeatureConventionPlugin"
+        }
 
-            register("Room") {
-                id = "todo.room"
-                implementationClass = "RoomPlugin"
-            }
+        register("Room") {
+            id = "todo.room"
+            implementationClass = "RoomPlugin"
+        }
 
-            register("Jvm") {
-                id = "todo.jvm"
-                implementationClass = "JvmLibraryConventionPlugin"
-            }
+        register("Jvm") {
+            id = "todo.jvm"
+            implementationClass = "JvmLibraryConventionPlugin"
         }
     }
+
 }
