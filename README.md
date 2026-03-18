@@ -13,8 +13,28 @@
 
 
 # 개발 기간
- * 22년 09월 ~ 22년 10월 / 23년 12월 ~ 24년 01월 ( 리팩토링 및 기능 추가 )
- <br>
+22.09 ~ 22.10 
+1. 일정 관리 및 루틴 관리
+- 서버 없이 오프라인 앱으로 사용하기 위해 Room으로 구현
+- 루틴 진행 상황을 직관적으로 보여주기 위해 커스텀 구현
+- 스케줄 등록 시 필수 입력 상황에 따라 Button Enabled 처리
+- Calendar View를 구현하여 Calendar를 통해 스케줄을 한 눈에 확인
+
+2. 정해진 요일과 시간에 루틴 알림 기능
+- 자정마다 금일 루틴 초기화를 위한 작업을 위해 WorkManager 사용
+- 루틴 시간에 정확한 알림을 위해 AlarmManager 사용
+  
+25.01 ~ 26.02 리팩토링 및 기능 추가
+- 위젯으로 당일 루틴 및 일정 확인(스케줄과 루틴 각각의 위젯 구현)
+- CalenderView 라이브러리 제거 및 직접 구현
+- LiveData에서 Flow로 리팩토링
+- Schedule 추가 UI Fragment Navigation으로 구현
+- Schedule 추가 UI Button, Flow를 통해 Enabled 상태 관리
+- App Architecture로 멀티 모듈 리팩토링
+- kapt에서 ksp로 이전
+- 배터리 최적화 예외를 위해 WhiteList에 추가
+
+<br>
 
 # Tech Stack
 `Kotlin` `App Architecture` `MVVM` `Jetpack` `AAC` `Databinding` `LiveData` `ViewModel` `Room DB` `Coroutine`
@@ -22,21 +42,10 @@
 <br>
 
 # Module Dependency Graph
-<img width="1514" height="598" alt="Image" src="https://github.com/user-attachments/assets/fabaf9e9-c597-4ad5-988a-15458dcb5408" />
+<img width="1514" height="598" alt="Image" src="https://github.com/user-attachments/assets/988756cc-95d8-4719-a8a8-4dd21c52b3d1" />
 
-# 핵심 기능
-### 1. 일정 관리 및 루틴 관리
-- 서버 없이 오프라인 앱으로 사용하기 위해 Room으로 구현
-- 루틴 진행 상황을 직관적으로 보여주기 위해 커스텀 구현
-- 스케줄 등록 시 필수 입력 상황에 따라 Button Enabled 처리
-- Calendar View를 구현하여 Calendar를 통해 스케줄을 한 눈에 확인
-
-### 2. 정해진 요일과 시간에 루틴 알림 기능
-- 자정마다 금일 루틴 초기화를 위한 작업을 위해 WorkManager 사용
-- 루틴 시간에 정확한 알림을 위해 AlarmManager 사용
-
-### 3. 위젯으로 당일 루틴 및 일정 확인
-- 스케줄과 루틴 각각의 위젯 구현
+# 앱 아키텍처
+<img width="800" alt="Image" src="https://github.com/user-attachments/assets/f337b4f5-fc65-4527-946a-b33581ced49c" />
 
 <br>
 
@@ -47,6 +56,7 @@
 * ### [Fragment](https://snaildeveloper.tistory.com/147)
 * ### [Widget](https://snaildeveloper.tistory.com/149)
 * ### [커스텀 목차 구현하기](https://snaildeveloper.tistory.com/146)
+* ### [WorkManager에 대해서](https://snaildeveloper.tistory.com/154)
 
 # ScreenShot
 ## 메인
